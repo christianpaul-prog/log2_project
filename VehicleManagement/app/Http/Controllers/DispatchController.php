@@ -36,7 +36,7 @@ class DispatchController extends Controller
             $query->where('status', 'on_work');
         })
             ->get();
-        
+
         return view('dispatch.drivers_vehicles', compact('vehicles', 'drivers'));
     }
 
@@ -75,7 +75,11 @@ class DispatchController extends Controller
         $request->validate([
             'vehicle_id' => 'required|exists:vehicles,id',
             'driver_id' => 'required|exists:drivers,id',
-            'location' => 'required|string|max:255',
+            // 'location' => 'required|string|max:255',
+            'country' => 'required|in:PH,US,CA,UK,AU,JP,CN,IN,DE,FR',
+            'region' => 'required|string|max:100|regex:/^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/',
+            'city' => 'required|string|max:100|regex:/^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/',
+            'brgy' => 'required|string|max:100| regex:/^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/',
             'dispatch_date' => 'required|date',
             'dispatch_time' => 'required|date_format:H:i',
             'priority_level' => 'required|string|in:low,medium,high',
@@ -86,13 +90,19 @@ class DispatchController extends Controller
         $dispatch = new Dispatch();
         $dispatch->vehicle_id = $request->vehicle_id;
         $dispatch->driver_id = $request->driver_id;
-        $dispatch->location = $request->location;
+        // $dispatch->location = $request->location;
+        $dispatch->country = $request->country;
+        $dispatch->region = $request->region;
+        $dispatch->city = $request->city;
+        $dispatch->brgy = $request->brgy;
         $dispatch->dispatch_date = $request->dispatch_date;
         $dispatch->dispatch_time = $request->dispatch_time;
         $dispatch->priority_level = strtolower($request->priority_level); // Store as lowercase
         $dispatch->cargo_details = $request->cargo_details;
         $dispatch->status = 'on_work'; // Set initial status to on_work
         $dispatch->save();
+
+
 
         return redirect()->route('dispatch.index')->with('success', 'Dispatch order created successfully.');
     }
@@ -129,6 +139,6 @@ class DispatchController extends Controller
         $dispatch = Dispatch::findOrFail($id);
         $dispatch->delete();
 
-        return redirect()->route('dispatch.index')->with('success', 'Dispatch order deleted successfully.'); 
+        return redirect()->route('dispatch.index')->with('success', 'Dispatch order deleted successfully.');
     }
 }

@@ -18,8 +18,11 @@ return new class extends Migration
     // Fix here: match drivers.id (int(11))
     $table->integer('driver_id');
     $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
-
-    $table->string('location');
+    $table->enum('country', ['PH', 'US', 'CA','UK','AU','JP','CN','IN','DE','FR']);
+    $table->string('region');
+    $table->string('city');
+    $table->string('brgy');
+    // $table->string('location');
     $table->date('dispatch_date');
     $table->time('dispatch_time');
     $table->enum('priority_level', ['low', 'medium', 'high'])->default('medium');

@@ -9,7 +9,11 @@ class Dispatch extends Model
     protected $fillable = [
         'vehicle_id',
         'driver_id',
-        'location',
+        // 'location',
+        'country',
+        'region',
+        'city',
+        'brgy',
         'dispatch_date',
         'dispatch_time',
         'priority_level',

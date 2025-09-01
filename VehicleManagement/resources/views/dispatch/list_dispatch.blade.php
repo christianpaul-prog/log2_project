@@ -58,7 +58,11 @@
                                         <td>{{ $dispatch->driver->full_name }}</td>
                                         <td>{{ $dispatch->vehicle->license }} - {{ $dispatch->vehicle->model }}
                                         </td>
-                                        <td>{{ $dispatch->location }}</td>
+                                        <td>{{ $dispatch->country }} <br>
+                                            {{ $dispatch->region }} <br>
+                                            {{ $dispatch->city }} <br>
+                                            {{ $dispatch->brgy }}
+                                        </td>
                                         <td>{{ $dispatch->dispatch_date }}</td>
                                         <td>{{ date('h:i A', strtotime($dispatch->dispatch_time)) }}</td>
                                         <td class="text-capitalize">{{ $dispatch->priority_level }}</td>
@@ -75,7 +79,8 @@
                                                 data-bs-target="#viewModal{{ $dispatch->id }}">
                                                 <i class="fa-regular fa-eye"></i>
                                             </a>
-                                            <form action="{{ route('dispatch.destroy', $dispatch->id)}}" method="POST" class="d-inline"
+                                            <form action="{{ route('dispatch.destroy', $dispatch->id) }}" method="POST"
+                                                class="d-inline"
                                                 onsubmit="return confirm('Are you sure you want to delete this dispatch order?');">
                                                 @csrf
                                                 @method('DELETE')
@@ -123,7 +128,11 @@
                                                                     class="fa-solid fa-car"></i> Type:</strong>
                                                             {{ $dispatch->vehicle->type }}</p>
                                                         <p><strong><i class="fa-solid fa-location-crosshairs"></i>
-                                                                Location:</strong> {{ $dispatch->location }}</p>
+                                                                Location:</strong>
+                                                            {{ ucwords($dispatch->brgy) }} {{ ucwords($dispatch->city) }}
+                                                            {{ ucwords($dispatch->region) }}
+                                                            {{ ucwords($dispatch->country) }}
+                                                        </p>
                                                         <p><strong><i class="fa-solid fa-calendar-days"></i> Schedule
                                                                 Date:</strong> {{ $dispatch->dispatch_date }} /
                                                             {{ date('h:i A', strtotime($dispatch->dispatch_time)) }}</p>
