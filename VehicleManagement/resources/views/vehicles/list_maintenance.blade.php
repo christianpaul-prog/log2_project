@@ -1,4 +1,4 @@
-@extends('layouts.apps')
+@extends('layouts.app')
 @section('title', 'List Maintenance')
 @section('content')
 
@@ -11,10 +11,16 @@
             </div>
         </div>
         @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '{{ session('success') }}',
+                    timer: 2000, // auto close after 2 seconds
+                    showConfirmButton: false,
+                    timerProgressBar: true
+                });
+            </script>
         @endif
 
         <div class="row d-flex justify-content-center">
@@ -73,9 +79,9 @@
                                             </div>
                                     </tr>
                                     <!-- View Edit Modal -->
-                                    <div class="modal fade" id="editModal{{ $maintenance->id }}"
-                                        data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                                        aria-labelledby="editModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="editModal{{ $maintenance->id }}" data-bs-backdrop="static"
+                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel"
+                                        aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -112,15 +118,13 @@
                                                         <div class="row">
                                                             <div class="col-md-6 mb-3">
                                                                 <label class="form-label">Maintenance Start Date</label>
-                                                                <input type="date" name="start_date"
-                                                                    class="form-control"
+                                                                <input type="date" name="start_date" class="form-control"
                                                                     value="{{ old('start_date', $maintenance->start_date ? $maintenance->start_date->format('Y-m-d') : '') }}"
                                                                     readonly>
                                                             </div>
                                                             <div class="col-md-6 mb-3">
                                                                 <label class="form-label">Maintenance End Date</label>
-                                                                <input type="date" name="end_date"
-                                                                    class="form-control"
+                                                                <input type="date" name="end_date" class="form-control"
                                                                     value="{{ old('end_date', $maintenance->end_date ? $maintenance->end_date->format('Y-m-d') : '') }}"
                                                                     readonly>
                                                             </div>
@@ -136,10 +140,8 @@
                                                         <div class="row">
                                                             <div class="col-md-6 mb-3">
                                                                 <label class="form-label">Total Cost</label>
-                                                                <input type="text" name="cost"
-                                                                    class="form-control"
-                                                                    value="{{ old('cost', $maintenance->cost) }}"
-                                                                    readonly>
+                                                                <input type="text" name="cost" class="form-control"
+                                                                    value="{{ old('cost', $maintenance->cost) }}" readonly>
                                                             </div>
                                                             <div class="col-md-6 mb-3">
                                                                 <label class="form-label">Service Type</label>

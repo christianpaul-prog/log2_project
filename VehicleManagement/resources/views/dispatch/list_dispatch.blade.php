@@ -1,4 +1,4 @@
-@extends('layouts.apps')
+@extends('layouts.app')
 @section('title', 'Dispatch Orders')
 @section('content')
     <!-- Main Content -->
@@ -13,11 +13,17 @@
                 <div class="card mb-4 shadow-sm border-0">
 
                     @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}',
+            timer: 2000, // auto close after 2 seconds
+            showConfirmButton: false,
+            timerProgressBar: true
+        });
+    </script>
+@endif
 
                     <!-- Card Header -->
                     <div class="card-header bg-primary text-white fw-bold">
@@ -128,10 +134,35 @@
                                                                     class="fa-solid fa-car"></i> Type:</strong>
                                                             {{ $dispatch->vehicle->type }}</p>
                                                         <p><strong><i class="fa-solid fa-location-crosshairs"></i>
+                                                                Country:</strong>
+                                                             @if ($dispatch->country == 'PH')
+                                                                    Phillipines
+                                                            @elseif ($dispatch->country == 'US')
+                                                                    United States
+                                                            @elseif ($dispatch->country == 'CA')
+                                                                    Canada
+                                                            @elseif ($dispatch->country == 'UK')
+                                                                    United Kingdom
+                                                            @elseif ($dispatch->country == 'AU')
+                                                                    Australia
+                                                            @elseif ($dispatch->country == 'JP')
+                                                                    Japan
+                                                            @elseif ($dispatch->country == 'CN')
+                                                                    China
+                                                            @elseif ($dispatch->country == 'IN')
+                                                                    India
+                                                            @elseif ($dispatch->country == 'DE')
+                                                                    Germany
+                                                            @elseif ($dispatch->country == 'FR')
+                                                                    
+                                                            @endif
+                                                        </p>
+                                                        <p><strong><i class="fa-solid fa-location-crosshairs"></i>
                                                                 Location:</strong>
-                                                            {{ ucwords($dispatch->brgy) }} {{ ucwords($dispatch->city) }}
+                                                            {{ ucwords($dispatch->brgy) }} 
+                                                            {{ ucwords($dispatch->city) }}
                                                             {{ ucwords($dispatch->region) }}
-                                                            {{ ucwords($dispatch->country) }}
+                                                            
                                                         </p>
                                                         <p><strong><i class="fa-solid fa-calendar-days"></i> Schedule
                                                                 Date:</strong> {{ $dispatch->dispatch_date }} /

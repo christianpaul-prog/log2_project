@@ -1,4 +1,4 @@
-@extends('layouts.apps')
+@extends('layouts.app')
 @section('title', 'Create Dispatch Order')
 
 @section('content')
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label class="form-label">Schedule Date</label>
                                 <input type="date" name="dispatch_date" value="{{ old('dispatch_date') }}"
                                     class="@error('dispatch_date') is-invalid @enderror form-control" required>
@@ -96,7 +96,7 @@
                                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label class="form-label">Schedule Time</label>
                                 <input type="time" name="dispatch_time" value="{{ old('dispatch_time') }}"
                                     class="@error('dispatch_time') is-invalid @enderror form-control" required>
@@ -104,7 +104,7 @@
                                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="col-md-4 mb-3">
+                            {{-- <div class="col-md-4 mb-3">
                                 <label class="@error('priority_level') is-invalid @enderror form-label">Priority</label>
                                 <select name="priority_level" class="form-select" id="">
                                     <option value="low" {{ old('priority_level') == 'low' ? 'selected' : '' }}>Low</option>
@@ -114,7 +114,7 @@
                                 @error('priority_level')
                                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Special Instruction</label>

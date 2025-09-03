@@ -1,4 +1,4 @@
-@extends('layouts.apps')
+@extends('layouts.app')
 @section('title', 'Fleet Vehicle Management')
 @section('content')
 
@@ -48,8 +48,7 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="">Type</label>
-                                    <select name="type" class="@error('type') is-invalid @enderror form-select"
-                                        required>
+                                    <select name="type" class="@error('type') is-invalid @enderror form-select" required>
                                         <option value="">Select Type</option>
                                         <option
                                             value="sedan"{{ session('modal') === 'add' && old('type') === 'sedan' ? 'selected' : '' }}>
@@ -135,12 +134,20 @@
                 <p class="text-center my-4">Manage your fleet vehicles eficiently</p>
             </div>
         </div>
+
         @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '{{ session('success') }}',
+                    timer: 2000, // auto close after 2 seconds
+                    showConfirmButton: false,
+                    timerProgressBar: true
+                });
+            </script>
         @endif
+
 
         <div class="row d-flex justify-content-center">
             <div class="col-md-11">
@@ -193,8 +200,7 @@
                                                 data-bs-target="#editVehicleModal{{ $vehicle->id }}">
                                                 <i class="fas fa-edit"></i>
                                             </button>
-                                            <form action="{{ route('vehicles.destroy', $vehicle->id) }}"
-                                                method="POST">
+                                            <form action="{{ route('vehicles.destroy', $vehicle->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-link text-danger p-0"
@@ -318,8 +324,7 @@
                                                                     <label for="">VIN</label>
                                                                     <input type="text" name="vin"
                                                                         class=" @error('vin') is-invalid @enderror form-control"
-                                                                        required
-                                                                        value="{{ old('vin', $vehicle->vin) }}">
+                                                                        required value="{{ old('vin', $vehicle->vin) }}">
                                                                     @error('vin')
                                                                         <div class="alert alert-danger mt-2">
                                                                             {{ $message }}</div>
@@ -381,20 +386,21 @@
     </script>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Reopen Add Modal if validation failed there
-        @if ($errors->any() && session('modal') === 'add')
-            var addModal = new bootstrap.Modal(document.getElementById("vehicleModal"));
-            addModal.show();
-        @endif
+        document.addEventListener("DOMContentLoaded", function() {
+            // Reopen Add Modal if validation failed there
+            @if ($errors->any() && session('modal') === 'add')
+                var addModal = new bootstrap.Modal(document.getElementById("vehicleModal"));
+                addModal.show();
+            @endif
 
-        // Reopen Edit Modal if validation failed there
-        @if ($errors->any() && old('id'))
-            var editModal = new bootstrap.Modal(document.getElementById("editVehicleModal{{ old('id') }}"));
-            editModal.show();
-        @endif
-    });
-</script>
+            // Reopen Edit Modal if validation failed there
+            @if ($errors->any() && old('id'))
+                var editModal = new bootstrap.Modal(document.getElementById(
+                    "editVehicleModal{{ old('id') }}"));
+                editModal.show();
+            @endif
+        });
+    </script>
 
 
     <script>

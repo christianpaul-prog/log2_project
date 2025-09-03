@@ -1,4 +1,4 @@
-@extends('layouts.apps')
+@extends('layouts.app')
 @section('title', 'Completed List')
 @section('content')
     <!-- Main Content -->

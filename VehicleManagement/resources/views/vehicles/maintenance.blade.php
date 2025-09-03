@@ -1,4 +1,4 @@
-@extends('layouts.apps')
+@extends('layouts.app')
 @section('title', 'Vehicle Maintenance')
 @section('content')
 
@@ -12,14 +12,15 @@
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Select Vehicle</label>
-                            <select name="vehicle_id" class="form-select" required>
-                                <option value="">Select Vehicle</option>
-                                @foreach ($vehicles as $vehicle)
-                                    <option value="{{ $vehicle->id }}">
-                                        {{ $vehicle->vin ?? ($vehicle->model ?? 'Unnamed Vehicle') }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <select name="vehicle_id" class="@error('vehicle_id') is-invalid @enderror form-select"
+                                    id="">
+                                    <option value="">Select Vehicle</option>
+                                    @foreach ($vehicles as $vehicle)
+                                        <option value="{{ $vehicle->id }}" {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}>
+                                            {{ $vehicle->plate_number }} - {{ $vehicle->model }}
+                                        </option>
+                                    @endforeach
+                                </select>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -69,10 +70,5 @@
             </div>
         </div>
     </div>
-
-    <!-- Add form -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
 
 @endsection

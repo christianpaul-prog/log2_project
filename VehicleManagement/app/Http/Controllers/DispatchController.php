@@ -23,6 +23,7 @@ class DispatchController extends Controller
     }
     public function activeList()
     {
+
         $vehicles = Vehicles::whereDoesntHave('maintenances', function ($query) {
             $query->where('status', 'on_progress');
         })
@@ -37,7 +38,16 @@ class DispatchController extends Controller
         })
             ->get();
 
-        return view('dispatch.drivers_vehicles', compact('vehicles', 'drivers'));
+        return view('dispatch.drivers_vehicles', compact('vehicles', 'drivers',));
+    }
+
+    public function dispatchDrivers()
+    {
+        $dispatches = Dispatch::with(['vehicle', 'driver'])
+            ->latest()
+            ->get();
+
+        return view('driver.driver_profile', compact('dispatches'));
     }
 
     /**
@@ -82,7 +92,7 @@ class DispatchController extends Controller
             'brgy' => 'required|string|max:100| regex:/^[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/',
             'dispatch_date' => 'required|date',
             'dispatch_time' => 'required|date_format:H:i',
-            'priority_level' => 'required|string|in:low,medium,high',
+            // 'priority_level' => 'required|string|in:low,medium,high',
             'cargo_details' => 'nullable|string|max:1000',
         ]);
 
@@ -97,12 +107,10 @@ class DispatchController extends Controller
         $dispatch->brgy = $request->brgy;
         $dispatch->dispatch_date = $request->dispatch_date;
         $dispatch->dispatch_time = $request->dispatch_time;
-        $dispatch->priority_level = strtolower($request->priority_level); // Store as lowercase
+        // $dispatch->priority_level = strtolower($request->priority_level); // Store as lowercase
         $dispatch->cargo_details = $request->cargo_details;
         $dispatch->status = 'on_work'; // Set initial status to on_work
         $dispatch->save();
-
-
 
         return redirect()->route('dispatch.index')->with('success', 'Dispatch order created successfully.');
     }

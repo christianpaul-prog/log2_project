@@ -10,10 +10,6 @@ use App\Http\Controllers\DispatchController;
 Route::get('/', function () {
     return view('layouts.dashboard');
 })->name('dashboard');
-// Route::get('/vehicles/maintenance', function () {
-//     $vehicles = Vehicles::latest()->get(); // Fetch all vehicles for maintenance view
-//     return view('vehicles.maintenance', compact('vehicles'));
-// });
 
 Route::get('/vehicles', [VehiclesController::class, 'index'])->name('vehicles.index');
 Route::post('/vehicles', [VehiclesController::class, 'store'])->name('vehicles.store');
@@ -23,7 +19,7 @@ Route::delete('/vehicles/{vehicle}', [VehiclesController::class, 'destroy'])->na
 // Maintenance Routes
 Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
 Route::get('/maintenance/create', [MaintenanceController::class, 'create'])->name('maintenance.create');
-Route::get('/maintenance/completed', [MaintenanceController::class, 'completedList'])->name('maintenances.completed');
+Route::get('/maintenance/completed', [MaintenanceController::class, 'completedList'])->name('maintenance.completed');
 Route::post('/maintenance', [MaintenanceController::class, 'store'])->name('maintenance.store');
 Route::put('/maintenance/{id}', [MaintenanceController::class, 'update'])->name('maintenances.update');
 Route::delete('/maintenance/{id}', [MaintenanceController::class, 'destroy'])->name('maintenance.destroy');
@@ -35,4 +31,13 @@ Route::post('/dispatch', [DispatchController::class, 'store'])->name('dispatch.s
 Route::delete('/dispatch/{id}', [DispatchController::class, 'destroy'])->name('dispatch.destroy');
 
 Route::get('/dispatch/vehicles_drivers', [DispatchController::class, 'activeList'])->name('dispatch.vehicles_drivers');
+Route::get('/driver/driver_profile', [DispatchController::class, 'dispatchDrivers'])->name('driver.prpfile');
 
+
+// temporary routes
+Route::get('/driver', function () {
+    return view('driver.driver_report');
+})->name('driver.report');
+Route::get('/costs', function () {
+    return view('cost_optimization.analytics');
+})->name('costs.analytics');

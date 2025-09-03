@@ -1,4 +1,4 @@
-@extends('layouts.apps')
+@extends('layouts.app')
 @section('title', 'Vehicles and Drivers')
 @section('content')
     <style>
