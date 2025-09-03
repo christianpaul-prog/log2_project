@@ -1,4 +1,4 @@
-@extends('layouts.apps')
+@extends('layouts.app')
 @section('title', 'Dispatch Orders')
 @section('content')
     <!-- Main Content -->

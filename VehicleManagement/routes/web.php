@@ -6,14 +6,27 @@ use App\Http\Controllers\VehiclesController;
 use App\Models\Maintenance;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\DispatchController;
+use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
-    return view('layouts.dashboard');
-})->name('dashboard');
+    return auth()->check() ? redirect()->route('pages.dashboard') : redirect()->route('auth.login');
+});
+
+Route::get('/dashboard', function () {
+    return view('pages.dashboard');
+})->name('pages.dashboard')->middleware('auth');
+
 // Route::get('/vehicles/maintenance', function () {
 //     $vehicles = Vehicles::latest()->get(); // Fetch all vehicles for maintenance view
 //     return view('vehicles.maintenance', compact('vehicles'));
 // });
+Route::get('/login',[AuthController::class, 'login'])->name('auth.login');
+Route::post('/login',[AuthController::class, 'loginPost'])->name('auth.login.post');
+Route::get('/register',[AuthController::class, 'register'])->name('auth.register');
+Route::post('/register',[AuthController::class, 'registerpost'])->name('auth.register.post');
+Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+
+
 
 Route::get('/vehicles', [VehiclesController::class, 'index'])->name('vehicles.index');
 Route::post('/vehicles', [VehiclesController::class, 'store'])->name('vehicles.store');
@@ -35,4 +48,22 @@ Route::post('/dispatch', [DispatchController::class, 'store'])->name('dispatch.s
 Route::delete('/dispatch/{id}', [DispatchController::class, 'destroy'])->name('dispatch.destroy');
 
 Route::get('/dispatch/vehicles_drivers', [DispatchController::class, 'activeList'])->name('dispatch.vehicles_drivers');
+
+
+Route::get('/dashboard', function () {
+    return view('pages.dashboard');
+})->name('pages.dashboard');
+
+
+Route::get('/Maintenance', function () {
+    return view('pages.Maintenance');
+})->name('pages.Maintenance');
+
+Route::get('/vehiclemanagement', function () {
+    return view('pages.vehiclemanagement');
+})->name('pages.vehiclemanagement');
+
+Route::get('/metrics', function () {
+    return view('pages.metrics');
+})->name('pages.metrics');
 

@@ -1,8 +1,8 @@
-@extends('layouts.apps')
+@extends('layouts.app')
 @section('title', 'Completed List')
 @section('content')
     <!-- Main Content -->
-    <div id="MainContent" class="container">
+    <div id="MainContent" class="container-fuild">
         <div class="row">
             <div class="col-md-11">
                 <h2 class="text-center my-4"><i class="fa-solid fa-screwdriver-wrench"></i> Completed List</h2>

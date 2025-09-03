@@ -1,8 +1,8 @@
-@extends('layouts.apps')
+@extends('layouts.app')
 @section('title', 'Vehicle Maintenance')
 @section('content')
 
-    <div class="container mt-3">
+    <div class="container-fuild mt-3">
         <div class="row justify-content-center">
             <div class="col-md-8"> <!-- wider but not too big -->
                 <h3 class="mb-3"><i class="fa-solid fa-screwdriver-wrench"></i> Vehicle Maintenance</h3>
