@@ -16,7 +16,7 @@ class Dispatch extends Model
         'brgy',
         'dispatch_date',
         'dispatch_time',
-        'priority_level',
+        // 'priority_level',
         'cargo_details'
     ];
 

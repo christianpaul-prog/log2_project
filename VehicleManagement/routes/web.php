@@ -9,6 +9,7 @@ use App\Http\Controllers\DispatchController;
 use App\Http\Controllers\AuthController;
 
 Route::get('/', function () {
+
     return auth()->check() ? redirect()->route('pages.dashboard') : redirect()->route('auth.login');
 });
 
@@ -26,8 +27,6 @@ Route::get('/register',[AuthController::class, 'register'])->name('auth.register
 Route::post('/register',[AuthController::class, 'registerpost'])->name('auth.register.post');
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
-
-
 Route::get('/vehicles', [VehiclesController::class, 'index'])->name('vehicles.index');
 Route::post('/vehicles', [VehiclesController::class, 'store'])->name('vehicles.store');
 Route::put('/vehicles/{vehicle}', [VehiclesController::class, 'update'])->name('vehicles.update');
@@ -36,7 +35,7 @@ Route::delete('/vehicles/{vehicle}', [VehiclesController::class, 'destroy'])->na
 // Maintenance Routes
 Route::get('/maintenance', [MaintenanceController::class, 'index'])->name('maintenance.index');
 Route::get('/maintenance/create', [MaintenanceController::class, 'create'])->name('maintenance.create');
-Route::get('/maintenance/completed', [MaintenanceController::class, 'completedList'])->name('maintenances.completed');
+Route::get('/maintenance/completed', [MaintenanceController::class, 'completedList'])->name('maintenance.completed');
 Route::post('/maintenance', [MaintenanceController::class, 'store'])->name('maintenance.store');
 Route::put('/maintenance/{id}', [MaintenanceController::class, 'update'])->name('maintenances.update');
 Route::delete('/maintenance/{id}', [MaintenanceController::class, 'destroy'])->name('maintenance.destroy');
@@ -48,6 +47,8 @@ Route::post('/dispatch', [DispatchController::class, 'store'])->name('dispatch.s
 Route::delete('/dispatch/{id}', [DispatchController::class, 'destroy'])->name('dispatch.destroy');
 
 Route::get('/dispatch/vehicles_drivers', [DispatchController::class, 'activeList'])->name('dispatch.vehicles_drivers');
+Route::get('/driver/driver_profile', [DispatchController::class, 'dispatchDrivers'])->name('driver.driver_profile');
+
 
 
 Route::get('/dashboard', function () {
@@ -66,4 +67,19 @@ Route::get('/vehiclemanagement', function () {
 Route::get('/metrics', function () {
     return view('pages.metrics');
 })->name('pages.metrics');
+
+
+// temporary routes
+Route::get('/driver', function () {
+    return view('driver.driver_report');
+})->name('driver.driver_report');
+Route::get('/costs', function () {
+    return view('cost_optimization.analytics');
+})->name('cost_optimization.analytics');
+
+//fuel-cost//
+Route::get('/fuelcost', function () {
+    return view('fuelcost.fuel-cost');
+})->name('fuelcost.fuel-cost');
+
 

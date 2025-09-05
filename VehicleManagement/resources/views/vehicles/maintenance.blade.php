@@ -1,8 +1,26 @@
 @extends('layouts.app')
 @section('title', 'Vehicle Maintenance')
 @section('content')
+<style>
+     .container-fluid {
+           transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+            @keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);   
+    opacity: 1;
+  }
+}
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
 
-    <div class="container-fuild mt-3">
+</style>
+    <div class="container-fluid slide-up mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8"> <!-- wider but not too big -->
                 <h3 class="mb-3"><i class="fa-solid fa-screwdriver-wrench"></i> Vehicle Maintenance</h3>
@@ -12,14 +30,15 @@
                         @csrf
                         <div class="mb-3">
                             <label class="form-label">Select Vehicle</label>
-                            <select name="vehicle_id" class="form-select" required>
-                                <option value="">Select Vehicle</option>
-                                @foreach ($vehicles as $vehicle)
-                                    <option value="{{ $vehicle->id }}">
-                                        {{ $vehicle->vin ?? ($vehicle->model ?? 'Unnamed Vehicle') }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <select name="vehicle_id" class="@error('vehicle_id') is-invalid @enderror form-select"
+                                    id="">
+                                    <option value="">Select Vehicle</option>
+                                    @foreach ($vehicles as $vehicle)
+                                        <option value="{{ $vehicle->id }}" {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}>
+                                            {{ $vehicle->plate_number }} - {{ $vehicle->model }}
+                                        </option>
+                                    @endforeach
+                                </select>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -69,10 +88,5 @@
             </div>
         </div>
     </div>
-
-    <!-- Add form -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
 
 @endsection

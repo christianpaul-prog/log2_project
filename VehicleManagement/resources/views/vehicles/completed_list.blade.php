@@ -1,8 +1,27 @@
 @extends('layouts.app')
 @section('title', 'Completed List')
 @section('content')
+<style>
+     .container-fluid {
+           transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+            @keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);   
+    opacity: 1;
+  }
+}
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+</style>
     <!-- Main Content -->
-    <div id="MainContent" class="container-fuild">
+    <div id="MainContent" class="container-fluid slide-up">
         <div class="row">
             <div class="col-md-11">
                 <h2 class="text-center my-4"><i class="fa-solid fa-screwdriver-wrench"></i> Completed List</h2>
@@ -82,9 +101,7 @@
         </div>
     </div>
     <!-- Main content -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-    </script>
+
 
 
     <script>

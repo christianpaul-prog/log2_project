@@ -57,8 +57,25 @@
             text-align: left;
             line-height: 1.4;
         }
+         .container-fluid {
+           transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+            @keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);   
+    opacity: 1;
+  }
+}
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
     </style>
-    <div class="container">
+    <div class="container-fluid slide-up">
         <div class="mt-3">
             <h1 class="mb-2">Vehicles and Drivers</h1>
             <p class="text-muted">Manage your fleet and assigned drivers</p>
@@ -255,7 +272,7 @@
     <!-- Bootstrap scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   
 
     <script>
         // Get input field

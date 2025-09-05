@@ -1,8 +1,27 @@
 @extends('layouts.app')
 @section('title', 'Dispatch Orders')
 @section('content')
+<style>
+     .container-fluid {
+           transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+            @keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);   
+    opacity: 1;
+  }
+}
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+</style>
     <!-- Main Content -->
-    <div id="MainContent" class="container">
+    <div id="MainContent" class="container-fluid slide-up">
         <div class="row">
             <div class="col-md-11">
                 <h2 class="text-center my-4">VRDS - Vehicle Reservation & Dispatch System</h2>
@@ -13,11 +32,17 @@
                 <div class="card mb-4 shadow-sm border-0">
 
                     @if (session('success'))
-                        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}',
+            timer: 2000, // auto close after 2 seconds
+            showConfirmButton: false,
+            timerProgressBar: true
+        });
+    </script>
+@endif
 
                     <!-- Card Header -->
                     <div class="card-header bg-primary text-white fw-bold">
@@ -128,10 +153,35 @@
                                                                     class="fa-solid fa-car"></i> Type:</strong>
                                                             {{ $dispatch->vehicle->type }}</p>
                                                         <p><strong><i class="fa-solid fa-location-crosshairs"></i>
+                                                                Country:</strong>
+                                                             @if ($dispatch->country == 'PH')
+                                                                    Phillipines
+                                                            @elseif ($dispatch->country == 'US')
+                                                                    United States
+                                                            @elseif ($dispatch->country == 'CA')
+                                                                    Canada
+                                                            @elseif ($dispatch->country == 'UK')
+                                                                    United Kingdom
+                                                            @elseif ($dispatch->country == 'AU')
+                                                                    Australia
+                                                            @elseif ($dispatch->country == 'JP')
+                                                                    Japan
+                                                            @elseif ($dispatch->country == 'CN')
+                                                                    China
+                                                            @elseif ($dispatch->country == 'IN')
+                                                                    India
+                                                            @elseif ($dispatch->country == 'DE')
+                                                                    Germany
+                                                            @elseif ($dispatch->country == 'FR')
+                                                                    
+                                                            @endif
+                                                        </p>
+                                                        <p><strong><i class="fa-solid fa-location-crosshairs"></i>
                                                                 Location:</strong>
-                                                            {{ ucwords($dispatch->brgy) }} {{ ucwords($dispatch->city) }}
+                                                            {{ ucwords($dispatch->brgy) }} 
+                                                            {{ ucwords($dispatch->city) }}
                                                             {{ ucwords($dispatch->region) }}
-                                                            {{ ucwords($dispatch->country) }}
+                                                            
                                                         </p>
                                                         <p><strong><i class="fa-solid fa-calendar-days"></i> Schedule
                                                                 Date:</strong> {{ $dispatch->dispatch_date }} /
