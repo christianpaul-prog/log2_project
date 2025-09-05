@@ -1,25 +1,27 @@
 @extends('layouts.app')
 @section('title', 'Fleet Vehicle Management')
 @section('content')
-<style>
-     .container-fluid {
-           transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-            @keyframes slideUp {
-  from {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);   
-    opacity: 1;
-  }
-}
-.slide-up {
-  animation: slideUp 0.6s ease-out;
-}
+    <style>
+        .container-fluid {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-</style>
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+    </style>
     <!-- Add Vehicle Modal -->
     <div class="modal fade" id="vehicleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="vehicleModalLabel" aria-hidden="true">
@@ -99,7 +101,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-4 mb-3">
                                     <label for="">Odemeter(km)</label>
                                     <input type="text" name="odemeter"
                                         class="@error('odemeter') is-invalid @enderror form-control" required
@@ -109,12 +111,21 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-6 mb-3">
-                                    <label for="">VIN</label>
-                                    <input type="text" name="vin"
-                                        class=" @error('vin') is-invalid @enderror form-control" required
-                                        value="{{ session('modal') === 'add' ? old('vin') : '' }}">
+                                <div class="col-md-4 mb-3">
+                                    <label for="">Plate Number</label>
+                                    <input type="text" name="plate_no"
+                                        class=" @error('plate_no') is-invalid @enderror form-control" required
+                                        value="{{ session('modal') === 'add' ? old('plate_no') : '' }}">
                                     @error('vin')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="">Owner</label>
+                                    <input type="text" name="owner"
+                                        class="@error('owner') is-invalid @enderror form-control" required
+                                        value="{{ session('modal') === 'add' ? old('owner') : '' }}">
+                                    @error('owner')
                                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -194,7 +205,7 @@
                             <thead>
                                 <tr>
 
-                                    <th>Vin</th>
+                                    <th>Plate no#</th>
                                     <th>Vehicle Name</th>
                                     <th>License Plate</th>
                                     <th>Odemeter(km)</th>
@@ -207,7 +218,7 @@
                                 @foreach ($vehicles as $vehicle)
                                     <tr>
 
-                                        <td>{{ $vehicle->vin }}</td>
+                                        <td>{{ $vehicle->plate_no }}</td>
                                         <td>{{ $vehicle->model }}</td>
                                         <td>{{ $vehicle->license }}</td>
                                         <td>{{ $vehicle->odemeter }}</td>
@@ -327,23 +338,36 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col-md-6 mb-3">
+                                                                <div class="col-md-4 mb-3">
                                                                     <label for="">Odemeter(km)</label>
                                                                     <input type="text" name="odemeter"
                                                                         class="@error('odemeter') is-invalid @enderror form-control"
                                                                         required
-                                                                        value="{{ old('odemeter', $vehicle->odemeter) }}">
+                                                                        value="{{ session('modal') === 'add' ? old('odemeter') : '' }}">
                                                                     @error('odemeter')
                                                                         <div class="alert alert-danger mt-2">
                                                                             {{ $message }}</div>
                                                                     @enderror
                                                                 </div>
-                                                                <div class="col-md-6 mb-3">
-                                                                    <label for="">VIN</label>
-                                                                    <input type="text" name="vin"
-                                                                        class=" @error('vin') is-invalid @enderror form-control"
-                                                                        required value="{{ old('vin', $vehicle->vin) }}">
+
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="">Plate Number</label>
+                                                                    <input type="text" name="plate_no"
+                                                                        class=" @error('plate_no') is-invalid @enderror form-control"
+                                                                        required
+                                                                        value="{{ session('modal') === 'add' ? old('plate_no') : '' }}">
                                                                     @error('vin')
+                                                                        <div class="alert alert-danger mt-2">
+                                                                            {{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="">Owner</label>
+                                                                    <input type="text" name="owner"
+                                                                        class="@error('owner') is-invalid @enderror form-control"
+                                                                        required
+                                                                        value="{{ session('modal') === 'add' ? old('owner') : '' }}">
+                                                                    @error('owner')
                                                                         <div class="alert alert-danger mt-2">
                                                                             {{ $message }}</div>
                                                                     @enderror
@@ -399,7 +423,7 @@
         </div>
     </div>
     <!-- Main content -->
- 
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

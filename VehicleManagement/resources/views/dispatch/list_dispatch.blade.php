@@ -1,25 +1,38 @@
 @extends('layouts.app')
 @section('title', 'Dispatch Orders')
 @section('content')
-<style>
-     .container-fluid {
-           transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-            @keyframes slideUp {
-  from {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);   
-    opacity: 1;
-  }
-}
-.slide-up {
-  animation: slideUp 0.6s ease-out;
-}
+    <style>
+        .container-fluid {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-</style>
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .status-badge {
+            padding: 0.4em 0.8em;
+            font-size: 0.85rem;
+            border-radius: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .status-badge:hover {
+            transform: scale(1.05);
+        }
+    </style>
     <!-- Main Content -->
     <div id="MainContent" class="container-fluid slide-up">
         <div class="row">
@@ -32,17 +45,17 @@
                 <div class="card mb-4 shadow-sm border-0">
 
                     @if (session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{{ session('success') }}',
-            timer: 2000, // auto close after 2 seconds
-            showConfirmButton: false,
-            timerProgressBar: true
-        });
-    </script>
-@endif
+                        <script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: '{{ session('success') }}',
+                                timer: 2000, // auto close after 2 seconds
+                                showConfirmButton: false,
+                                timerProgressBar: true
+                            });
+                        </script>
+                    @endif
 
                     <!-- Card Header -->
                     <div class="card-header bg-primary text-white fw-bold">
@@ -70,34 +83,41 @@
                                     <th>Drivers</th>
                                     <th>Vehicles</th>
                                     <th>Location</th>
-                                    <th>S.Date</th>
-                                    <th>S.Time</th>
+                                    <th>Schedule</th>
+                                    <th>Cost</th>
                                     <th>Priority</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Instruction</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($dispatches as $dispatch)
+                                @foreach ($trips as $trip)
                                     <tr>
-                                        <td>{{ $dispatch->driver->full_name }}</td>
-                                        <td>{{ $dispatch->vehicle->license }} - {{ $dispatch->vehicle->model }}
+                                        <td>{{ $trip->driver->full_name }}</td>
+                                        <td>{{ $trip->vehicle->plate_no }} - {{ $trip->vehicle->model }}
                                         </td>
-                                        <td>{{ $dispatch->country }} <br>
-                                            {{ $dispatch->region }} <br>
-                                            {{ $dispatch->city }} <br>
-                                            {{ $dispatch->brgy }}
+                                        <td>{{ $trip->reservation->drop }}</td>
+                                        <td>{{ $trip->reservation->dispatch_date }} <br>
+                                            <small
+                                                class="text-muted">{{ date('h:i A', strtotime($$trip->reservation->dispatch_time)) }}</small>
                                         </td>
-                                        <td>{{ $dispatch->dispatch_date }}</td>
-                                        <td>{{ date('h:i A', strtotime($dispatch->dispatch_time)) }}</td>
-                                        <td class="text-capitalize">{{ $dispatch->priority_level }}</td>
+                                        <td>₱{{ number_format($trip->trip_cost, 2) }}</td>
                                         <td>
-                                            @if ($dispatch->status == 'on_work')
-                                                <span class="badge bg-warning text-dark">On Work</span>
-                                            @elseif ($dispatch->status == 'completed')
-                                                <span class="badge bg-success">Delivered</span>
-                                            @elseif ($dispatch->status == 'cancelled')
-                                                <span class="badge bg-danger">Cancelled</span>
+                                            @if ($trip->reservation->priority_level == 'low')
+                                                <span class="badge bg-warning text-dark">Low</span>
+                                            @elseif ($trip->reservation->priority_level == 'medium')
+                                                <span class="badge bg-success">Medium</span>
+                                            @elseif ($trip->reservation->priority_level == 'high')
+                                                <span class="badge bg-danger">High</span>
+                                            @endif
+                                        <td>
+                                        <td>
+                                            @if ($trip->status == 'pending')
+                                                <span class="badge bg-warning text-dark status-badge">Pending</span>
+                                            @elseif ($trip->status == 'on_work')
+                                                <span class="badge bg-primary text-white status-badge">On Work</span>
+                                            @elseif ($trip->status == 'completed')
+                                                <span class="badge bg-danger text-white status-badge">Completed</span>
                                             @endif
                                         <td>
                                             <a href="" class="btn btn-sm btn-info text-white" data-bs-toggle="modal"
@@ -154,34 +174,33 @@
                                                             {{ $dispatch->vehicle->type }}</p>
                                                         <p><strong><i class="fa-solid fa-location-crosshairs"></i>
                                                                 Country:</strong>
-                                                             @if ($dispatch->country == 'PH')
-                                                                    Phillipines
+                                                            @if ($dispatch->country == 'PH')
+                                                                Phillipines
                                                             @elseif ($dispatch->country == 'US')
-                                                                    United States
+                                                                United States
                                                             @elseif ($dispatch->country == 'CA')
-                                                                    Canada
+                                                                Canada
                                                             @elseif ($dispatch->country == 'UK')
-                                                                    United Kingdom
+                                                                United Kingdom
                                                             @elseif ($dispatch->country == 'AU')
-                                                                    Australia
+                                                                Australia
                                                             @elseif ($dispatch->country == 'JP')
-                                                                    Japan
+                                                                Japan
                                                             @elseif ($dispatch->country == 'CN')
-                                                                    China
+                                                                China
                                                             @elseif ($dispatch->country == 'IN')
-                                                                    India
+                                                                India
                                                             @elseif ($dispatch->country == 'DE')
-                                                                    Germany
+                                                                Germany
                                                             @elseif ($dispatch->country == 'FR')
-                                                                    
                                                             @endif
                                                         </p>
                                                         <p><strong><i class="fa-solid fa-location-crosshairs"></i>
                                                                 Location:</strong>
-                                                            {{ ucwords($dispatch->brgy) }} 
+                                                            {{ ucwords($dispatch->brgy) }}
                                                             {{ ucwords($dispatch->city) }}
                                                             {{ ucwords($dispatch->region) }}
-                                                            
+
                                                         </p>
                                                         <p><strong><i class="fa-solid fa-calendar-days"></i> Schedule
                                                                 Date:</strong> {{ $dispatch->dispatch_date }} /

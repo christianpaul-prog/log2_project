@@ -33,7 +33,7 @@ class DispatchController extends Controller
             ->get();
 
         // Fetch drivers that are NOT already on a dispatch (on_work)
-        $drivers = Drivers::whereDoesntHave('dispatches', function ($query) {
+        $drivers = Trip::whereDoesntHave('trips', function ($query) {
             $query->where('status', 'on_work');
         })
             ->get();

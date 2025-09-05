@@ -13,10 +13,11 @@ class Vehicles extends Model
         'license',
         'model',
         'make',
+        'owner',
         'type',
         'color',
         'odemeter',
-        'vin',
+        'plate_no',
         'note',
         'image'
     ];
@@ -32,8 +33,12 @@ class Vehicles extends Model
     {
         return $this->hasMany(Maintenance::class, 'vehicle_id');
     }
-    public function dispatches()
+    public function trips()
     {
-        return $this->hasMany(Dispatch::class, 'vehicle_id');
+        return $this->hasMany(Trip::class, 'vehicle_id');
+    }
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'vehicle_id');
     }
 }

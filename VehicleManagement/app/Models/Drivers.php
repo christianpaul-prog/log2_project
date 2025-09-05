@@ -25,8 +25,8 @@ class Drivers extends Model
          $middleInitial = $this->middle_name ? strtoupper(substr($this->middle_name, 0, 1)) . '.' : '';
          return "{$this->first_name} {$middleInitial} {$this->last_name}";
     }
-    public function dispatches()
-    {
-        return $this->hasMany(Dispatch::class, 'driver_id');
-    }
+    public function trips()
+{
+    return $this->hasMany(Trip::class, 'driver_id'); // <-- specify correct FK
+}
 }

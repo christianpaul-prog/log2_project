@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('license')->unique();
             $table->string('model');
+            $table->string('owner');
             $table->string('make');
             $table->enum('type', ['sedan', 'suv', 'truck', 'van','motorcycle']);  
             $table->string('color');
             $table->integer('odemeter')->default(0);
-            $table->string('vin')->unique();
+            $table->string('plate_no')->unique();
             $table->string('note')->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
