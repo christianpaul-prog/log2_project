@@ -34,7 +34,7 @@ class Trip extends Model
      * Relationship: Trip belongs to a Driver
      */
     public function driver()
-    {
-        return $this->belongsTo(Drivers::class);
-    }
+{
+    return $this->belongsTo(Drivers::class, 'driver_id');
+}
 }

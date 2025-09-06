@@ -250,7 +250,7 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label
                                                             class="@error('priority_level') is-invalid @enderror form-label">Priority</label>
-                                                        <select name="priority_level" class="form-select" id="">
+                                                        <select class="form-select" id="">
                                                             <option value="low"
                                                                 {{ old('priority_level', $reservation->priority_level) == 'low' ? 'selected' : '' }}>
                                                                 Low

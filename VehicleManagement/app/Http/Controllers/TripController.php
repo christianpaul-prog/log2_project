@@ -14,9 +14,12 @@ class TripController extends Controller
      */
     public function index()
     {
-        // Fetch all trip with latest first
-        $trips = Trip::with('vehicle')->latest()->get();
-return view('dispatch.list_dispatch', compact('trips'));
+         // Fetch all trips with related vehicle, driver, and reservation
+    $trips = Trip::with(['vehicle', 'driver', 'reservation'])
+                 ->latest()
+                 ->get();
+    $drivers = Drivers::all();
+    return view('dispatch.list_dispatch', compact('trips', 'drivers'));
     }
 
     /**
@@ -29,9 +32,15 @@ return view('dispatch.list_dispatch', compact('trips'));
             $query->whereIn('status', ['on_work', 'pending']);
         })->get();
 
-       $reservations = Reservation::whereDoesntHave('trip')->get();
+         // Reservations without a trip, load the related vehicle
+    $reservations = Reservation::with('vehicle')
+        ->whereDoesntHave('trip')
+        ->get();
 
-    return view('dispatch.create_dispatch', compact('drivers', 'reservations'));
+    // Get all vehicles tied to those reservations
+    $vehicles = $reservations->pluck('vehicle')->filter();
+
+     return view('dispatch.create_dispatch', compact('drivers', 'reservations', 'vehicles'));
     }
 
     /**
@@ -45,7 +54,6 @@ return view('dispatch.list_dispatch', compact('trips'));
             'vehicle_id'     => 'required|exists:vehicles,id',
             'driver_id'      => 'required|exists:drivers,id',
             'trip_cost'      => 'required|numeric|min:0',
-            'priority_level' => 'required|in:low,medium,high',
             'instruction'    => 'nullable|string|max:1000',
         ]);
 
@@ -56,7 +64,6 @@ return view('dispatch.list_dispatch', compact('trips'));
         $trip->driver_id      = $validated['driver_id'];
         $trip->trip_cost      = $validated['trip_cost'];
         $trip->status         = 'pending'; // initial status
-        $trip->priority_level = $validated['priority_level'];
         $trip->instruction    = $validated['instruction'] ?? null;
 
         $trip->save();
