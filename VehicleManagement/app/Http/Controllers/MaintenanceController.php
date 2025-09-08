@@ -43,13 +43,13 @@ class MaintenanceController extends Controller
          $vehicles = Vehicles::whereDoesntHave('maintenances', function ($query) {
             $query->where('status', 'on_progress');
         })
-            ->whereDoesntHave('dispatches', function ($query) {
-                $query->where('status', 'on_work');
+            ->whereDoesntHave('trips', function ($query) {
+                $query->where('status', ['on_work', 'pending']);
             })
             ->get();
 
         // Fetch drivers that are NOT already on a dispatch (on_work)
-        $drivers = Drivers::whereDoesntHave('dispatches', function ($query) {
+        $drivers = Drivers::whereDoesntHave('trips', function ($query) {
             $query->where('status', 'on_work');
         })
             ->get();

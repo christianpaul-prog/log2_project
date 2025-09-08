@@ -17,7 +17,7 @@ class ReservationController extends Controller
             $query->where('status', 'on_progress');
         })
             ->whereDoesntHave('trips', function ($query) {
-                $query->where('status',['on_work', 'pending']);
+                $query->where('status', 'on_work');
             })
             ->get();
         // Fetch all reservations with latest first
