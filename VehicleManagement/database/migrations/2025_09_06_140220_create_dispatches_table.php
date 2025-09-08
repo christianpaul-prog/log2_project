@@ -25,7 +25,6 @@ return new class extends Migration
     // $table->string('location');
     $table->date('dispatch_date');
     $table->time('dispatch_time');
-    // $table->enum('priority_level', ['low', 'medium', 'high'])->default('medium');
     $table->string('cargo_details')->nullable();
     $table->enum('status', ['on_work', 'completed', 'cancelled'])->default('on_work');
     $table->timestamps();

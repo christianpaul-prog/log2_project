@@ -19,6 +19,7 @@
   animation: slideUp 0.6s ease-out;
 }
 
+
 </style>
     <!-- Main Content -->
     <div id="MainContent" class="container-fluid slide-up">

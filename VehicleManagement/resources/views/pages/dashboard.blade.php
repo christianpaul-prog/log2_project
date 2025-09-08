@@ -12,6 +12,12 @@
     .card:hover{
       transform: translateY(-5px);
     }
+    .card .body1{
+      background: white;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
     .map-placeholder {
       background-color: #e9ecef;
       height: 300px;
@@ -46,204 +52,78 @@
 
   </style>
 
-  <main class="container-fluid slide-up">
-    <div class="row g-5">
-      <!-- Fleet Overview Cards -->
-      <div class="col-md-3 col-sm-6 mb-4">
-        <div class="card text-white bg-primary h-100">
-          <div class="card-body">
-            <h5 class="card-title">Total Vehicles</h5>
-            <h2>0</h2>
-            <p class="card-text">All vehicles in fleet</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 mb-4 ">
-        <div class="card text-white bg-success h-100">
-          <div class="card-body">
-            <h5 class="card-title">Active Vehicles</h5>
-            <h2>0</h2>
-            <p class="card-text">Currently in operation</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 mb-4">
-        <div class="card text-white bg-danger h-100">
-          <div class="card-body">
-            <h5 class="card-title">Inactive Vehicles</h5>
-            <h2>0</h2>
-            <p class="card-text">Under maintenance or idle</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-6 mb-4">
-        <div class="card text-white bg-warning h-100">
-          <div class="card-body">
-            <h5 class="card-title">Issue Report</h5>
-            <h2>0</h2>
-            <p class="card-text">Issues to address</p>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="container-fluid slide-up mt-4">
+    <h2 class="mb-4">Dashboard</h2>
 
-    <div class="row g-3">
-      <!-- Recent Trips -->
-      <div class="col-lg-6">
-        <div class="card h-100">
-          <div class="card-header">
-            Recent Trips
-          </div>
-          <div class="card-body p-0">
-            <div class="table-responsive">
-              <table class="table table-striped mb-0">
-                <thead class="table-light">
-                  <tr>
-                    <th>Trip ID</th>
-                    <th>Vehicle</th>
-                    <th>Driver</th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>TR-1001</td>
-                    <td>Truck 12</td>
-                    <td>John Doe</td>
-                    <td>2024-06-01 08:00</td>
-                    <td>2024-06-01 12:30</td>
-                    <td><span class="badge bg-success">Completed</span></td>
-                  </tr>
-                  <tr>
-                    <td>TR-1002</td>
-                    <td>Van 7</td>
-                    <td>Jane Smith</td>
-                    <td>2024-06-01 09:15</td>
-                    <td>2024-06-01 11:00</td>
-                    <td><span class="badge bg-warning text-dark">In Progress</span></td>
-                  </tr>
-                  <tr>
-                    <td>TR-1003</td>
-                    <td>Truck 3</td>
-                    <td>Mike Johnson</td>
-                    <td>2024-05-31 14:00</td>
-                    <td>2024-05-31 18:00</td>
-                    <td><span class="badge bg-danger">Delayed</span></td>
-                  </tr>
-                  <tr>
-                    <td>TR-1004</td>
-                    <td>Van 2</td>
-                    <td>Emily Davis</td>
-                    <td>2024-06-01 07:30</td>
-                    <td>2024-06-01 10:00</td>
-                    <td><span class="badge bg-success">Completed</span></td>
-                  </tr>
-                  <tr>
-                    <td>TR-1005</td>
-                    <td>Truck 8</td>
-                    <td>Chris Lee</td>
-                    <td>2024-06-01 10:00</td>
-                    <td>2024-06-01 15:00</td>
-                    <td><span class="badge bg-warning text-dark">In Progress</span></td>
-                  </tr>
-                </tbody>
-              </table>
+    <!-- Stats Cards -->
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Vehicles</h6>
+                    <h3 class="fw-bold">120</h3>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-
-      <!-- Vehicle Status -->
-      <div class="col-lg-6">
-        <div class="card h-100">
-          <div class="card-header">
-            Vehicle Status
-          </div>
-          <div class="card-body">
-            <ul class="list-group">
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Truck 12
-                <span class="badge bg-success rounded-pill">Active</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Van 7
-                <span class="badge bg-warning text-dark rounded-pill">In Transit</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Truck 3
-                <span class="badge bg-danger rounded-pill">Maintenance</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Van 2
-                <span class="badge bg-success rounded-pill">Active</span>
-              </li>
-              <li class="list-group-item d-flex justify-content-between align-items-center">
-                Truck 8
-                <span class="badge bg-warning text-dark rounded-pill">In Transit</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row g-3">
-      <!-- Fuel Consumption -->
-      <div class="col-lg-6">
-        <div class="card h-100">
-          <div class="card-header">
-            Fuel Consumption (Last 7 days)
-          </div>
-          <div class="card-body">
-            <canvas id="fuelChart" height="200"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <!-- Map Placeholder -->
-      <div class="col-lg-6">
-        <div class="card h-100">
-          <div class="card-header">
-            Fleet Map
-          </div>
-          <div class="card-body">
-            <div class="map-placeholder">
-              Map integration here
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h6 class="text-muted">Active Dispatches</h6>
+                    <h3 class="fw-bold">45</h3>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h6 class="text-muted">Pending Maintenance</h6>
+                    <h3 class="fw-bold">12</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h6 class="text-muted">Reports</h6>
+                    <h3 class="fw-bold">30</h3>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="row g-3 mt-3">
-      <!-- Notifications -->
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">
-            Notifications
-          </div>
-          <div class="card-body">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <strong>Truck 3:</strong> Scheduled maintenance due in 2 days.
-              </li>
-              <li class="list-group-item">
-                <strong>Van 7:</strong> Trip delayed due to traffic.
-              </li>
-              <li class="list-group-item">
-                <strong>Truck 8:</strong> Low fuel warning.
-              </li>
-              <li class="list-group-item">
-                <strong>New Driver Assigned:</strong> Emily Davis to Van 2.
-              </li>
-            </ul>
-          </div>
+    <!-- Recent Activity + Chart -->
+    <div class="row mt-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-3 mb-4">
+                <div class="card-header bg-white border-0">
+                    <h6 class="mb-0">Recent Activities</h6>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Vehicle <strong>ABC-123</strong> dispatched at 10:00 AM</li>
+                        <li class="list-group-item">Maintenance scheduled for <strong>XYZ-456</strong></li>
+                        <li class="list-group-item">New report generated by <strong>Admin</strong></li>
+                        <li class="list-group-item">Vehicle <strong>JKL-789</strong> returned to depot</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-header bg-white border-0">
+                    <h6 class="mb-0">Monthly Summary</h6>
+                </div>
+                <div class="card-body">
+                    <!-- Placeholder Chart -->
+                    <div class="text-center text-muted p-5 border rounded-3">
+                        <span>Chart Placeholder</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </main>
+</div>
 
   <!-- Bootstrap JS Bundle (includes Popper) -->
 

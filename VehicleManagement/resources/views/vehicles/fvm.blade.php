@@ -2,22 +2,98 @@
 @section('title', 'Fleet Vehicle Management')
 @section('content')
 <style>
-     .container-fluid {
-           transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth transitions for container */
+    .container-fluid {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-            @keyframes slideUp {
-  from {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);   
-    opacity: 1;
-  }
-}
-.slide-up {
-  animation: slideUp 0.6s ease-out;
-}
+
+    /* Slide Up Animation */
+    @keyframes slideUp {
+        from {
+            transform: translateY(100px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    .slide-up {
+        animation: slideUp 0.6s ease-out;
+    }
+
+    /* Modal styling */
+    .modal-content {
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        border: none;
+    }
+    .modal-header {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        color: #fff;
+        border-radius: 15px 15px 0 0;
+    }
+    .modal-title {
+        font-weight: 600;
+    }
+
+    /* Form input focus effect */
+    .form-control:focus, .form-select:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
+    }
+
+    /* Card styling */
+    .card {
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        border: none;
+    }
+    .card-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    /* Table design */
+    table {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    thead {
+        background: #0d6efd;
+        color: white;
+    }
+    tbody tr:hover {
+        background: rgba(13,110,253,0.05);
+        transition: 0.2s;
+    }
+
+    /* Buttons */
+    .btn-primary {
+        background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        border: none;
+        border-radius: 8px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(13,110,253,0.3);
+    }
+    .btn-secondary {
+        border-radius: 8px;
+    }
+
+    /* Search bar styling */
+    .input-group-text {
+        background: #f1f1f1;
+        border-radius: 8px 0 0 8px;
+    }
+    #searchInput {
+        border-radius: 0 8px 8px 0;
+    }
+</style>
+
 
 </style>
     <!-- Add Vehicle Modal -->
@@ -144,11 +220,46 @@
             </div>
         </div>
     </div>
+       <h2 class="text-center my-4"><i class="fa-solid fa-truck"></i>Vehicle Management</h2>
+     <div class="row g-4 mt-5">
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Vehicles</h6>
+                    <h3 class="fw-bold">120</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h6 class="text-muted">Good Conditions</h6>
+                    <h3 class="fw-bold">45</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h6 class="text-muted">Pending Maintenance</h6>
+                    <h3 class="fw-bold">12</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h6 class="text-muted">Reports</h6>
+                    <h3 class="fw-bold">30</h3>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Main Content -->
     <div id="MainContent" class="container-fluid slide-up">
         <div class="row">
             <div class="col-md-11">
-                <h2 class="text-center my-4"><i class="fa-solid fa-truck"></i>Vehicle Management</h2>
+             
                 <p class="text-center my-4">Manage your fleet vehicles eficiently</p>
             </div>
         </div>
@@ -167,10 +278,10 @@
         @endif
 
 
-        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center ">
             <div class="col-md-11">
                 <div class="card mb-4">
-                    <div class="card-body">
+                    <div class="card-body shadow-lg">
                         <h5 class="card-title">Vehicle List</h5>
                         <!-- ...existing code... -->
                         <div class="row justify-content-center mt-4">
@@ -190,7 +301,7 @@
                             </div>
                         </div>
                         <!-- ...existing code... -->
-                        <table id="vehicleTable" class="table table-striped">
+                        <table id="vehicleTable" class="table table-striped ">
                             <thead>
                                 <tr>
 

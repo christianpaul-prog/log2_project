@@ -18,8 +18,70 @@
 .slide-up {
   animation: slideUp 0.6s ease-out;
 }
+ .maintenance-card {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
 
+    .maintenance-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Heading */
+    h3 {
+        font-weight: 600;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    h3 i {
+        color: #0d6efd;
+    }
+
+    /* Labels */
+    .form-label {
+        font-weight: 500;
+        color: #34495e;
+        margin-bottom: 6px;
+    }
+
+    /* Inputs & selects */
+    .form-control, .form-select, textarea {
+        border-radius: 10px;
+        border: 1px solid #dfe6e9;
+        padding: 10px 14px;
+        transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    .form-control:focus, 
+    .form-select:focus, 
+    textarea:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+    }
+
+    /* Button */
+    .btn-primary {
+        background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+        border: none;
+        border-radius: 12px;
+        padding: 10px 24px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #0b5ed7, #0a58ca);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 14px rgba(13, 110, 253, 0.3);
+    }
 </style>
+<div class="p-4 maintenance-card mt-5">
     <div class="container-fluid slide-up mt-5">
         <div class="row justify-content-center">
             <div class="col-md-8"> <!-- wider but not too big -->
@@ -88,5 +150,5 @@
             </div>
         </div>
     </div>
-
+</div>
 @endsection

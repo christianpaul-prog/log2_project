@@ -7,6 +7,7 @@ use App\Models\Maintenance;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\DispatchController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VehiclesreportController;
 
 Route::get('/', function () {
 
@@ -81,5 +82,18 @@ Route::get('/costs', function () {
 Route::get('/fuelcost', function () {
     return view('fuelcost.fuel-cost');
 })->name('fuelcost.fuel-cost');
+
+Route::prefix('reports')->as('reports.')->group(function () {
+    Route::resource('vehiclereport', VehiclesreportController::class)->parameters([
+        'vehiclereport' => 'vehicle'
+    ]);
+});
+
+Route::get('/costanalysis', function () {
+    return view('costanalysis.index');
+})->name('costanalysis.index');
+
+
+
 
 

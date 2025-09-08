@@ -60,8 +60,7 @@
             }
         }
     </style>
-</head>
-<body>
+
     <!-- Hero Section with Image -->
 
 

@@ -18,7 +18,42 @@
 .slide-up {
   animation: slideUp 0.6s ease-out;
 }
+  .custom-card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .custom-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+    }
 
+    /* Table styling */
+    #vehicleTable th {
+        background: #0d6efd;
+        color: #fff;
+        font-weight: 600;
+        text-align: center;
+        vertical-align: middle;
+    }
+    #vehicleTable td {
+        vertical-align: middle;
+    }
+    #vehicleTable tbody tr:hover {
+        background-color: #f8f9fa;
+        transition: background 0.2s ease-in-out;
+    }
+
+    /* Search bar */
+    .search-box .input-group-text {
+        background: #f8f9fa;
+        border-right: none;
+    }
+    .search-box input {
+        border-left: none;
+        box-shadow: none !important;
+    }
 </style>
     <!-- Main Content -->
     <div id="MainContent" class="container-fluid slide-up">

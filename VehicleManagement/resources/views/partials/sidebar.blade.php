@@ -1,6 +1,7 @@
 
  <aside id="sidebar">
-            <!--Sidebar Content-->
+            
+            
             <div class="h-100">
                 <div class="sidebar-logo py-3">
                      <img src="{{ asset('images/logo.png')}}" alt="Logo" width="80" height="80" class="ms-5">
@@ -24,17 +25,20 @@
                       
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link {{ request()->routeIs('vehicles.index','maintenance.index') ? '' : 'collapsed' }}"  data-bs-target="#fleet" data-bs-toggle="collapse"
+                        <a href="#" class="sidebar-link {{ request()->routeIs('vehicles.index','maintenance.index','reports.vehiclereport.*') ? 'active-parent' : 'collapsed' }}"  data-bs-target="#fleet" data-bs-toggle="collapse"
                             aria-expanded="false">
                            <i class="fa-solid fa-car pe-2"></i>
                            Fleet Vehicle
                         </a>
-                        <ul id="fleet" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('vehicles.index','maintenance.index') ? 'show' : '' }}" data-bs-parent="#sidebarAccordion">
+                        <ul id="fleet" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('vehicles.index','maintenance.index','reports.vehiclereport.*') ? 'show' : '' }}" data-bs-parent="#sidebarAccordion">
                             <li class="sidebar-item">
                                 <a href="{{route('vehicles.index')}}" class="sidebar-link {{ request()->routeIs('vehicles.index') ? 'active' : '' }}"> - Vehicle registration</a> 
                             </li>
                             <li class="sidebar-item">
                                 <a href="{{route('maintenance.index')}}" class="sidebar-link {{ request()->routeIs('maintenance.index') ? 'active' : '' }}"> - Vehicle Maintenance</a>
+                            </li>
+                             <li class="sidebar-item">
+                                <a href="{{route('reports.vehiclereport.index')}}" class="sidebar-link {{ request()->routeIs('reports.vehiclereport.*') ? 'active' : '' }}"> - Vehicle List Report</a>
                             </li>
 
                               
@@ -43,7 +47,7 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link {{ request()->routeIs('dispatch.index','dispatch.create','maintenance.create') ? '' : 'collapsed' }}"  data-bs-target="#dispatch" data-bs-toggle="collapse"
+                        <a href="#" class="sidebar-link {{ request()->routeIs('dispatch.index','dispatch.create','vehicle.maintenance') ? 'active-parent' : 'collapsed' }}"  data-bs-target="#dispatch" data-bs-toggle="collapse"
                             aria-expanded="false">
                             <i class="fa-solid fa-file pe-2"></i>
                             Dispatch
@@ -53,7 +57,7 @@
                                 <a href="{{route('dispatch.index')}}" class="sidebar-link {{ request()->routeIs('dispatch.index') ? 'active' : '' }}"> - dispatch</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{route('dispatch.create')}}" class="sidebar-link {{ request()->routeIs('') ? 'active' : '' }}"> - Vehicle Reservation</a>
+                                <a href="{{route('dispatch.create')}}" class="sidebar-link {{ request()->routeIs('dispatch.create') ? 'active' : '' }}"> - Vehicle Reservation</a>
                             </li>
                               <li class="sidebar-item">
                                 <a href="{{route('maintenance.create')}}" class="sidebar-link{{ request()->routeIs('vehicle.maintenance') ? 'active' : '' }}" > - Maintenance  List</a>
@@ -62,10 +66,10 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link {{ request()->routeIs('driver.driver_profile','driver.driver_report') ? '' : 'collapsed' }}" data-bs-target="#performance" data-bs-toggle="collapse"
+                        <a href="#" class="sidebar-link {{ request()->routeIs('driver.driver_profile','driver.driver_report') ? 'active-parent' : 'collapsed' }}" data-bs-target="#performance" data-bs-toggle="collapse"
                             aria-expanded="false">
                             <i class="fa-solid fa-chart-simple pe-2"></i>
-                            Driver and Trip Performance
+                            Driver/Trip Performance
                         </a>
                         <ul id="performance" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('driver.driver_profile','driver.driver_report') ? 'show' : '' }}" data-bs-parent="#sidebarAccordion">
                             <li class="sidebar-item">
@@ -82,12 +86,12 @@
                     </li>
 
                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link {{ request()->routeIs('cost_optimization.analytics','fuelcost.fuel-cost') ? '' : 'collapsed' }}" data-bs-target="#analytic" data-bs-toggle="collapse"
+                        <a href="#" class="sidebar-link {{ request()->routeIs('cost_optimization.analytics','fuelcost.fuel-cost','costanalysis.index') ? 'active-parent' : 'collapsed' }}" data-bs-target="#analytic" data-bs-toggle="collapse"
                             aria-expanded="false">
                             <i class="fa-solid fa-chart-simple pe-2"></i>
                             Transport Cost Analy.
                         </a>
-                        <ul id="analytic" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('cost_optimization.analytics','fuelcost.fuel-cost') ? 'show' : '' }}" data-bs-parent="#sidebarAccordion">
+                        <ul id="analytic" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('cost_optimization.analytics','fuelcost.fuel-cost','costanalysis.index') ? 'show' : '' }}" data-bs-parent="#sidebarAccordion">
                             <li class="sidebar-item">
                                 <a href="{{route('cost_optimization.analytics')}}" class="sidebar-link {{ request()->routeIs('cost_optimization.analytics') ? 'active' : '' }}"> - Analysis</a>
                             </li>
@@ -96,7 +100,7 @@
                             </li>
 
                              <li class="sidebar-item">
-                                <a href="#" class="sidebar-link"> - Maintenance Cost Reports</a>
+                                <a href="{{route('costanalysis.index')}}" class="sidebar-link {{ request()->routeIs('costanalysis.index') ? 'active' : '' }}"> - Maintenance Cost Reports</a>
                             </li>
 
                              <li class="sidebar-item">
@@ -105,6 +109,9 @@
 
                              <li class="sidebar-item">
                                 <a href="#" class="sidebar-link"> - Budget Forecasting</a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="#" class="sidebar-link "> - </a>
                             </li>
                         </ul>
                     </li>

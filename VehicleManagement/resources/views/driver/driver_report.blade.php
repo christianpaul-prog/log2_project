@@ -1,68 +1,83 @@
 @extends('layouts.app')
 @section('title', 'Drivers Reports')
 @section('content')
-<style>
-   .container-fluid {
-           transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-            @keyframes slideUp {
-  from {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);   
-    opacity: 1;
-  }
-}
-.slide-up {
-  animation: slideUp 0.6s ease-out;
-}
+<div class="container-fluid slide-up mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2><i class="fa-solid fa-id-card-clip"></i> Driver Reports</h2>
+        <a href="#" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Add Driver
+        </a>
+    </div>
 
-</style>
-  <div class="container-fluid slide-up my-4">
-    <h2 class="mb-4">Issue Report</h2>
-    <table class="table table-striped table-bordered table-hover">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col">Item #</th>
-          <th scope="col">Driver name</th>
-          <th scope="col">Location</th>
-          <th scope="col">Report</th>
-          <th scope="col">Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>#101</td>
-          <td>Astrid</td>
-          <td>Blk 2 Lot36 Champaca street</td>
-          <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga animi reiciendis, iure ullam cupiditate eos maxime sequi voluptatibus sed veniam ipsam rem eaque provident ad unde voluptas accusamus harum neque?</td>
-          <td>2024-06-01</td>
-        </tr>
-        <tr>
-          <td>#111</td>
-          <td>Ramjay</td>
-          <td>Blk 2 Lot36 Champaca street</td>
-          <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga animi reiciendis, iure ullam cupiditate eos maxime sequi voluptatibus sed veniam ipsam rem eaque provident ad unde voluptas accusamus harum neque?</td>
-          <td>2025-20-1</td>
-        </tr>
-        <tr>
-          <td>#111</td>
-          <td>Lilay</td>
-          <td>Blk 2 Lot36 Champaca street</td>
-          <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga animi reiciendis, iure ullam cupiditate eos maxime sequi voluptatibus sed veniam ipsam rem eaque provident ad unde voluptas accusamus harum neque?</td>
-          <td>2025-11-7</td>
-        </tr>
-        <tr>
-          <td>#111</td>
-          <td>Ramjay</td>
-          <td>Blk 2 Lot36 Champaca street</td>
-          <td>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fuga animi reiciendis, iure ullam cupiditate eos maxime sequi voluptatibus sed veniam ipsam rem eaque provident ad unde voluptas accusamus harum neque?</td>
-          <td>2025-05-3</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div class="card shadow-sm rounded-3">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th><i class="fa-solid fa-user"></i> Name</th>
+                            <th><i class="fa-solid fa-id-card"></i> License No.</th>
+                            <th><i class="fa-solid fa-phone"></i> Contact</th>
+                            <th><i class="fa-solid fa-road"></i> Trips Completed</th>
+                            <th><i class="fa-solid fa-star"></i> Rating</th>
+                            <th><i class="fa-solid fa-gear"></i> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Juan Dela Cruz</td>
+                            <td>DL-12345</td>
+                            <td>0917-123-4567</td>
+                            <td>120</td>
+                            <td><span class="badge bg-success">4.8 ★</span></td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-warning">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Pedro Santos</td>
+                            <td>DL-67890</td>
+                            <td>0918-555-1111</td>
+                            <td>85</td>
+                            <td><span class="badge bg-success">4.2 ★</span></td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-warning">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Maria Lopez</td>
+                            <td>DL-44556</td>
+                            <td>0920-222-3333</td>
+                            <td>60</td>
+                            <td><span class="badge bg-warning text-dark">3.9 ★</span></td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-warning">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <a href="#" class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 @endsection

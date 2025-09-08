@@ -16,7 +16,8 @@ class VehiclesController extends Controller
      */
     public function index()
     {
-        $vehicles = Vehicles::orderBy('created_at', 'desc')->paginate(10); // Fetch all vehicles ordered by creation date
+        $vehicles = Vehicles::orderBy('created_at', 'desc')->paginate(10); 
+        // Fetch all vehicles ordered by creation date
         return view('vehicles.fvm', compact('vehicles')); // Pass the vehicles to the view
     }
 
