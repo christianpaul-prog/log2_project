@@ -2,98 +2,22 @@
 @section('title', 'Fleet Vehicle Management')
 @section('content')
 <style>
-    /* Smooth transitions for container */
-    .container-fluid {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+     .container-fluid {
+           transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
-    /* Slide Up Animation */
-    @keyframes slideUp {
-        from {
-            transform: translateY(100px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-    .slide-up {
-        animation: slideUp 0.6s ease-out;
-    }
-
-    /* Modal styling */
-    .modal-content {
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        border: none;
-    }
-    .modal-header {
-        background: linear-gradient(135deg, #0d6efd, #0a58ca);
-        color: #fff;
-        border-radius: 15px 15px 0 0;
-    }
-    .modal-title {
-        font-weight: 600;
-    }
-
-    /* Form input focus effect */
-    .form-control:focus, .form-select:focus {
-        border-color: #0d6efd;
-        box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
-    }
-
-    /* Card styling */
-    .card {
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        border: none;
-    }
-    .card-title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin-bottom: 15px;
-    }
-
-    /* Table design */
-    table {
-        border-radius: 12px;
-        overflow: hidden;
-    }
-    thead {
-        background: #0d6efd;
-        color: white;
-    }
-    tbody tr:hover {
-        background: rgba(13,110,253,0.05);
-        transition: 0.2s;
-    }
-
-    /* Buttons */
-    .btn-primary {
-        background: linear-gradient(135deg, #0d6efd, #0a58ca);
-        border: none;
-        border-radius: 8px;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(13,110,253,0.3);
-    }
-    .btn-secondary {
-        border-radius: 8px;
-    }
-
-    /* Search bar styling */
-    .input-group-text {
-        background: #f1f1f1;
-        border-radius: 8px 0 0 8px;
-    }
-    #searchInput {
-        border-radius: 0 8px 8px 0;
-    }
-</style>
-
+            @keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);   
+    opacity: 1;
+  }
+}
+.slide-up {
+  animation: slideUp 0.6s ease-out;
+}
 
 </style>
     <!-- Add Vehicle Modal -->
@@ -175,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-4 mb-3">
                                     <label for="">Odemeter(km)</label>
                                     <input type="text" name="odemeter"
                                         class="@error('odemeter') is-invalid @enderror form-control" required
@@ -185,12 +109,21 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-6 mb-3">
-                                    <label for="">VIN</label>
-                                    <input type="text" name="vin"
-                                        class=" @error('vin') is-invalid @enderror form-control" required
-                                        value="{{ session('modal') === 'add' ? old('vin') : '' }}">
+                                <div class="col-md-4 mb-3">
+                                    <label for="">Plate Number</label>
+                                    <input type="text" name="plate_no"
+                                        class=" @error('plate_no') is-invalid @enderror form-control" required
+                                        value="{{ session('modal') === 'add' ? old('plate_no') : '' }}">
                                     @error('vin')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="">Owner</label>
+                                    <input type="text" name="owner"
+                                        class="@error('owner') is-invalid @enderror form-control" required
+                                        value="{{ session('modal') === 'add' ? old('owner') : '' }}">
+                                    @error('owner')
                                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -305,7 +238,7 @@
                             <thead>
                                 <tr>
 
-                                    <th>Vin</th>
+                                    <th>Plate no#</th>
                                     <th>Vehicle Name</th>
                                     <th>License Plate</th>
                                     <th>Odemeter(km)</th>
@@ -318,7 +251,7 @@
                                 @foreach ($vehicles as $vehicle)
                                     <tr>
 
-                                        <td>{{ $vehicle->vin }}</td>
+                                        <td>{{ $vehicle->plate_no }}</td>
                                         <td>{{ $vehicle->model }}</td>
                                         <td>{{ $vehicle->license }}</td>
                                         <td>{{ $vehicle->odemeter }}</td>
@@ -438,23 +371,36 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-                                                                <div class="col-md-6 mb-3">
+                                                                <div class="col-md-4 mb-3">
                                                                     <label for="">Odemeter(km)</label>
                                                                     <input type="text" name="odemeter"
                                                                         class="@error('odemeter') is-invalid @enderror form-control"
                                                                         required
-                                                                        value="{{ old('odemeter', $vehicle->odemeter) }}">
+                                                                        value="{{ session('modal') === 'add' ? old('odemeter') : '' }}">
                                                                     @error('odemeter')
                                                                         <div class="alert alert-danger mt-2">
                                                                             {{ $message }}</div>
                                                                     @enderror
                                                                 </div>
-                                                                <div class="col-md-6 mb-3">
-                                                                    <label for="">VIN</label>
-                                                                    <input type="text" name="vin"
-                                                                        class=" @error('vin') is-invalid @enderror form-control"
-                                                                        required value="{{ old('vin', $vehicle->vin) }}">
+
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="">Plate Number</label>
+                                                                    <input type="text" name="plate_no"
+                                                                        class=" @error('plate_no') is-invalid @enderror form-control"
+                                                                        required
+                                                                        value="{{ session('modal') === 'add' ? old('plate_no') : '' }}">
                                                                     @error('vin')
+                                                                        <div class="alert alert-danger mt-2">
+                                                                            {{ $message }}</div>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="">Owner</label>
+                                                                    <input type="text" name="owner"
+                                                                        class="@error('owner') is-invalid @enderror form-control"
+                                                                        required
+                                                                        value="{{ session('modal') === 'add' ? old('owner') : '' }}">
+                                                                    @error('owner')
                                                                         <div class="alert alert-danger mt-2">
                                                                             {{ $message }}</div>
                                                                     @enderror
@@ -510,7 +456,7 @@
         </div>
     </div>
     <!-- Main content -->
- 
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {

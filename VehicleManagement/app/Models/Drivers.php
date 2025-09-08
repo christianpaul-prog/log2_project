@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\TripController;
 use Illuminate\Database\Eloquent\Model;
 
 class Drivers extends Model
@@ -25,8 +26,8 @@ class Drivers extends Model
          $middleInitial = $this->middle_name ? strtoupper(substr($this->middle_name, 0, 1)) . '.' : '';
          return "{$this->first_name} {$middleInitial} {$this->last_name}";
     }
-    public function dispatches()
+   public function trips()
     {
-        return $this->hasMany(Dispatch::class, 'driver_id');
+        return $this->hasMany(Trip::class, 'driver_id', 'id');
     }
 }

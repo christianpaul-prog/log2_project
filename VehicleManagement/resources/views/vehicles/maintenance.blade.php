@@ -97,7 +97,7 @@
                                     <option value="">Select Vehicle</option>
                                     @foreach ($vehicles as $vehicle)
                                         <option value="{{ $vehicle->id }}" {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}>
-                                            {{ $vehicle->plate_number }} - {{ $vehicle->model }}
+                                            {{ $vehicle->plate_no }} - {{ $vehicle->model }}
                                         </option>
                                     @endforeach
                                 </select>

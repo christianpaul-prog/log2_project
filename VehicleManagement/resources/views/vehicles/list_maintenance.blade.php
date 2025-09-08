@@ -62,7 +62,7 @@
                             <thead>
                                 <tr>
                                     <th>S.NO</th>
-                                    <th>Vin</th>
+                                    <th>Plate no#</th>
                                     <th>Vehicle Name</th>
                                     <th>Serivice info</th>
                                     <th>Start date</th>
@@ -76,7 +76,7 @@
                                 @foreach ($maintenances as $maintenance)
                                     <tr>
                                         <td>{{ $maintenance->id }}</td>
-                                        <td>{{ $maintenance->vehicle->vin ?? 'N/A' }}</td>
+                                        <td>{{ $maintenance->vehicle->plate_no ?? 'N/A' }}</td>
                                         <td>{{ $maintenance->vehicle->model ?? 'Unnamed Vehicle' }}</td>
                                         <td>{{ $maintenance->service_details }}</td>
                                         <td>{{ $maintenance->start_date }}</td>
@@ -123,15 +123,13 @@
                                                                 @foreach ($vehicles as $vehicle)
                                                                     <option value="{{ $vehicle->id }}"
                                                                         {{ $maintenance->vehicle_id == $vehicle->id ? 'selected' : '' }}>
-                                                                        {{ $vehicle->vin ?? $vehicle->model }}
+                                                                        {{ $vehicle->plate_no ?? $vehicle->model }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
 
                                                             <!-- hidden input so the selected vehicle still gets submitted -->
-                                                            <input type="hidden" name="vehicle_id"
-                                                                value="{{ $maintenance->vehicle_id }}">
-
+                                                            <input type="hidden" name="vehicle_id" value="{{ $maintenance->vehicle_id }}">
                                                         </div>
 
                                                         <div class="row">

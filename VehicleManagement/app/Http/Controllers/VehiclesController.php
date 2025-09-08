@@ -36,11 +36,12 @@ public function store(Request $request)
     $validator = Validator::make($request->all(), [
         'license'  => 'required|unique:vehicles,license',
         'model'    => 'required|string|max:255',
+        'owner'    => ['required', 'regex:/^(?!.*\s{2,})[A-Za-z0-9 ]+$/', 'max:255'],
         'make'     => 'required|string|max:255',
         'type'     => 'required|in:sedan,suv,truck,van,motorcycle',
         'color'    => 'required|string|max:255',
         'odemeter' => 'required|numeric',
-        'vin'      => 'required|unique:vehicles,vin',
+        'plate_no'      => 'required|unique:vehicles,plate_no',
         'note'     => 'nullable|string',
         'image'    => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
     ]);
@@ -58,10 +59,11 @@ public function store(Request $request)
     $vehicle->license   = $request->license;
     $vehicle->model     = $request->model;
     $vehicle->make      = $request->make;
+    $vehicle->owner     = $request->owner;
     $vehicle->type      = $request->type;
     $vehicle->color     = $request->color;
     $vehicle->odemeter  = $request->odemeter;
-    $vehicle->vin       = $request->vin;
+    $vehicle->plate_no       = $request->plate_no;
     $vehicle->note      = $request->note;
 
     // Handle image
@@ -85,23 +87,6 @@ public function store(Request $request)
     return redirect()->route('vehicles.index')->with('success', 'Vehicle created successfully.');
 }
 
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(vehicles $vehicles)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(vehicles $vehicles)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
@@ -114,11 +99,12 @@ public function update(Request $request, $id)
     $validator = Validator::make($request->all(), [
         'license'  => 'required|unique:vehicles,license,' . $vehicle->id,
         'model'    => 'required|string|max:255',
+        'owner'    => ['required', 'regex:/^(?!.*\s{2,})[A-Za-z0-9 ]+$/', 'max:255'],
         'make'     => 'required|string|max:255',
         'type'     => 'required|string|max:255',
         'color'    => 'required|string|max:255',
         'odemeter' => 'required|numeric',
-        'vin'      => 'required|unique:vehicles,vin,' . $vehicle->id,
+        'plate_no'      => 'required|unique:vehicles,plate_no,' . $vehicle->id,
         'note'     => 'nullable|string',
         'image'    => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
     ]);
@@ -136,10 +122,11 @@ public function update(Request $request, $id)
     $vehicle->license  = $request->license;
     $vehicle->model    = $request->model;
     $vehicle->make     = $request->make;
+    $vehicle->owner     = $request->owner;
     $vehicle->type     = $request->type;
     $vehicle->color    = $request->color;
     $vehicle->odemeter = $request->odemeter;
-    $vehicle->vin      = $request->vin;
+    $vehicle->plate_no      = $request->plate_no;
     $vehicle->note     = $request->note;
 
     // ✅ Handle image

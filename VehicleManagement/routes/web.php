@@ -4,10 +4,12 @@ use App\Models\Vehicles;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehiclesController;
 use App\Models\Maintenance;
+use App\Models\Reservation;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\MaintenanceController;
-use App\Http\Controllers\DispatchController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VehiclesreportController;
+use App\Http\Controllers\TripController;
 
 Route::get('/', function () {
 
@@ -41,14 +43,26 @@ Route::post('/maintenance', [MaintenanceController::class, 'store'])->name('main
 Route::put('/maintenance/{id}', [MaintenanceController::class, 'update'])->name('maintenances.update');
 Route::delete('/maintenance/{id}', [MaintenanceController::class, 'destroy'])->name('maintenance.destroy');
 
-// Dispatch Routes
-Route::get('/dispatch', [DispatchController::class, 'index'])->name('dispatch.index');
-Route::get('/dispatch/create', [DispatchController::class, 'create'])->name('dispatch.create');
-Route::post('/dispatch', [DispatchController::class, 'store'])->name('dispatch.store');
-Route::delete('/dispatch/{id}', [DispatchController::class, 'destroy'])->name('dispatch.destroy');
+// // Dispatch Routes
+// Route::get('/dispatch', [DispatchController::class, 'index'])->name('dispatch.index');
+// Route::get('/dispatch/create', [DispatchController::class, 'create'])->name('dispatch.create');
+// Route::post('/dispatch', [DispatchController::class, 'store'])->name('dispatch.store');
+// Route::delete('/dispatch/{id}', [DispatchController::class, 'destroy'])->name('dispatch.destroy');
 
-Route::get('/dispatch/vehicles_drivers', [DispatchController::class, 'activeList'])->name('dispatch.vehicles_drivers');
-Route::get('/driver/driver_profile', [DispatchController::class, 'dispatchDrivers'])->name('driver.driver_profile');
+//Route::get('/dispatch/vehicles_drivers', [DispatchController::class, 'activeList'])->name('dispatch.vehicles_drivers');
+//Route::get('/driver/driver_profile', [DispatchController::class, 'dispatchDrivers'])->name('driver.driver_profile');
+
+// reservation routes
+Route::get('/reservation',[ReservationController::class,'index'])->name('reservation.index');
+Route::get('/reservation/create',[ReservationController::class,'create'])->name('reservation.create');
+Route::post('/reservation',[ReservationController::class,'store'])->name('reservation.store');
+Route::put('/reservation/{reservation}', [ReservationController::class, 'update'])->name('reservation.update');
+Route::delete('/reservation/{reservation}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+
+// Trip routes
+Route::get('/dispatch',[TripController::class,'index'])->name('trip.index');
+Route::get('/dispatch/create', [TripController::class, 'create'])->name('trip.create');
+Route::post('/dispatch',[TripController::class,'store'])->name('trip.store');
 
 
 
