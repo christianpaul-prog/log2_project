@@ -52,7 +52,11 @@
                                 text: '{{ session('success') }}',
                                 timer: 2000, // auto close after 2 seconds
                                 showConfirmButton: false,
-                                timerProgressBar: true
+                                timerProgressBar: true,
+                                width: '350px', // 👈 smaller width (default is ~500px)
+                                customClass: {
+                                    popup: 'swal-small-box'
+                                }
                             });
                         </script>
                     @endif
@@ -110,7 +114,7 @@
                                             @elseif ($trip->reservation->priority_level == 'high')
                                                 <span class="badge bg-danger">High</span>
                                             @endif
-                                        <td>
+                                        </td>
                                         <td>
                                             @if ($trip->status == 'pending')
                                                 <span class="badge bg-warning text-dark status-badge">Pending</span>
@@ -311,6 +315,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="mt-4">
+                            {{ $trips->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -80,18 +80,18 @@
                     <select id="vehicleFilter" class="form-select">
                         <option value="">All Vehicles Type</option>
                         <option value="suv">Suv</option>
-                         <option value="truck">Truck</option>
-                         <option value="sedan">Sedan</option>
-                         <option value="van">Van</option>
-                         <option value="motorcyle">Motorcyle</option>
+                        <option value="truck">Truck</option>
+                        <option value="sedan">Sedan</option>
+                        <option value="van">Van</option>
+                        <option value="motorcyle">Motorcyle</option>
                     </select>
                 </div>
                 <div class="col-md-4">
                     <select id="priorityFilter" class="form-select">
                         <option value="">All Priorities</option>
-                         <option value="low">Low</option>
-                         <option value="medium">Medium</option>
-                         <option value="high">High</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
                     </select>
                 </div>
             </div>
@@ -104,7 +104,11 @@
                     text: '{{ session('success') }}',
                     timer: 2000, // auto close after 2 seconds
                     showConfirmButton: false,
-                    timerProgressBar: true
+                    timerProgressBar: true,
+                    width: '350px', // 👈 smaller width (default is ~500px)
+                    customClass: {
+                        popup: 'swal-small-box'
+                    }
                 });
             </script>
         @endif
@@ -175,7 +179,8 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="{{route('reservation.update', $reservation->id)}}" method="POST">
+                                            <form action="{{ route('reservation.update', $reservation->id) }}"
+                                                method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <input type="hidden" value="">
@@ -235,7 +240,8 @@
                                                 <div class="row">
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label">Schedule Date</label>
-                                                        <input type="date" name="dispatch_date" value="{{ old('dispatch_date', $reservation->dispatch_date) }}"
+                                                        <input type="date" name="dispatch_date"
+                                                            value="{{ old('dispatch_date', $reservation->dispatch_date) }}"
                                                             class="form-control" required>
                                                         @error('dispatch_date')
                                                             <div class="alert alert-danger mt-2">{{ $message }}</div>
@@ -243,7 +249,8 @@
                                                     </div>
                                                     <div class="col-md-4 mb-3">
                                                         <label class="form-label">Schedule Time</label>
-                                                        <input type="time" name="dispatch_time" value="{{ old('dispatch_time', $reservation->dispatch_time) }}"
+                                                        <input type="time" name="dispatch_time"
+                                                            value="{{ old('dispatch_time', $reservation->dispatch_time) }}"
                                                             class=" form-control" required>
                                                         @error('dispatch_time')
                                                             <div class="alert alert-danger mt-2">{{ $message }}</div>
@@ -258,7 +265,7 @@
                                                                 Low
                                                             </option>
                                                             <option value="medium"
-                                                               {{ old('priority_level', $reservation->priority_level) == 'medium' ? 'selected' : '' }}>
+                                                                {{ old('priority_level', $reservation->priority_level) == 'medium' ? 'selected' : '' }}>
                                                                 Medium
                                                             </option>
                                                             <option value="high"
@@ -274,7 +281,8 @@
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
                                                         <label class="form-label">Pick-up Location</label>
-                                                        <input type="text" value="{{ old('pickup', $reservation->pickup) }}"
+                                                        <input type="text"
+                                                            value="{{ old('pickup', $reservation->pickup) }}"
                                                             class="@error('region') is-invalid @enderror form-control"
                                                             name="pickup" required>
                                                         @error('pickup')
@@ -283,7 +291,8 @@
                                                     </div>
                                                     <div class="col-md-6 mb-3">
                                                         <label class="form-label">Drop-off Location</label>
-                                                        <input type="text" value="{{ old('drop', $reservation->drop) }}"
+                                                        <input type="text"
+                                                            value="{{ old('drop', $reservation->drop) }}"
                                                             class="@error('city') is-invalid @enderror form-control"
                                                             name="drop" required>
                                                         @error('drop')
@@ -308,10 +317,10 @@
                                                     @enderror
                                                 </div>
                                                 <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                                        </div>
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -320,11 +329,14 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    {{ $reservations->links() }}
+                </div>
             </div>
         </div>
     </div>
 
-     <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Reopen Edit Modal if validation failed there
             @if ($errors->any() && old('id'))
@@ -335,50 +347,48 @@
         });
     </script>
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.getElementById("searchInput");
-        const vehicleFilter = document.getElementById("vehicleFilter");
-        const priorityFilter = document.getElementById("priorityFilter");
-        const table = document.getElementById("reservationTable");
-        const rows = table.getElementsByTagName("tr");
+        document.addEventListener("DOMContentLoaded", function() {
+            const searchInput = document.getElementById("searchInput");
+            const vehicleFilter = document.getElementById("vehicleFilter");
+            const priorityFilter = document.getElementById("priorityFilter");
+            const table = document.getElementById("reservationTable");
+            const rows = table.getElementsByTagName("tr");
 
-        function filterTable() {
-            const searchText = searchInput.value.toLowerCase().trim();
-            const vehicleType = vehicleFilter.value.toLowerCase();
-            const priority = priorityFilter.value.toLowerCase();
+            function filterTable() {
+                const searchText = searchInput.value.toLowerCase().trim();
+                const vehicleType = vehicleFilter.value.toLowerCase();
+                const priority = priorityFilter.value.toLowerCase();
 
-            for (let i = 1; i < rows.length; i++) { // skip header row
-                const cells = rows[i].getElementsByTagName("td");
-                if (cells.length > 0) {
-                    const name = cells[1].textContent.toLowerCase();
-                    const company = cells[3].textContent.toLowerCase();
-                    const vehicle = cells[4].textContent.toLowerCase();
-                    const priorityLevel = cells[8].textContent.toLowerCase();
+                for (let i = 1; i < rows.length; i++) { // skip header row
+                    const cells = rows[i].getElementsByTagName("td");
+                    if (cells.length > 0) {
+                        const name = cells[1].textContent.toLowerCase();
+                        const company = cells[3].textContent.toLowerCase();
+                        const vehicle = cells[4].textContent.toLowerCase();
+                        const priorityLevel = cells[8].textContent.toLowerCase();
 
-                    let matchSearch =
-                        name.includes(searchText) || company.includes(searchText);
+                        let matchSearch =
+                            name.includes(searchText) || company.includes(searchText);
 
-                    let matchVehicle =
-                        !vehicleType || vehicle.includes(vehicleType);
+                        let matchVehicle = !vehicleType || vehicle.includes(vehicleType);
 
-                    let matchPriority =
-                        !priority || priorityLevel === priority;
+                        let matchPriority = !priority || priorityLevel === priority;
 
-                    if (matchSearch && matchVehicle && matchPriority) {
-                        rows[i].style.display = "";
-                    } else {
-                        rows[i].style.display = "none";
+                        if (matchSearch && matchVehicle && matchPriority) {
+                            rows[i].style.display = "";
+                        } else {
+                            rows[i].style.display = "none";
+                        }
                     }
                 }
             }
-        }
 
-        // Trigger filter on input/change
-        searchInput.addEventListener("keyup", filterTable);
-        vehicleFilter.addEventListener("change", filterTable);
-        priorityFilter.addEventListener("change", filterTable);
-    });
-</script>
+            // Trigger filter on input/change
+            searchInput.addEventListener("keyup", filterTable);
+            vehicleFilter.addEventListener("change", filterTable);
+            priorityFilter.addEventListener("change", filterTable);
+        });
+    </script>
 
 
 @endsection

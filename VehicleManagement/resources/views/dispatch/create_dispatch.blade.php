@@ -8,7 +8,8 @@
             background-color: #f5f6fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-.container-fluid {
+
+        .container-fluid {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -228,7 +229,7 @@
                                         <div class="modal-body">
                                             <form action="{{ route('trip.store', $reservation->id) }}" method="POST">
                                                 @csrf
-                                        
+
                                                 <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
@@ -294,7 +295,8 @@
                                                         @foreach ($drivers as $driver)
                                                             <option value="{{ $driver->id }}"
                                                                 {{ old('driver_id') == $driver->id ? 'selected' : '' }}>
-                                                                {{ $driver->full_name }} - {{ $driver->license_no }} - {{ $driver->gender }} - {{ $driver->age }}
+                                                                {{ $driver->full_name }} - {{ $driver->license_no }} -
+                                                                {{ $driver->gender }} - {{ $driver->age }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -324,6 +326,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mt-4">
+                    {{ $reservations->links() }}
+                </div>
             </div>
         </div>
     </div>

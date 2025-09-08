@@ -15,24 +15,15 @@ class MaintenanceController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $maintenances = Maintenance::with('vehicle')
-            ->where('status', 'in_progress')   // 👈 only in_progress
-            ->latest()
-            ->get();
-        $vehicles = Vehicles::all(); // Fetch all vehicles for the maintenance view
-        return view('vehicles.list_maintenance', compact('maintenances','vehicles')); // Pass the maintenance records and vehicles to the view
-    }
-    public function completedList()
 {
+    // Fetch all maintenances with related vehicle, ordered by latest, paginated
     $maintenances = Maintenance::with('vehicle')
-        ->where('status', 'completed')   // 👈 only completed
         ->latest()
-        ->get();
+        ->paginate(10); // 👈 10 items per page (adjust as needed)
 
-    $vehicles = Vehicles::all();
+    $vehicles = Vehicles::all(); // still fetch all vehicles for the view
 
-    return view('vehicles.completed_list', compact('maintenances', 'vehicles'));
+    return view('vehicles.list_maintenance', compact('maintenances', 'vehicles'));
 }
 
     /**

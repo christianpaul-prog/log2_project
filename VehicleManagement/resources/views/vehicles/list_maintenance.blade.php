@@ -23,24 +23,27 @@
 </style>
     <!-- Main Content -->
     <div id="MainContent" class="container-fluid slide-up">
-        <div class="row">
-            <div class="col-md-11">
-                <h2 class="text-center my-4"><i class="fa-solid fa-screwdriver-wrench"></i> List Maintenance</h2>
-                <p class="text-center my-4">Manage your fleet vehicles eficiently</p>
-            </div>
-        </div>
-        @if (session('success'))
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: '{{ session('success') }}',
-                    timer: 2000, // auto close after 2 seconds
-                    showConfirmButton: false,
-                    timerProgressBar: true
-                });
-            </script>
-        @endif
+            <div class="py-5 mb-4 text-center text-white mt-5" 
+         style="background: linear-gradient(135deg, #4e73df, #3751c1); border-radius: 12px;">
+        <h2 class="fw-bold mb-1"><i class="fa-solid fa-screwdriver-wrench"></i> List Maintenance</h2>
+        <p class="mb-0">Manage your fleet vehicles efficiently</p>
+    </div>
+       @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}',
+            timer: 2000, // auto close after 2 seconds
+            showConfirmButton: false,
+            timerProgressBar: true,
+            width: '350px', // 👈 smaller width (default is ~500px)
+            customClass: {
+                popup: 'swal-small-box'
+            }
+        });
+    </script>
+@endif
 
         <div class="row d-flex justify-content-center">
             <div class="col-md-11">
@@ -209,6 +212,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                         {!! $maintenances->withQueryString()->links('pagination::bootstrap-5') !!}
                     </div>
                 </div>
             </div>

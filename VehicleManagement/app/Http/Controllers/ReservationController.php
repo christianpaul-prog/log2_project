@@ -12,19 +12,24 @@ class ReservationController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $vehicles = Vehicles::whereDoesntHave('maintenances', function ($query) {
+{
+    // Vehicles not in maintenance or trip
+    $vehicles = Vehicles::whereDoesntHave('maintenances', function ($query) {
             $query->where('status', 'on_progress');
         })
-            ->whereDoesntHave('trips', function ($query) {
-                $query->where('status', 'on_work');
-            })
-            ->get();
-        // Fetch all reservations with latest first
-        $reservations = Reservation::with('vehicle')->latest()->get();
+        ->whereDoesntHave('trips', function ($query) {
+            $query->where('status', 'on_work');
+        })
+        ->get();
 
-        return view('reservation.list_reservation', compact('reservations', 'vehicles'));
-    }
+    // Fetch reservations with latest first, paginated
+    $reservations = Reservation::with('vehicle')
+        ->latest()
+        ->paginate(10); // 👈 show 10 per page
+
+    return view('reservation.list_reservation', compact('reservations', 'vehicles'));
+}
+
 
     /**
      * Show the form for creating a new resource.
