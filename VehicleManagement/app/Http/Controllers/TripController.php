@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\trip;
 use App\Models\Reservation;
 use App\Models\Drivers;
 use Illuminate\Http\Request;
+
 
 class TripController extends Controller
 {

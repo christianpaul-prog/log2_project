@@ -2,9 +2,7 @@
 
 @section('content')
 <style>
-    .container-fluid {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+ 
     @keyframes slideUp {
         from {
             transform: translateY(100px);
@@ -66,7 +64,7 @@
     }
 </style>
 
-<div class="container-fluid slide-up mt-5">
+<div class=" slide-up mt-5">
     <div class="vehicle-form-card">
         <div class="form-header">
             <h2><i class="fa-solid fa-car"></i> Add Vehicle</h2>
@@ -111,8 +109,8 @@
                 <div class="full-width">
                     <label class="form-label"><i class="fa-solid fa-gear"></i> Status</label>
                     <select name="status" class="form-select">
-                        <option value="Active">Active</option>
-                        <option value="Inactive">Inactive</option>
+                        <option value="Active">Available</option>
+                        <option value="Inactive">Not Available</option>
                         <option value="Under Maintenance">Under Maintenance</option>
                     </select>
                 </div>

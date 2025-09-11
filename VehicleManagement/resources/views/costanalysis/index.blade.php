@@ -1,437 +1,303 @@
  @extends('layouts.app')
 @section('content')
- <style>
-    .container-fluid {
-           transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-            @keyframes slideUp {
-  from {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);   
-    opacity: 1;
-  }
-}
-.slide-up {
-  animation: slideUp 0.6s ease-out;
-}
+<style>
 
-        .metric-card {
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-            background: white;
-            padding: 1.5rem;
-            height: 100%;
-            transition: all .3s ease;
+  
+    /* Form Card */
+    
+        
+        .form-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
         }
-        .metric-card:hover{
-            transform: translateY(-5px);
-        }
-        .metric-value {
-            font-size: 1.75rem;
+        
+    
+        
+        h4 {
+         
             font-weight: 600;
-            margin: 0.5rem 0;
+            margin-bottom: 2rem;
         }
         
-        .metric-label {
-            color: #6c757d;
-            font-size: 0.875rem;
+        .form-label {
             font-weight: 500;
-        }
-        
-        .chart-placeholder {
-            width: 60px;
-            height: 30px;
-            float: right;
-            margin-top: 10px;
-        }
-        
-      
-        .chart-down {
-            background: linear-gradient(45deg, #dc3545, #fd7e14);
-            border-radius: 3px;
-            position: relative;
-        }
-        
-        .chart-neutral {
-            background: linear-gradient(45deg, #ffc107, #fd7e14);
-            border-radius: 3px;
-            position: relative;
-        }
-        
-        .alert-banner {
-            background: #2f5ac7ff;
-            border: none;
-            color: white;
-            border-radius: 10px;
-            padding: 1rem 1.5rem;
-        }
-        
-        .btn-filter {
-            border: 1px solid #dee2e6;
-            background: white;
-            color: #6c757d;
-            border-radius: 6px;
-            font-size: 0.875rem;
-            padding: 0.5rem 1rem;
-            margin-right: 0.5rem;
-        }
-        
-        .btn-filter.active {
-            background: #2f5ac7ff;
-            color: white;
-            border-color: #6f42c1;
-        }
-        
-        .btn-primary-custom {
-            background: #2f5ac7ff;
-            border-color: #6f42c1;
-            border-radius: 8px;
-            padding: 0.6rem 1.2rem;
-            font-weight: 500;
-        }
-        
-        .table-container {
-            background: white;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-            overflow: hidden;
-        }
-        
-        .table th {
-            background: #f8f9fa;
-            border: none;
-            font-weight: 600;
             color: #495057;
-            font-size: 0.875rem;
-            padding: 1rem;
+            margin-bottom: 0.5rem;
         }
         
-        .table td {
+        .form-control, .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
-            padding: 1rem;
-            vertical-align: middle;
-            transition: all .3s ease;
-        }
-        .table td:hover{
-            transform: translateY(-5px);
-        }
-        .table tbody tr {
-            border-bottom: 1px solid #f1f3f4;
-        }
-        
-        .table tbody tr:last-child {
-            border-bottom: none;
-        }
-        
-        .client-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 0.875rem;
-            margin-right: 0.75rem;
-        }
-        
-        .status-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
             font-weight: 500;
+            transition: transform 0.3s ease;
         }
         
-        .status-open {
-            background: #e3f2fd;
-            color: #1565c0;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        .status-paid {
-            background: #e8f5e8;
-            color: #2e7d32;
+        .form-section {
+            background: rgba(248, 249, 250, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
         }
         
-        .status-refunded {
-            background: #fff3e0;
-            color: #f57c00;
+        .section-title {
+            color: #495057;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #dee2e6;
         }
-        
-        .invoice-type {
-            font-size: 0.875rem;
-            color: #6c757d;
-        }
-        
-        .recurring-info {
-            font-size: 0.75rem;
-            color: #6c757d;
-            margin-top: 0.25rem;
-        }
-    </style>
-</head>
+
+    /* Metric Cards */
+    .metric-card {
+        border-radius: 12px;
+        padding: 1.5rem;
+        background: white;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        text-align: center;
+        transition: 0.3s ease;
+    
+    }
+    .metric-card:hover {
+        transform: translateY(-5px);
+    }
+    .metric-icon {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: #000000;
+    }
+    .metric-value {
+         color: #000000;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0.5rem 0;
+    }
+    .metric-label {
+        color: #6c757d;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    /* Table */
+    .table-container {
+        margin-top: 1.5rem;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            overflow-x: auto;   /* maglalagay ng horizontal scrollbar kung kulang ang width */
+    -webkit-overflow-scrolling: touch;
+    }
+    .table thead td{
+        background: #f8f9fc;
+       
+    } 
+    td{
+        transition: all .3s ease;
+    }
+    td:hover{
+        transform: translateY(-5px);
+    }
+    .table tbody tr:nth-child(even) {
+        background: #fdfdfd;
+    }
+    .table tbody tr:hover {
+        background: #f1f5ff;
+        transition: 0.3s;
+    }
+
+    /* Status badges */
+    .status-badge {
+        padding: 0.3rem 0.8rem;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+    .status-open { background: #e3f2fd; color: #1565c0; }
+    .status-paid { background: #e8f5e8; color: #2e7d32; }
+    .status-refunded { background: #fff3e0; color: #f57c00; }
+</style>
+
 <body class="bg-light">
-    <div class="container-fluid slide-up mt-5 p-4">
-        <!-- Alert Banner -->
-        <div class="alert alert-banner mb-4">
-            <div class="row align-items-center">
-                <div class="col">
-                    <i class="bi bi-link-45deg me-2"></i>
-                    <strong>Get paid without sending an invoice!</strong>
-                   
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-outline-light btn-sm me-2">
-                        <i class="bi bi-eye me-1"></i> Preview
-                    </button>
-                    <button class="btn btn-light btn-sm">
-                        <i class="bi bi-clipboard me-1"></i> Copy
-                    </button>
-                </div>
+   <div class="container mt-5 ">
+        <h4 class="mb-4 text-center">Overview of expenses across fuel, maintenance, and trips</h4>
+        <h6></h6>
+       
+    </div>
+<div class="container mt-5 ">
+    <!-- Metrics -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-tools"></i></div>
+                <div class="metric-label">Maintenance Cost</div>
+                <div class="metric-value">₱{{ number_format($totalMaintenance ?? 0) }}</div>
             </div>
         </div>
-
-        <!-- Action Bar -->
-        <div class="row mb-4">
-            <div class="col">
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-primary-custom me-3">
-                        <i class="bi bi-plus-lg me-2"></i>New Invoice
-                    </button>
-                    
-                    <button class="btn btn-filter active">All</button>
-                    <button class="btn btn-filter">One-time</button>
-                    <button class="btn btn-filter">Recurring</button>
-                    
-                    <div class="dropdown me-2">
-                        <button class="btn btn-filter dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            Status
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">All Statuses</a></li>
-                            <li><a class="dropdown-item" href="#">Open</a></li>
-                            <li><a class="dropdown-item" href="#">Paid</a></li>
-                            <li><a class="dropdown-item" href="#">Refunded</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="dropdown me-2">
-                        <button class="btn btn-filter dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            Clients
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">All Clients</a></li>
-                            <li><a class="dropdown-item" href="#">Recent Clients</a></li>
-                        </ul>
-                    </div>
-                    
-                    <button class="btn btn-filter">
-                        <i class="bi bi-calendar me-1"></i>Due Date
-                    </button>
-                </div>
+        <div class="col-md-4">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-road"></i></div>
+                <div class="metric-label">Trip Expenses</div>
+                <div class="metric-value">₱{{ number_format($totalTrips ?? 0) }}</div>
             </div>
         </div>
-
-        <!-- Metrics Row -->
-        <div class="row mb-4">
-            <div class="col-md-4">
-                <div class="metric-card shadow-lg">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <div class="metric-label">Maintenance</div>
-                            <div class="metric-value">P13,000</div>
-                        </div>
-                       
-                    </div>
-                </div>
+        <div class="col-md-4">
+            <div class="metric-card">
+                <div class="metric-icon"><i class="fas fa-gas-pump"></i></div>
+                <div class="metric-label">Fuel Cost</div>
+                <div class="metric-value">₱{{ number_format($totalFuel ?? 0) }}</div>
             </div>
-            <div class="col-md-4">
-                <div class="metric-card shadow-lg">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <div class="metric-label">Trip Expenses</div>
-                            <div class="metric-value">P2,308</div>
-                        </div>
-                       
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 ">
-                <div class="metric-card shadow-lg">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <div class="metric-label">Fuel Consumption</div>
-                            <div class="metric-value">P10.000</div>
-                        </div>
-                      
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Invoice Table -->
-        <div class="table-container shadow-lg">
-            <table class="table mb-0">
-                <thead>
-                    <tr>
-                        <th>Issue Date</th>
-                        <th>Amount</th>
-                        <th>Invoice #</th>
-                        <th>Client</th>
-                        <th>Due Date</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Oct 18, 2023</td>
-                        <td><strong>52.00</strong></td>
-                        <td>357</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="client-avatar" style="background-color: #ff9800;">W</div>
-                                Wade Warren
-                            </div>
-                        </td>
-                        <td>Oct 18, 2023</td>
-                        <td>
-                            <div class="invoice-type">One-time</div>
-                        </td>
-                        <td><span class="status-badge status-open">Open</span></td>
-                        <td><i class="bi bi-chevron-right text-muted"></i></td>
-                    </tr>
-                    <tr>
-                        <td>Oct 11, 2023</td>
-                        <td><strong>32.00</strong></td>
-                        <td>185</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="client-avatar" style="background-color: #2196f3;">R</div>
-                                Ronald Richards
-                            </div>
-                        </td>
-                        <td>Oct 11, 2023</td>
-                        <td>
-                            <div class="invoice-type">Recurring</div>
-                            <div class="recurring-info">Next Due: Nov 11, 2023</div>
-                        </td>
-                        <td><span class="status-badge status-open">Open</span></td>
-                        <td><i class="bi bi-chevron-right text-muted"></i></td>
-                    </tr>
-                    <tr>
-                        <td>Sep 27, 2023</td>
-                        <td><strong>150.00</strong></td>
-                        <td>583</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="client-avatar" style="background-color: #9c27b0;">A</div>
-                                Annette Black
-                            </div>
-                        </td>
-                        <td>Sep 27, 2023</td>
-                        <td>
-                            <div class="invoice-type">One-time</div>
-                        </td>
-                        <td><span class="status-badge status-paid">Paid</span></td>
-                        <td><i class="bi bi-chevron-right text-muted"></i></td>
-                    </tr>
-                    <tr>
-                        <td>Sep 20, 2023</td>
-                        <td><strong>175.00</strong></td>
-                        <td>740</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="client-avatar" style="background-color: #4caf50;">J</div>
-                                Jane Cooper
-                            </div>
-                        </td>
-                        <td>Sep 20, 2023</td>
-                        <td>
-                            <div class="invoice-type">One-time</div>
-                        </td>
-                        <td><span class="status-badge status-paid">Paid</span></td>
-                        <td><i class="bi bi-chevron-right text-muted"></i></td>
-                    </tr>
-                    <tr>
-                        <td>Sep 13, 2023</td>
-                        <td><strong>99.00</strong></td>
-                        <td>883</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="client-avatar" style="background-color: #cddc39;">D</div>
-                                Dianne Russell
-                            </div>
-                        </td>
-                        <td>Sep 13, 2023</td>
-                        <td>
-                            <div class="invoice-type">One-time</div>
-                        </td>
-                        <td><span class="status-badge status-refunded">Refunded</span></td>
-                        <td><i class="bi bi-chevron-right text-muted"></i></td>
-                    </tr>
-                    <tr>
-                        <td>Sep 10, 2023</td>
-                        <td><strong>259.00</strong></td>
-                        <td>922</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="client-avatar" style="background-color: #3f51b5;">J</div>
-                                Jacob Jones
-                            </div>
-                        </td>
-                        <td>Sep 10, 2023</td>
-                        <td>
-                            <div class="invoice-type">One-time</div>
-                        </td>
-                        <td><span class="status-badge status-open">Open</span></td>
-                        <td><i class="bi bi-chevron-right text-muted"></i></td>
-                    </tr>
-                    <tr>
-                        <td>Aug 29, 2023</td>
-                        <td><strong>599.00</strong></td>
-                        <td>423</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="client-avatar" style="background-color: #f44336;">G</div>
-                                Guy Hawkins
-                            </div>
-                        </td>
-                        <td>Aug 29, 2023</td>
-                        <td>
-                            <div class="invoice-type">One-time</div>
-                        </td>
-                        <td><span class="status-badge status-paid">Paid</span></td>
-                        <td><i class="bi bi-chevron-right text-muted"></i></td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 
+    <!-- Table -->
+    <div class="table-container mt-5">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Vehicle</th>
+                    <th>Fuel</th>
+                    <th>Maintenance</th>
+                    <th>Trip</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($costs as $cost)
+                <tr>
+                    <td>{{ \Carbon\Carbon::parse($cost->date)->format('M d, Y') }}</td>
+                    <td><strong>{{ $cost->vehicle }}</strong></td>
+                    <td>₱{{ number_format($cost->fuel_cost, 2) }}</td>
+                    <td>₱{{ number_format($cost->maintenance_cost, 2) }}</td>
+                    <td>₱{{ number_format($cost->trip_expenses, 2) }}</td>
+                    <td><strong>₱{{ number_format($cost->total_cost, 2) }}</strong></td>
+                    <td>
+                        @if($cost->status == 'Pending')
+                            <span class="status-badge status-open">Pending</span>
+                        @elseif($cost->status == 'Closed')
+                            <span class="status-badge status-paid">Closed</span>
+                        @else
+                            <span class="status-badge status-refunded">Maintenance</span>
+                        @endif
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td colspan="7" class="text-center text-muted">No cost data available</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
+        <div class="p-3">
+            {{ $costs->links() }}
+        </div>
+    </div>
+</div>
+
+ <div class="form-card mt-5">
+            <form action="{{ route('costanalysis.store') }}" method="POST">
+                @csrf
+                
+                <!-- Vehicle & Date Section -->
+                <div class="form-section">
+                    <h6 class="section-title"><i class="fas fa-car"></i> Vehicle Information</h6>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <label class="form-label"><i class="fas fa-calendar-alt"></i> Date</label>
+                            <input type="date" name="date" class="form-control" required>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <label class="form-label"><i class="fas fa-truck"></i> Vehicle</label>
+                            <input type="text" name="vehicle" class="form-control" placeholder="Enter vehicle details" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cost Information Section -->
+                <div class="form-section">
+    <h6 class="section-title"><i class="fas fa-dollar-sign"></i> Cost Information</h6>
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <label class="form-label"><i class="fas fa-gas-pump"></i> Fuel Cost</label>
+            <input type="number" step="0.01" name="fuel_cost" id="fuel_cost" class="form-control" placeholder="0.00" required>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <label class="form-label"><i class="fas fa-wrench"></i> Maintenance Cost</label>
+            <input type="number" step="0.01" name="maintenance_cost" id="maintenance_cost" class="form-control" placeholder="0.00" required>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <label class="form-label"><i class="fas fa-road"></i> Trip Expenses</label>
+            <input type="number" step="0.01" name="trip_expenses" id="trip_expenses" class="form-control" placeholder="0.00" required>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <label class="form-label"><i class="fas fa-calculator"></i> Total</label>
+            <input type="number" step="0.01" name="total_cost" id="total_cost" class="form-control" placeholder="0.00" readonly>
+        </div>
+    </div>
+</div>
+                
+                <!-- Status & Actions Section -->
+                <div class="form-section">
+                    <div class="row align-items-end">
+                        <div class="col-lg-6 col-md-6">
+                            <label class="form-label"><i class="fas fa-info-circle"></i> Status</label>
+                            <select name="status" class="form-select" required>
+                                <option value="">Select Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Closed">Closed</option>
+                                <option value="Maintenance">Maintenance</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-6 text-end">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-save"></i> Save Record
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+
    
     <script>
-        // Add interactivity for filter buttons
-        document.querySelectorAll('.btn-filter:not(.dropdown-toggle)').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.btn-filter:not(.dropdown-toggle)').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
+    function calculateTotal() {
+        let fuel = parseFloat(document.getElementById("fuel_cost").value) || 0;
+        let maintenance = parseFloat(document.getElementById("maintenance_cost").value) || 0;
+        let trip = parseFloat(document.getElementById("trip_expenses").value) || 0;
 
-        // Add hover effects for table rows
-        document.querySelectorAll('tbody tr').forEach(row => {
-            row.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = '#f8f9fa';
-                this.style.cursor = 'pointer';
-            });
-            row.addEventListener('mouseleave', function() {
-                this.style.backgroundColor = '';
-            });
-        });
-    </script>
+        let total = fuel + maintenance + trip;
+        document.getElementById("total_cost").value = total.toFixed(2);
+    }
+
+    document.getElementById("fuel_cost").addEventListener("input", calculateTotal);
+    document.getElementById("maintenance_cost").addEventListener("input", calculateTotal);
+    document.getElementById("trip_expenses").addEventListener("input", calculateTotal);
+</script>
+
     @endsection('content')

@@ -22,11 +22,14 @@
 
         <div class="main">
             @include('partials.header')
-            <main>
+            <main class="content px-3 py-2">
                 @yield('content')
             </main>
+            <footer class="footer">
+        
+     @include('partials.footer')
+</footer>
         </div>
-    </div>
     </div>
 
 

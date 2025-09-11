@@ -8,15 +8,23 @@ use App\Models\Vehiclesreport;
 
 class VehiclesreportController extends Controller
 {
-   public function index()
+public function index(Request $request)
 {
-    // All vehicles (for the table)
-    $vehicles = Vehiclesreport::latest()->paginate(10);
+    // Start query
+    $query = Vehiclesreport::query();
+
+    // If may status filter, apply it
+    if ($request->has('status') && $request->status != null) {
+        $query->where('status', $request->status);
+    }
+
+    // Vehicles for the table (filtered kung may request)
+    $vehicles = $query->latest()->paginate(10);
 
     // Counts for the dashboard boxes
-    $totalVehicles   = Vehiclesreport::count();
-    $activeCount     = Vehiclesreport::where('status', 'Active')->count();
-    $inactiveCount   = Vehiclesreport::where('status', 'Inactive')->count();
+    $totalVehicles    = Vehiclesreport::count();
+    $activeCount      = Vehiclesreport::where('status', 'Active')->count();
+    $inactiveCount    = Vehiclesreport::where('status', 'Inactive')->count();
     $maintenanceCount = Vehiclesreport::where('status', 'Under Maintenance')->count();
 
     return view('reports.vehiclereport.index', compact(

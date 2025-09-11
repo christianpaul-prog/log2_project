@@ -4,6 +4,7 @@
 <style>
     .container-fluid {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+         color: #000000;
     }
     @keyframes slideUp {
         from { transform: translateY(100px); opacity: 0; }
@@ -92,8 +93,8 @@
                     <div class="mb-3">
                         <label class="form-label"><i class="fa-solid fa-gear"></i> Status</label>
                         <select name="status" class="form-select">
-                            <option value="Active" {{ $vehicle->status == 'Active' ? 'selected' : '' }}>Active</option>
-                            <option value="Inactive" {{ $vehicle->status == 'Inactive' ? 'selected' : '' }}>Inactive</option>
+                            <option value="Available" {{ $vehicle->status == 'Active' ? 'selected' : '' }}>Available</option>
+                            <option value="Not Available" {{ $vehicle->status == 'Inactive' ? 'selected' : '' }}>Not Available</option>
                             <option value="Under Maintenance" {{ $vehicle->status == 'Under Maintenance' ? 'selected' : '' }}>Under Maintenance</option>
                         </select>
                     </div>

@@ -10,6 +10,9 @@ use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VehiclesreportController;
 use App\Http\Controllers\TripController;
+use App\Http\Controllers\CostAnalysisController;
+use App\Http\Controllers\DashboardController;
+
 
 Route::get('/', function () {
 
@@ -64,7 +67,7 @@ Route::get('/dispatch',[TripController::class,'index'])->name('trip.index');
 Route::get('/dispatch/create', [TripController::class, 'create'])->name('trip.create');
 Route::post('/dispatch',[TripController::class,'store'])->name('trip.store');
 
-
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('pages.dashboard');
 
 Route::get('/dashboard', function () {
     return view('pages.dashboard');
@@ -103,10 +106,18 @@ Route::prefix('reports')->as('reports.')->group(function () {
     ]);
 });
 
-Route::get('/costanalysis', function () {
-    return view('costanalysis.index');
-})->name('costanalysis.index');
 
+
+Route::get('/costanalysis', [CostAnalysisController::class, 'index'])
+    ->name('costanalysis.index');
+
+Route::post('/costanalysis', [CostAnalysisController::class, 'store'])
+    ->name('costanalysis.store');
+
+
+Route::get('/trips', function () {
+    return view('trips.tripperformance');
+})->name('trips.tripperformance');
 
 
 
