@@ -15,35 +15,38 @@ class TripController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-         // Fetch all trips with related vehicle, driver, and reservation
+{
+    // Fetch all trips with related vehicle, driver, and reservation, paginated
     $trips = Trip::with(['vehicle', 'driver', 'reservation'])
                  ->latest()
-                 ->get();
+                 ->paginate(10); // 👈 change 10 to however many per page you want
+
     $drivers = Drivers::all();
+
     return view('dispatch.list_dispatch', compact('trips', 'drivers'));
-    }
+}
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        // Fetch drivers that are NOT already on a dispatch (on_work)
-        $drivers = Drivers::whereDoesntHave('trips', function ($query) {
-            $query->whereIn('status', ['on_work', 'pending']);
-        })->get();
+public function create()
+{
+    // Fetch drivers that are NOT already on a dispatch (on_work, pending)
+    $drivers = Drivers::whereDoesntHave('trips', function ($query) {
+        $query->whereIn('status', ['on_work', 'pending']);
+    })->get();
 
-         // Reservations without a trip, load the related vehicle
+    // Reservations without a trip, load the related vehicle (with pagination)
     $reservations = Reservation::with('vehicle')
         ->whereDoesntHave('trip')
-        ->get();
+        ->latest()
+        ->paginate(10); // 👈 add pagination here
 
     // Get all vehicles tied to those reservations
     $vehicles = $reservations->pluck('vehicle')->filter();
 
-     return view('dispatch.create_dispatch', compact('drivers', 'reservations', 'vehicles'));
-    }
+    return view('dispatch.create_dispatch', compact('drivers', 'reservations', 'vehicles'));
+}
 
     /**
      * Store a newly created resource in storage.

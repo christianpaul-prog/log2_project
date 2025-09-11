@@ -1,25 +1,27 @@
 @extends('layouts.app')
 @section('title', 'Fleet Vehicle Management')
 @section('content')
-<style>
-     .container-fluid {
-           transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-            @keyframes slideUp {
-  from {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);   
-    opacity: 1;
-  }
-}
-.slide-up {
-  animation: slideUp 0.6s ease-out;
-}
+    <style>
+        .container-fluid {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-</style>
+        @keyframes slideUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+    </style>
     <!-- Add Vehicle Modal -->
     <div class="modal fade" id="vehicleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="vehicleModalLabel" aria-hidden="true">
@@ -153,47 +155,41 @@
             </div>
         </div>
     </div>
-       <h2 class="text-center my-4"><i class="fa-solid fa-truck"></i>Vehicle Management</h2>
-     <div class="row g-4 mt-5">
-        <div class="col-md-3">
-            <div class="card shadow-lg border-0 rounded-3">
-                <div class="card-body">
-                    <h6 class="text-muted">Total Vehicles</h6>
-                    <h3 class="fw-bold">120</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-lg border-0 rounded-3">
-                <div class="card-body">
-                    <h6 class="text-muted">Good Conditions</h6>
-                    <h3 class="fw-bold">45</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-lg border-0 rounded-3">
-                <div class="card-body">
-                    <h6 class="text-muted">Pending Maintenance</h6>
-                    <h3 class="fw-bold">12</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card shadow-lg border-0 rounded-3">
-                <div class="card-body">
-                    <h6 class="text-muted">Reports</h6>
-                    <h3 class="fw-bold">30</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- Main Content -->
     <div id="MainContent" class="container-fluid slide-up">
-        <div class="row">
-            <div class="col-md-11">
-             
-                <p class="text-center my-4">Manage your fleet vehicles eficiently</p>
+        <!-- Header Section -->
+        <div class="py-5 mb-4 text-center text-white mt-5"
+            style="background: linear-gradient(135deg, #4e73df, #3751c1); border-radius: 12px;">
+            <h2 class="fw-bold mb-1">Fleet Vehicle Management</h2>
+            <p class="mb-0">Manage your fleet efficiently and keep everything on track</p>
+        </div>
+
+        <!-- Summary Boxes -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-3">
+                <div class="card text-center p-4 shadow-sm border-0 rounded-4" style="background-color: #ffffff;">
+                    <h6 class="text-muted mb-2">Total Vehicles</h6>
+                    <h3 class="fw-bold text-dark">120</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center p-4 shadow-sm border-0 rounded-4" style="background-color: #f8fbff;">
+                    <h6 class="text-muted mb-2">On Dispatch</h6>
+                    <h3 class="fw-bold text-primary">45</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center p-4 shadow-sm border-0 rounded-4" style="background-color: #fffaf4;">
+                    <h6 class="text-muted mb-2">Under Maintenance</h6>
+                    <h3 class="fw-bold text-warning">12</h3>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center p-4 shadow-sm border-0 rounded-4" style="background-color: #fff5f5;">
+                    <h6 class="text-muted mb-2">Reports</h6>
+                    <h3 class="fw-bold text-danger">30</h3>
+                </div>
             </div>
         </div>
 
@@ -205,7 +201,11 @@
                     text: '{{ session('success') }}',
                     timer: 2000, // auto close after 2 seconds
                     showConfirmButton: false,
-                    timerProgressBar: true
+                    timerProgressBar: true,
+                    width: '350px', // 👈 smaller width (default is ~500px)
+                    customClass: {
+                        popup: 'swal-small-box'
+                    }
                 });
             </script>
         @endif
@@ -344,7 +344,7 @@
                                                                             value="suv"{{ old('type', $vehicle->type) == 'suv' ? 'selected' : '' }}>
                                                                             SUV</option>
                                                                         <option value="truck"
-                                                                            {{ old('type', $vehicle->type) == 'tuck' ? 'selected' : '' }}>
+                                                                            {{ old('type', $vehicle->type) == 'truck' ? 'selected' : '' }}>
                                                                             Truck</option>
                                                                         <option value="van"
                                                                             {{ old('type', $vehicle->type) == 'van' ? 'selected' : '' }}>
@@ -376,7 +376,7 @@
                                                                     <input type="text" name="odemeter"
                                                                         class="@error('odemeter') is-invalid @enderror form-control"
                                                                         required
-                                                                        value="{{ session('modal') === 'add' ? old('odemeter') : '' }}">
+                                                                        value="{{ old('odemeter', $vehicle->odemeter) }}">
                                                                     @error('odemeter')
                                                                         <div class="alert alert-danger mt-2">
                                                                             {{ $message }}</div>
@@ -388,8 +388,8 @@
                                                                     <input type="text" name="plate_no"
                                                                         class=" @error('plate_no') is-invalid @enderror form-control"
                                                                         required
-                                                                        value="{{ session('modal') === 'add' ? old('plate_no') : '' }}">
-                                                                    @error('vin')
+                                                                        value="{{ old('plate_no', $vehicle->plate_no) }}">
+                                                                    @error('plate_no')
                                                                         <div class="alert alert-danger mt-2">
                                                                             {{ $message }}</div>
                                                                     @enderror
@@ -399,7 +399,7 @@
                                                                     <input type="text" name="owner"
                                                                         class="@error('owner') is-invalid @enderror form-control"
                                                                         required
-                                                                        value="{{ session('modal') === 'add' ? old('owner') : '' }}">
+                                                                        value="{{ old('owner', $vehicle->owner) }}">
                                                                     @error('owner')
                                                                         <div class="alert alert-danger mt-2">
                                                                             {{ $message }}</div>

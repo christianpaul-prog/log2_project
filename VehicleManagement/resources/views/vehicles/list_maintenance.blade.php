@@ -69,6 +69,7 @@
         animation: slideUp 0.4s ease;
     }
 </style>
+<<<<<<< HEAD
 
 <!-- Main Content -->
 <div id="MainContent" class="container-fluid slide-up">
@@ -80,6 +81,31 @@
             <p class="text-center">Manage your fleet vehicles efficiently</p>
         </div>
     </div>
+=======
+    <!-- Main Content -->
+    <div id="MainContent" class="container-fluid slide-up">
+            <div class="py-5 mb-4 text-center text-white mt-5" 
+         style="background: linear-gradient(135deg, #4e73df, #3751c1); border-radius: 12px;">
+        <h2 class="fw-bold mb-1"><i class="fa-solid fa-screwdriver-wrench"></i> List Maintenance</h2>
+        <p class="mb-0">Manage your fleet vehicles efficiently</p>
+    </div>
+       @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{{ session('success') }}',
+            timer: 2000, // auto close after 2 seconds
+            showConfirmButton: false,
+            timerProgressBar: true,
+            width: '350px', // 👈 smaller width (default is ~500px)
+            customClass: {
+                popup: 'swal-small-box'
+            }
+        });
+    </script>
+@endif
+>>>>>>> 27743eb4484419f78cec54039c36c613b1237f59
 
     @if (session('success'))
         <script>
@@ -229,10 +255,19 @@
                                             </div>
                                         </div>
                                     </div>
+<<<<<<< HEAD
                                 </div>
                             @endforeach
                         </tbody>
                     </table>
+=======
+                                    <!-- End View Edit Modal -->
+                                @endforeach
+                            </tbody>
+                        </table>
+                         {!! $maintenances->withQueryString()->links('pagination::bootstrap-5') !!}
+                    </div>
+>>>>>>> 27743eb4484419f78cec54039c36c613b1237f59
                 </div>
             </div>
         </div>
