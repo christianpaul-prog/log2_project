@@ -60,7 +60,7 @@
             letter-spacing: 0.5px;
         }
     </style>
-    <div class="container-flui slide-up my-5">
+    <div class="container-fluid slide-up my-5">
         <!-- Header -->
         <div class="page-header">
             <h2>Reservation List</h2>

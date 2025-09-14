@@ -75,7 +75,7 @@
     .metric-card {
         border-radius: 12px;
         padding: 1.5rem;
-        background: white;
+        background: linear-gradient(135deg, #6a11cb, #2575fc);
         box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         text-align: center;
         transition: 0.3s ease;
@@ -87,16 +87,16 @@
     .metric-icon {
         font-size: 1.8rem;
         margin-bottom: 0.5rem;
-        color: #000000;
+        color: #ccccccff;
     }
     .metric-value {
-         color: #000000;
+         color: #fff;
         font-size: 1.8rem;
         font-weight: 700;
         margin: 0.5rem 0;
     }
     .metric-label {
-        color: #6c757d;
+        color: #fff;
         font-size: 0.9rem;
         font-weight: 500;
     }
@@ -139,12 +139,68 @@
     .status-open { background: #e3f2fd; color: #1565c0; }
     .status-paid { background: #e8f5e8; color: #2e7d32; }
     .status-refunded { background: #fff3e0; color: #f57c00; }
+
+    .pagination {
+    justify-content: center;  /* center align */
+    margin-top: 1rem;
+}
+
+.pagination .page-link {
+    border-radius: 6px !important;
+    padding: 0.35rem 0.75rem; /* mas maliit na padding */
+    font-size: 0.85rem;       /* mas maliit na font */
+    color: #495057;
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    background: #667eea;
+    color: #fff;
+    border-color: #667eea;
+}
+
+.pagination .page-item.active .page-link {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+    color: #fff;
+    font-weight: 600;
+}
+  /* Notification List Wrapper */
+    .notification-list {
+        max-height: 350px; 
+        overflow-y: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    /* Notification Item */
+    .notification-item {
+        border-left: 4px solid transparent;
+        transition: all 0.2s ease-in-out;
+        padding: 12px 15px;
+    }
+
+    /* Hover Effect */
+    .notification-item:hover {
+        background-color: #f8f9fa;
+        border-left: 4px solid #0d6efd;
+    }
+
+    /* Scrollbar Styling */
+    .notification-list::-webkit-scrollbar {
+        width: 6px;
+    }
+    .notification-list::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 10px;
+    }
 </style>
 
 <body class="bg-light">
    <div class="container mt-5 ">
         <h4 class="mb-4 text-center">Overview of expenses across fuel, maintenance, and trips</h4>
-        <h6></h6>
+       
        
     </div>
 <div class="container mt-5 ">
@@ -174,51 +230,94 @@
     </div>
 
     <!-- Table -->
-    <div class="table-container mt-5">
-        <table class="table mb-0">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Vehicle</th>
-                    <th>Fuel</th>
-                    <th>Maintenance</th>
-                    <th>Trip</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($costs as $cost)
-                <tr>
-                    <td>{{ \Carbon\Carbon::parse($cost->date)->format('M d, Y') }}</td>
-                    <td><strong>{{ $cost->vehicle }}</strong></td>
-                    <td>₱{{ number_format($cost->fuel_cost, 2) }}</td>
-                    <td>₱{{ number_format($cost->maintenance_cost, 2) }}</td>
-                    <td>₱{{ number_format($cost->trip_expenses, 2) }}</td>
-                    <td><strong>₱{{ number_format($cost->total_cost, 2) }}</strong></td>
-                    <td>
-                        @if($cost->status == 'Pending')
-                            <span class="status-badge status-open">Pending</span>
-                        @elseif($cost->status == 'Closed')
-                            <span class="status-badge status-paid">Closed</span>
-                        @else
-                            <span class="status-badge status-refunded">Maintenance</span>
-                        @endif
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="7" class="text-center text-muted">No cost data available</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
-        <div class="p-3">
-            {{ $costs->links() }}
-        </div>
-    </div>
+    <!-- Table -->
+<div class="table-container mt-5">
+    <table class="table mb-0">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Vehicle</th>
+                <th>Fuel</th>
+                <th>Maintenance</th>
+                <th>Trip</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Actions</th> <!-- ADD THIS -->
+            </tr>
+        </thead>
+        <tbody>
+            @forelse($costs as $cost)
+            <tr>
+                <td>{{ \Carbon\Carbon::parse($cost->date)->format('M d, Y') }}</td>
+                <td><strong>{{ $cost->vehicle }}</strong></td>
+                <td>₱{{ number_format($cost->fuel_cost, 2) }}</td>
+                <td>₱{{ number_format($cost->maintenance_cost, 2) }}</td>
+                <td>₱{{ number_format($cost->trip_expenses, 2) }}</td>
+                <td><strong>₱{{ number_format($cost->total_cost, 2) }}</strong></td>
+                <td>
+                    @if($cost->status == 'Pending')
+                        <span class="status-badge status-open">Pending</span>
+                    @elseif($cost->status == 'Closed')
+                        <span class="status-badge status-paid">Closed</span>
+                    @else
+                        <span class="status-badge status-refunded">Maintenance</span>
+                    @endif
+                </td>
+                <td>
+                    <!-- Delete Form -->
+                    <form action="{{ route('costanalysis.destroy', $cost->id) }}" 
+                          method="POST" 
+                          onsubmit="return confirm('Are you sure you want to delete this record?');"
+                          style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            @empty
+            <tr>
+                <td colspan="8" class="text-center text-muted">No cost data available</td>
+            </tr>
+            @endforelse
+        </tbody>
+    </table>
+    <div class="p-3">
+    {{ $costs->links('pagination::bootstrap-5') }}
+</div>
 </div>
 
+
+
+<ul class="list-group list-group-flush mt-5 notification-list">   
+     <h6 class="ms-2">Notification</h6>
+    @forelse($notifications as $note)
+        <li class="list-group-item notification-item">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <span class="badge bg-primary me-2">{{ $note->type }}</span>
+                    <span>{{ $note->message }}</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <small class="text-muted">{{ $note->created_at->diffForHumans() }}</small>
+                    
+                    <!-- Delete button -->
+                    <form action="{{ route('notifications.destroy', $note->id) }}" method="POST" class="m-0 p-0">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-light text-danger border-0 p-0 ms-2 delete-btn">
+                            ✖
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </li>
+    @empty
+        <li class="list-group-item text-muted text-center">No notifications yet.</li>
+    @endforelse
+</ul>
  <div class="form-card mt-5">
             <form action="{{ route('costanalysis.store') }}" method="POST">
                 @csrf

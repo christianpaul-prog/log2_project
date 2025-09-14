@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\CostAnalysis; // <-- import model
+use App\Models\CostAnalysis;
+use App\Models\Notification; // <-- import model
 
 class CostAnalysisController extends Controller
 {
@@ -13,6 +14,7 @@ class CostAnalysisController extends Controller
         
         // list of records (paginated)
         $costs = CostAnalysis::latest()->paginate(10);
+ $notifications = Notification::latest()->take(10)->get();
 
         // aggregate metrics
         $totalFuel        = CostAnalysis::sum('fuel_cost');
@@ -20,9 +22,12 @@ class CostAnalysisController extends Controller
         $totalTrips       = CostAnalysis::sum('trip_expenses');
         $grandTotal       = CostAnalysis::sum('total_cost');
 
+        
+
         // tamaan mo kung alin yung folder name na ginamit mo sa views
         return view('costanalysis.index', compact(
             'costs',
+            'notifications',
             'totalFuel',
             'totalMaintenance',
             'totalTrips',
@@ -65,9 +70,22 @@ class CostAnalysisController extends Controller
         return redirect()->route('costanalysis.index')->with('success', 'Cost record updated successfully!');
     }
 
-    public function destroy(CostAnalysis $costAnalysis)
-    {
-        $costAnalysis->delete();
-        return redirect()->route('costanalysis.index')->with('success', 'Cost record deleted successfully!');
-    }
+   public function destroy($id)
+{
+    $cost = CostAnalysis::findOrFail($id);
+    $cost->delete();
+
+    return redirect()->route('costanalysis.index')->with('success', 'Cost record deleted successfully!');
 }
+
+
+public function destroyNotification($id)
+{
+    $notification = Notification::findOrFail($id);
+    $notification->delete();
+
+    return redirect()->back()->with('success', 'Notification deleted successfully!');
+}
+}
+
+

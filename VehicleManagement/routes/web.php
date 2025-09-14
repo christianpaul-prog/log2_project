@@ -12,6 +12,8 @@ use App\Http\Controllers\VehiclesreportController;
 use App\Http\Controllers\TripController;
 use App\Http\Controllers\CostAnalysisController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BudgetForecastingController;
+
 
 
 Route::get('/', function () {
@@ -108,17 +110,23 @@ Route::prefix('reports')->as('reports.')->group(function () {
 
 
 
-Route::get('/costanalysis', [CostAnalysisController::class, 'index'])
-    ->name('costanalysis.index');
 
-Route::post('/costanalysis', [CostAnalysisController::class, 'store'])
-    ->name('costanalysis.store');
+    Route::resource('costanalysis', CostAnalysisController::class);
+Route::delete('/costanalysis/{costanalysis}', [CostAnalysisController::class, 'destroy'])
+     ->name('costanalysis.destroy');
+
 
 
 Route::get('/trips', function () {
     return view('trips.tripperformance');
 })->name('trips.tripperformance');
 
+Route::get('/budget-forecasting', [BudgetForecastingController::class, 'index'])->name('budget_forecasting.index');
+Route::post('/budget-forecasting/store', [BudgetForecastingController::class, 'store'])->name('budget_forecasting.store');
 
+// Finance approval routes
+Route::post('/budget-forecasting/{id}/approve', [BudgetForecastingController::class, 'approve'])->name('budget_forecasting.approve');
+Route::post('/budget-forecasting/{id}/reject', [BudgetForecastingController::class, 'reject'])->name('budget_forecasting.reject');
 
-
+Route::delete('/notifications/{id}', [CostAnalysisController::class, 'destroyNotification'])
+    ->name('notifications.destroy');

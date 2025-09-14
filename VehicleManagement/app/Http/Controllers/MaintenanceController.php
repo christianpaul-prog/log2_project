@@ -8,6 +8,7 @@ use App\Models\Drivers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Notification;
 
 class MaintenanceController extends Controller
 {
@@ -74,6 +75,11 @@ class MaintenanceController extends Controller
         $maintenance->status = 'in_progress'; // Set initial status to in_progress
 
         $maintenance->save(); // Save the maintenance record to the database
+
+         Notification::create([
+        'type' => 'Maintenance',
+        'message' => "Maintenance created for Vehicle ID {$maintenance->vehicle_id} with cost ₱" . number_format($maintenance->cost, 2),
+    ]);
         return redirect()->route('maintenance.index')->with('success', 'Maintenance record created successfully.');
     }
 
@@ -115,6 +121,10 @@ class MaintenanceController extends Controller
 
     // Update record
     $maintenance->update($validated);
+      Notification::create([
+        'type' => 'Maintenance',
+        'message' => "Maintenance for Vehicle ID {$maintenance->vehicle_id} completed. Final cost: ₱" . number_format($maintenance->cost, 2),
+    ]);
 
     return redirect()->route('maintenance.index')
         ->with('success', 'Maintenance record updated and marked as completed.');

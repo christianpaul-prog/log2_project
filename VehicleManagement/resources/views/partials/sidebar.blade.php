@@ -93,16 +93,17 @@
                              <li class="sidebar-item">
                                 <a href="{{route('driver.driver_report')}}" class="sidebar-link {{ request()->routeIs('driver.driver_report') ? 'active' : '' }}"> - Driver Report</a>
                             </li>
+                           
                         </ul>
                     </li>
 
                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link {{ request()->routeIs('cost_optimization.analytics','fuelcost.fuel-cost','costanalysis.index') ? '' : 'collapsed' }}" data-bs-target="#analytic" data-bs-toggle="collapse"
+                        <a href="#" class="sidebar-link {{ request()->routeIs('cost_optimization.analytics','fuelcost.fuel-cost','costanalysis.index','budget_forecasting.index') ? '' : 'collapsed' }}" data-bs-target="#analytic" data-bs-toggle="collapse"
                             aria-expanded="false">
                             <i class="fa-solid fa-chart-simple pe-2"></i>
                             Transport Cost Analy.
                         </a>
-                        <ul id="analytic" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('cost_optimization.analytics','fuelcost.fuel-cost','costanalysis.index') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
+                        <ul id="analytic" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('cost_optimization.analytics','fuelcost.fuel-cost','costanalysis.index','budget_forecasting.index') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
                             <li class="sidebar-item">
                                 <a href="{{route('cost_optimization.analytics')}}" class="sidebar-link {{ request()->routeIs('cost_optimization.analytics') ? 'active' : '' }}"> - Analysis</a>
                             </li>
@@ -115,11 +116,7 @@
                             </li>
 
                              <li class="sidebar-item">
-                                <a href="#" class="sidebar-link"> - Vehicle Utilization</a>
-                            </li>
-
-                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link"> - Budget Forecasting</a>
+                                <a href="{{route('budget_forecasting.index')}}" class="sidebar-link {{ request()->routeIs('budget_forecasting.index') ? 'active' : '' }}"> - Budget Forecasting</a>
                             </li>
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link "> - </a>

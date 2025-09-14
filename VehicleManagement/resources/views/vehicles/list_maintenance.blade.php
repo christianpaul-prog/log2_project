@@ -69,7 +69,6 @@
         animation: slideUp 0.4s ease;
     }
 </style>
-<<<<<<< HEAD
 
 <!-- Main Content -->
 <div id="MainContent" class="container-fluid slide-up">
@@ -81,7 +80,7 @@
             <p class="text-center">Manage your fleet vehicles efficiently</p>
         </div>
     </div>
-=======
+
     <!-- Main Content -->
     <div id="MainContent" class="container-fluid slide-up">
             <div class="py-5 mb-4 text-center text-white mt-5" 
@@ -105,7 +104,7 @@
         });
     </script>
 @endif
->>>>>>> 27743eb4484419f78cec54039c36c613b1237f59
+
 
     @if (session('success'))
         <script>
@@ -159,7 +158,7 @@
                                     <td>{{ $maintenance->service_details }}</td>
                                     <td>{{ $maintenance->start_date }}</td>
                                     <td>{{ $maintenance->end_date }}</td>
-                                    <td>${{ number_format($maintenance->cost, 2) }}</td>
+                                    <td>P{{ number_format($maintenance->cost, 2) }}</td>
                                     <td>
                                         @if ($maintenance->status == 'completed')
                                             <span class="badge bg-success">Completed</span>
@@ -239,7 +238,7 @@
                                                             <input type="text" class="form-control"
                                                                 value="{{ ucfirst(str_replace('_',' ', $maintenance->service_type)) }}" readonly>
                                                         </div>
-                                                    </div>
+                                                 
 
                                                     <div class="mb-3">
                                                         <label class="form-label">Notes</label>
@@ -255,19 +254,19 @@
                                             </div>
                                         </div>
                                     </div>
-<<<<<<< HEAD
+
                                 </div>
                             @endforeach
                         </tbody>
                     </table>
-=======
+
                                     <!-- End View Edit Modal -->
-                                @endforeach
+                           
                             </tbody>
                         </table>
                          {!! $maintenances->withQueryString()->links('pagination::bootstrap-5') !!}
                     </div>
->>>>>>> 27743eb4484419f78cec54039c36c613b1237f59
+
                 </div>
             </div>
         </div>
