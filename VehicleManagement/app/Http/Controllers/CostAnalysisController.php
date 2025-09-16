@@ -14,25 +14,36 @@ class CostAnalysisController extends Controller
         
         // list of records (paginated)
         $costs = CostAnalysis::latest()->paginate(10);
- $notifications = Notification::latest()->take(10)->get();
+ $notifications = Notification::where('type', 'Maintenance')
+    ->latest()
+    ->take(10)
+    ->get();
 
-        // aggregate metrics
-        $totalFuel        = CostAnalysis::sum('fuel_cost');
-        $totalMaintenance = CostAnalysis::sum('maintenance_cost');
-        $totalTrips       = CostAnalysis::sum('trip_expenses');
-        $grandTotal       = CostAnalysis::sum('total_cost');
+  // Kunin lahat ng total per category
+  $totalFuel = CostAnalysis::where('status', 'Closed')->sum('fuel_cost');
+$totalTrips = CostAnalysis::where('status', 'Closed')->sum('trip_expenses');
+$totalMaintenance = CostAnalysis::where('status', 'Closed')->sum('maintenance_cost');
 
-        
+// Kunin yung previous na total para may comparison
+$prevFuel = CostAnalysis::whereMonth('date', now()->subMonth()->month)->sum('fuel_cost');
+$prevTrips = CostAnalysis::whereMonth('date', now()->subMonth()->month)->sum('trip_expenses');
+$prevMaintenance = CostAnalysis::whereMonth('date', now()->subMonth()->month)->sum('maintenance_cost');
 
-        // tamaan mo kung alin yung folder name na ginamit mo sa views
-        return view('costanalysis.index', compact(
-            'costs',
-            'notifications',
-            'totalFuel',
-            'totalMaintenance',
-            'totalTrips',
-            'grandTotal'
-        ));
+// Compute percentage change (iwas divide by zero)
+$fuelChange = $prevFuel > 0 ? (($totalFuel - $prevFuel) / $prevFuel) * 100 : 0;
+$tripChange = $prevTrips > 0 ? (($totalTrips - $prevTrips) / $prevTrips) * 100 : 0;
+$maintenanceChange = $prevMaintenance > 0 ? (($totalMaintenance - $prevMaintenance) / $prevMaintenance) * 100 : 0;
+
+
+    // Notifications
+    $notifications = Notification::where('type', 'Maintenance')->latest()->take(10)->get();
+
+return view('costanalysis.index', compact(
+    'totalFuel', 'totalTrips', 'totalMaintenance',
+    'fuelChange', 'tripChange', 'maintenanceChange',
+    'costs', 'notifications'
+));
+
     }
 
     public function store(Request $request)
@@ -43,7 +54,7 @@ class CostAnalysisController extends Controller
             'fuel_cost'        => 'required|numeric|min:0',
             'maintenance_cost' => 'required|numeric|min:0',
             'trip_expenses'    => 'required|numeric|min:0',
-            'status'           => 'required|in:Pending,Closed,Maintenance',
+            'status'           => 'required|in:Pending,Closed',
         ]);
 
         CostAnalysis::create($request->all());
@@ -63,7 +74,7 @@ class CostAnalysisController extends Controller
             'fuel_cost'        => 'required|numeric|min:0',
             'maintenance_cost' => 'required|numeric|min:0',
             'trip_expenses'    => 'required|numeric|min:0',
-            'status'           => 'required|in:Pending,Closed,Maintenance',
+            'status'           => 'required|in:Pending',
         ]);
 
         $costAnalysis->update($request->all());
@@ -81,11 +92,21 @@ class CostAnalysisController extends Controller
 
 public function destroyNotification($id)
 {
-    $notification = Notification::findOrFail($id);
+    // Hanapin lang kung notification ay maintenance type
+    $notification = Notification::where('id', $id)
+        ->where('type', 'Maintenance') // filter by type
+        ->first();
+
+    if (!$notification) {
+        return redirect()->back()->with('error', 'Only maintenance notifications can be deleted from the dashboard.');
+    }
+
     $notification->delete();
 
-    return redirect()->back()->with('success', 'Notification deleted successfully!');
+    return redirect()->back()->with('success', 'Maintenance notification deleted successfully!');
 }
+
+
 }
 
 

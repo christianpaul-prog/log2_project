@@ -6,25 +6,43 @@ use App\Models\Maintenance;
 use App\Models\Report;
 use App\Models\Trip;
 use App\Models\Reservation;
+use App\Models\Notification;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $totalVehicles    = Vehicles::count();
-        $activeVehicles   = Vehicles::where('status', 'active')->count();
-        $pendingMaint     = Maintenance::where('status', 'pending')->count();
-        $reportsCount     = Report::count();
-        $totalTrips       = Trip::count();
-        $totalReservations= Reservation::count();
+  $pendingMaint = Maintenance::where('status','in_progress')->count();
+    $notifications = Notification::whereIn('type', ['Maintenance', 'Vehicle'])
+        ->latest()
+        ->take(10)
+        ->get();
+     
+      
 
-        return view('dashboard.index', compact(
+        return view('pages.dashboard', compact(
             'totalVehicles',
-            'activeVehicles',
             'pendingMaint',
-            'reportsCount',
-            'totalTrips',
-            'totalReservations'
+              'notifications'
+       
+           
         ));
     }
+public function destroyNotification($id)
+{
+    // hanapin lang yung notification na pasok sa dashboard types
+    $notification = Notification::where('id', $id)
+        ->whereIn('type', ['Maintenance', 'Vehicle'])
+        ->first();
+
+    if (!$notification) {
+        return redirect()->back()->with('error', 'This notification cannot be deleted from the dashboard.');
+    }
+
+    $notification->delete();
+
+    return redirect()->back()->with('success', 'Notification deleted successfully!');
+}
+
 }

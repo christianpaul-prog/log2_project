@@ -36,35 +36,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
             crossorigin="anonymous"></script>
-        <script>
-        const sidebarToggle = document.querySelector("#sidebar-toggle");
-        sidebarToggle.addEventListener("click",function(){
-            document.querySelector("#sidebar").classList.toggle("collapsed");
-              document.querySelector(".main").classList.toggle("expanded");
-        });
-document.addEventListener("DOMContentLoaded", function () {
-  const modeToggle = document.querySelector(".mode-toggle");
-  const main = document.querySelector(".main");
-  const sidebar = document.querySelector("#sidebar"); // 👈 idagdag mo ito
-
-  if (localStorage.getItem("dark-mode") === "enabled") {
-    main.classList.add("dark");
-    sidebar.classList.add("dark"); // 👈 apply din sa sidebar
-  }
-
-  modeToggle.addEventListener("click", () => {
-    main.classList.toggle("dark");
-    sidebar.classList.toggle("dark"); // 👈 toggle din sa sidebar
-
-    if (main.classList.contains("dark")) {
-      localStorage.setItem("dark-mode", "enabled");
-    } else {
-      localStorage.setItem("dark-mode", "disabled");
-    }
-  });
-});
-
-        </script>
+        <script src="{{ asset('js/script.js') }}"></script>
     </body>
 
 </html>

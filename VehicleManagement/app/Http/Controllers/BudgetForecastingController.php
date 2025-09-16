@@ -15,12 +15,13 @@ class BudgetForecastingController extends Controller
     $forecastMaintenance = BudgetForecast::where('category','maintenance')->where('status','approved')->sum('amount');
     $forecastTrips       = BudgetForecast::where('category','trip')->where('status','approved')->sum('amount');
 
-             $totalFuel        = CostAnalysis::sum('fuel_cost');
-        $totalMaintenance = CostAnalysis::sum('maintenance_cost');
-        $totalTrips       = CostAnalysis::sum('trip_expenses');
+           $totalFuel = CostAnalysis::where('status', 'Closed')->sum('fuel_cost');
+$totalTrips = CostAnalysis::where('status', 'Closed')->sum('trip_expenses');
+$totalMaintenance = CostAnalysis::where('status', 'Closed')->sum('maintenance_cost');
     
 
-  
+  $forecasts = BudgetForecast::orderBy('created_at', 'desc')->paginate(10);
+
 
         // tamaan mo kung alin yung folder name na ginamit mo sa views
         return view('budget_forecasting.index', compact(
@@ -69,4 +70,14 @@ class BudgetForecastingController extends Controller
         $forecast->update(['status' => 'rejected']);
         return back()->with('error', 'Forecast rejected!');
     }
+
+public function destroy($id)
+{
+    $forecast = BudgetForecast::findOrFail($id);
+    $forecast->delete();
+
+    return redirect()->route('budget_forecasting.index')
+                     ->with('success', 'Forecast deleted successfully!');
+}
+
 }

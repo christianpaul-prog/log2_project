@@ -259,3 +259,10 @@ a.sidebar-link.active-parent {
   background: #6d6f74;
 }
 
+@media (max-width: 768px) {
+  .mode {
+    margin-left: 0;   /* reset on small screens */
+    justify-content: flex-end;
+    flex: 1; /* allow to take space */
+  }
+}

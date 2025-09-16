@@ -71,9 +71,6 @@ Route::post('/dispatch',[TripController::class,'store'])->name('trip.store');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('pages.dashboard');
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard');
-})->name('pages.dashboard');
 
 
 Route::get('/Maintenance', function () {
@@ -98,9 +95,7 @@ Route::get('/costs', function () {
 })->name('cost_optimization.analytics');
 
 //fuel-cost//
-Route::get('/fuelcost', function () {
-    return view('fuelcost.fuel-cost');
-})->name('fuelcost.fuel-cost');
+
 
 Route::prefix('reports')->as('reports.')->group(function () {
     Route::resource('vehiclereport', VehiclesreportController::class)->parameters([
@@ -127,6 +122,7 @@ Route::post('/budget-forecasting/store', [BudgetForecastingController::class, 's
 // Finance approval routes
 Route::post('/budget-forecasting/{id}/approve', [BudgetForecastingController::class, 'approve'])->name('budget_forecasting.approve');
 Route::post('/budget-forecasting/{id}/reject', [BudgetForecastingController::class, 'reject'])->name('budget_forecasting.reject');
+Route::delete('/budget-forecasting/{id}', [BudgetForecastingController::class, 'destroy'])->name('budget_forecasting.destroy');
 
 Route::delete('/notifications/{id}', [CostAnalysisController::class, 'destroyNotification'])
     ->name('notifications.destroy');

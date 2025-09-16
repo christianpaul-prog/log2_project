@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use App\Models\Notification;
 
 
 class VehiclesController extends Controller
@@ -14,12 +15,20 @@ class VehiclesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $vehicles = Vehicles::orderBy('created_at', 'desc')->paginate(10); 
-        // Fetch all vehicles ordered by creation date
-        return view('vehicles.fvm', compact('vehicles')); // Pass the vehicles to the view
+  public function index(Request $request)
+{
+    $query = Vehicles::query();
+
+    // Apply filter kung meron
+    if ($request->has('type') && $request->type != '') {
+        $query->where('type', $request->type);
     }
+
+    $vehicles = $query->orderBy('created_at', 'desc')->paginate(10);
+
+    return view('vehicles.fvm', compact('vehicles'));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -83,7 +92,10 @@ public function store(Request $request)
     }
 
     $vehicle->save();
-
+      Notification::create([
+        'type'    => 'Vehicle',
+        'message' => "New vehicle {$vehicle->license} has been registered."
+    ]);
     return redirect()->route('vehicles.index')->with('success', 'Vehicle created successfully.');
 }
 

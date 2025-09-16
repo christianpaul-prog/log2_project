@@ -51,9 +51,9 @@
             </script>
             @endif
 
-            <div class="card mb-4 shadow-sm border-0">
+            <div class="card mb-4 shadow-sm border-0 ">
                 <div class="card-header bg-primary text-white fw-bold">Active Dispatch Orders</div>
-                <div class="card-body">
+                <div class="card-body table-responsive">
                     <div class="d-flex justify-content-end mb-3">
                         <div class="input-group" style="max-width:400px;">
                             <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>

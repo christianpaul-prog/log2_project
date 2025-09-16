@@ -211,10 +211,10 @@
         @endif
 
 
-        <div class="row d-flex justify-content-center ">
+        <div class="row d-flex justify-content-center  ">
             <div class="col-md-11">
-                <div class="card mb-4">
-                    <div class="card-body shadow-lg">
+                <div class="card mb-4 ">
+                    <div class="card-body shadow-lg table-responsive">
                         <h5 class="card-title">Vehicle List</h5>
                         <!-- ...existing code... -->
                         <div class="row justify-content-center mt-4">

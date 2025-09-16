@@ -72,20 +72,12 @@
 
 <!-- Main Content -->
 <div id="MainContent" class="container-fluid slide-up">
-    <div class="row">
-        <div class="col-md-11">
-            <h2 class="text-center my-4">
-                <i class="fa-solid fa-screwdriver-wrench text-primary"></i> List Maintenance
-            </h2>
-            <p class="text-center">Manage your fleet vehicles efficiently</p>
-        </div>
-    </div>
-
+   
     <!-- Main Content -->
-    <div id="MainContent" class="container-fluid slide-up">
+    <div id="MainContent" class="container-fluid slide-up ">
             <div class="py-5 mb-4 text-center text-white mt-5" 
-         style="background: linear-gradient(135deg, #4e73df, #3751c1); border-radius: 12px;">
-        <h2 class="fw-bold mb-1"><i class="fa-solid fa-screwdriver-wrench"></i> List Maintenance</h2>
+         style="background: linear-gradient(135deg, #6a11cb, #2575fc); border-radius: 12px;">
+        <h2 class="fw-bold mb-1"><i class="fa-solid fa-screwdriver-wrench "></i> List Maintenance</h2>
         <p class="mb-0">Manage your fleet vehicles efficiently</p>
     </div>
        @if (session('success'))
@@ -122,7 +114,7 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-11">
             <div class="card mb-4">
-                <div class="card-body">
+                <div class="card-body ">
                     <!-- Search -->
                     <div class="d-flex justify-content-end mb-3">
                         <div class="input-group" style="max-width: 400px;">
@@ -135,7 +127,7 @@
                     </div>
 
                     <!-- Table -->
-                    <table id="vehicleTable" class="table table-hover table-striped align-middle">
+                    <table id="vehicleTable" class="table table-hover table-striped align-middle ">
                         <thead>
                             <tr>
                                 <th>S.NO</th>

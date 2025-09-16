@@ -4,7 +4,9 @@
 
   
     /* Form Card */
-    
+    .container-fluid{
+         animation: fadeIn 0.4s ease-in-out;
+    }
         
         .form-card {
             background: rgba(255, 255, 255, 0.95);
@@ -74,8 +76,9 @@
     /* Metric Cards */
     .metric-card {
         border-radius: 12px;
-        padding: 1.5rem;
-        background: linear-gradient(135deg, #6a11cb, #2575fc);
+        border: 1px solid;
+        padding: 1rem;
+        background: #fff;
         box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         text-align: center;
         transition: 0.3s ease;
@@ -90,13 +93,13 @@
         color: #ccccccff;
     }
     .metric-value {
-         color: #fff;
+         color: #000000ff;
         font-size: 1.8rem;
         font-weight: 700;
         margin: 0.5rem 0;
     }
     .metric-label {
-        color: #fff;
+        color: #000000ff;
         font-size: 0.9rem;
         font-weight: 500;
     }
@@ -195,43 +198,64 @@
         background: #c1c1c1;
         border-radius: 10px;
     }
+
+     @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .metric-change.increase { color: #2ecc71; font-weight: 600; margin-top: 5px; }
+.metric-change.decrease { color: #e74c3c; font-weight: 600; margin-top: 5px; }
+
+     
 </style>
 
 <body class="bg-light">
-   <div class="container mt-5 ">
+   <div class="container-fluid mt-5 ">
         <h4 class="mb-4 text-center">Overview of expenses across fuel, maintenance, and trips</h4>
        
        
     </div>
-<div class="container mt-5 ">
+<div class="container-fluid mt-5 ">
     <!-- Metrics -->
     <div class="row mb-4">
-        <div class="col-md-4">
-            <div class="metric-card">
-                <div class="metric-icon"><i class="fas fa-tools"></i></div>
-                <div class="metric-label">Maintenance Cost</div>
-                <div class="metric-value">₱{{ number_format($totalMaintenance ?? 0) }}</div>
-            </div>
+       <div class="col-md-4">
+    <div class="metric-card mb-2">
+        <div class="metric-icon"><i class="fas fa-tools"></i></div>
+        <div class="metric-label">Maintenance Cost</div>
+        <div class="metric-value">₱{{ number_format($totalMaintenance ?? 0) }}</div>
+        <div class="metric-change {{ $maintenanceChange >= 0 ? 'increase' : 'decrease' }}">
+            {{ $maintenanceChange >= 0 ? '+' : '-' }}{{ number_format($maintenanceChange, 1) }}% {{ $maintenanceChange >= 0 ? 'increase' : 'decrease' }}
         </div>
-        <div class="col-md-4">
-            <div class="metric-card">
-                <div class="metric-icon"><i class="fas fa-road"></i></div>
-                <div class="metric-label">Trip Expenses</div>
-                <div class="metric-value">₱{{ number_format($totalTrips ?? 0) }}</div>
-            </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="metric-card mb-2">
+        <div class="metric-icon"><i class="fas fa-road"></i></div>
+        <div class="metric-label">Trip Expenses</div>
+        <div class="metric-value">₱{{ number_format($totalTrips ?? 0) }}</div>
+        <div class="metric-change {{ $tripChange >= 0 ? 'increase' : 'decrease' }}">
+            {{ $tripChange >= 0 ? '+' : '-' }}{{ number_format($tripChange, 1) }}% {{ $tripChange >= 0 ? 'increase' : 'decrease' }}
         </div>
-        <div class="col-md-4">
-            <div class="metric-card">
-                <div class="metric-icon"><i class="fas fa-gas-pump"></i></div>
-                <div class="metric-label">Fuel Cost</div>
-                <div class="metric-value">₱{{ number_format($totalFuel ?? 0) }}</div>
-            </div>
+    </div>
+</div>
+
+<div class="col-md-4">
+    <div class="metric-card mb-2">
+        <div class="metric-icon"><i class="fas fa-gas-pump"></i></div>
+        <div class="metric-label">Fuel Cost</div>
+        <div class="metric-value">₱{{ number_format($totalFuel ?? 0) }}</div>
+        <div class="metric-change {{ $fuelChange >= 0 ? 'increase' : 'decrease' }}">
+            {{ $fuelChange >= 0 ? '+' : '-' }}{{ number_format($fuelChange, 1) }}% {{ $fuelChange >= 0 ? 'increase' : 'decrease' }}
         </div>
+    </div>
+</div>
+
     </div>
 
     <!-- Table -->
     <!-- Table -->
-<div class="table-container mt-5">
+<div class="table-container-fluid mt-5 table-responsive">
     <table class="table mb-0">
         <thead>
             <tr>
@@ -255,13 +279,12 @@
                 <td>₱{{ number_format($cost->trip_expenses, 2) }}</td>
                 <td><strong>₱{{ number_format($cost->total_cost, 2) }}</strong></td>
                 <td>
-                    @if($cost->status == 'Pending')
-                        <span class="status-badge status-open">Pending</span>
-                    @elseif($cost->status == 'Closed')
-                        <span class="status-badge status-paid">Closed</span>
-                    @else
-                        <span class="status-badge status-refunded">Maintenance</span>
-                    @endif
+                  @if($cost->status == 'Pending')
+    <span class="status-badge status-open">Pending</span>
+@elseif($cost->status == 'Closed')
+    <span class="status-badge status-paid">Closed</span>
+@endif
+
                 </td>
                 <td>
                     <!-- Delete Form -->
@@ -291,33 +314,36 @@
 
 
 
-<ul class="list-group list-group-flush mt-5 notification-list">   
-     <h6 class="ms-2">Notification</h6>
-    @forelse($notifications as $note)
+<div class="row mt-5">
+  <div class="col-md-11">
+    <h6 class="mb-3">Notification</h6>
+    <ul class="list-group list-group-flush notification-list">
+      @forelse($notifications as $note)
         <li class="list-group-item notification-item">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <span class="badge bg-primary me-2">{{ $note->type }}</span>
-                    <span>{{ $note->message }}</span>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                    <small class="text-muted">{{ $note->created_at->diffForHumans() }}</small>
-                    
-                    <!-- Delete button -->
-                    <form action="{{ route('notifications.destroy', $note->id) }}" method="POST" class="m-0 p-0">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-light text-danger border-0 p-0 ms-2 delete-btn">
-                            ✖
-                        </button>
-                    </form>
-                </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <span class="badge bg-primary me-2">{{ $note->type }}</span>
+              <span>{{ $note->message }}</span>
             </div>
+            <div class="d-flex align-items-center gap-2">
+              <small class="text-muted">{{ $note->created_at->diffForHumans() }}</small>
+              <form action="{{ route('notifications.destroy', $note->id) }}" method="POST" class="m-0 p-0">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-sm btn-light text-danger border-0 p-0 ms-2 delete-btn">
+                  ✖
+                </button>
+              </form>
+            </div>
+          </div>
         </li>
-    @empty
+      @empty
         <li class="list-group-item text-muted text-center">No notifications yet.</li>
-    @endforelse
-</ul>
+      @endforelse
+    </ul>
+  </div>
+</div>
+
  <div class="form-card mt-5">
             <form action="{{ route('costanalysis.store') }}" method="POST">
                 @csrf
@@ -365,12 +391,12 @@
                     <div class="row align-items-end">
                         <div class="col-lg-6 col-md-6">
                             <label class="form-label"><i class="fas fa-info-circle"></i> Status</label>
-                            <select name="status" class="form-select" required>
-                                <option value="">Select Status</option>
-                                <option value="Pending">Pending</option>
-                                <option value="Closed">Closed</option>
-                                <option value="Maintenance">Maintenance</option>
-                            </select>
+                           <select name="status" class="form-select" required>
+                                  <option value="">Select Status</option>
+                                 <option value="Pending">Pending</option>
+                                  <option value="Closed">Closed</option>
+                                     </select>
+
                         </div>
                         <div class="col-lg-6 col-md-6 text-end">
                             <button type="submit" class="btn btn-primary btn-lg">
@@ -399,4 +425,4 @@
     document.getElementById("trip_expenses").addEventListener("input", calculateTotal);
 </script>
 
-    @endsection('content')
+    @endsection

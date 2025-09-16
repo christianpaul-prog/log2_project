@@ -93,12 +93,46 @@
         from { opacity: 0; transform: translateY(15px); }
         to { opacity: 1; transform: translateY(0); }
     }
+    /* Pagination Custom Styling */
+.pagination {
+    justify-content: center; /* center align */
+    margin-top: 20px;
+}
+
+.page-link {
+    border-radius: 8px !important;
+    padding: 8px 14px;
+    font-weight: 500;
+    color: #3498db; /* default text color */
+    border: 1px solid #dee2e6;
+    transition: all 0.2s ease;
+}
+
+.page-link:hover {
+    background-color: #3498db;
+    color: #fff;
+    border-color: #3498db;
+}
+
+.page-item.active .page-link {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    border-color: #2980b9;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.page-item.disabled .page-link {
+    color: #aaa;
+    background-color: #f8f9fa;
+}
+
 </style>
 
 <div class="container-fluid mt-4">
 
     <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4 page-header">
+    <div class="d-flex justify-content-between align-items-center mb-4 page-header mt-5">
         <div>
             <h2>Budget Forecasting</h2>
             <small>Submit and approve budget forecasts</small>
@@ -136,9 +170,9 @@
     </div>
 
     <!-- Forecast Records -->
-    <div class="card shadow-sm p-4 mb-4">
+    <div class="card shadow-sm p-4 mb-4 table-responsive">
         <h5 class="mb-3">📑 Forecast Records</h5>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped ">
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
@@ -168,29 +202,43 @@
                         </td>
                         <td>{{ $forecast->created_at->format('Y-m-d') }}</td>
                         <td>
-                            @if($forecast->status == 'pending')
-                                <form action="{{ route('budget_forecasting.approve', $forecast->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <button class="btn btn-success btn-sm">Approve</button>
-                                </form>
-                                <form action="{{ route('budget_forecasting.reject', $forecast->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <button class="btn btn-danger btn-sm">Reject</button>
-                                </form>
-                            @else
-                                <em class="text-muted">No actions</em>
-                            @endif
-                        </td>
+    <div class="d-flex gap-2">
+    @if($forecast->status == 'pending')
+        <form action="{{ route('budget_forecasting.approve', $forecast->id) }}" method="POST">
+            @csrf
+            <button class="btn btn-success btn-sm">Approve</button>
+        </form>
+        <form action="{{ route('budget_forecasting.reject', $forecast->id) }}" method="POST">
+            @csrf
+            <button class="btn btn-warning btn-sm">Reject</button>
+        </form>
+    @else
+        <em class="text-muted">No actions</em>
+    @endif
+
+    <form action="{{ route('budget_forecasting.destroy', $forecast->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this forecast?');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+    </form>
+</div>
+
+
+</td>
+
                     </tr>
                 @empty
                     <tr><td colspan="7" class="text-center text-muted">No forecasts yet.</td></tr>
                 @endforelse
             </tbody>
         </table>
+        <div class="d-flex justify-content-center mt-3">
+    {{ $forecasts->withQueryString()->links('pagination::bootstrap-5') }}
+</div>
     </div>
 
     <!-- Budget vs Actual -->
-    <div class="card shadow-sm p-4 mb-4">
+    <div class="card shadow-sm p-4 mb-4 table-responsive">
         <h5 class="mb-3">📊 Budget Forecast vs Actual</h5>
         <table class="table table-bordered">
             <thead class="table-light">
