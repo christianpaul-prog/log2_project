@@ -166,11 +166,11 @@
         </div>
 
         <!-- Summary Boxes -->
-        <div class="row g-4 mb-5">
+        {{-- <div class="row g-4 mb-5">
             <div class="col-md-3">
                 <div class="card text-center p-4 shadow-sm border-0 rounded-4" style="background-color: #ffffff;">
                     <h6 class="text-muted mb-2">Total Vehicles</h6>
-                    <h3 class="fw-bold text-dark">120</h3>
+                    <h3 class="fw-bold text-dark">{{ $activeVehicles ?? 0}}</h3>
                 </div>
             </div>
             <div class="col-md-3">
@@ -191,7 +191,7 @@
                     <h3 class="fw-bold text-danger">30</h3>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         @if (session('success'))
             <script>

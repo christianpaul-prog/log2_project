@@ -1,6 +1,6 @@
 
 
-<nav class="navbar navbar-expand px-3 border-dark-subtle">
+<nav class="navbar navbar-expand px-3 border-dark-subtle" >
                 <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>

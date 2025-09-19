@@ -97,7 +97,6 @@
         .btn-primary { width: 100%; padding: 12px 0; }
     }
 </style>
-
 <div class="container-fluid mt-5 slide-up">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">

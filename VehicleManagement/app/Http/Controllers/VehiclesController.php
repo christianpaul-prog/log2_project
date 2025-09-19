@@ -23,10 +23,10 @@ class VehiclesController extends Controller
     if ($request->has('type') && $request->type != '') {
         $query->where('type', $request->type);
     }
-
+    $totalVehicles = $query->count();
     $vehicles = $query->orderBy('created_at', 'desc')->paginate(10);
 
-    return view('vehicles.fvm', compact('vehicles'));
+    return view('vehicles.fvm', compact('vehicles', 'totalVehicles'));
 }
 
 

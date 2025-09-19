@@ -12,41 +12,40 @@ class ReservationController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    // Vehicles not in maintenance or trip
-    $vehicles = Vehicles::whereDoesntHave('maintenances', function ($query) {
-            $query->where('status', 'on_progress');
+    {
+        // Vehicles not in maintenance or trip
+        $vehicles = Vehicles::whereDoesntHave('maintenances', function ($query) {
+            $query->where('status', 'in_progress');
         })
-        ->whereDoesntHave('trips', function ($query) {
-            $query->where('status', 'on_work');
-        })
-        ->get();
+            ->whereDoesntHave('trips', function ($query) {
+                $query->where('status', 'on_work');
+            })
+            ->get();
 
-    // Fetch reservations with latest first, paginated
-    $reservations = Reservation::with('vehicle')
-        ->latest()
-        ->paginate(10); // 👈 show 10 per page
+        // Fetch reservations with latest first, paginated
+        $reservations = Reservation::with('vehicle')
+            ->latest()
+            ->paginate(10); // 👈 show 10 per page
 
-    return view('reservation.list_reservation', compact('reservations', 'vehicles'));
-}
+        return view('reservation.list_reservation', compact('reservations', 'vehicles'));
+    }
 
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-       $vehicles = Vehicles::whereDoesntHave('maintenances', function ($query) {
-        $query->where('status', 'on_progress');
+public function create()
+{
+    $vehicles = Vehicles::where(function($query) {
+        $query->whereHas('maintenances', fn($q) => $q->where('status', 'completed'))
+              ->orDoesntHave('maintenances');
     })
-    ->whereDoesntHave('trips', function ($query) {
-        $query->where('status', ['on_work', 'pending']);
-    })
-    ->whereDoesntHave('reservations') // 🚀 exclude vehicles with reservations
+    ->whereDoesntHave('trips', fn($q) => $q->whereIn('status', ['on_work', 'pending']))
+    ->whereDoesntHave('reservations')
     ->get();
 
-        return view('reservation.create-reservation', compact('vehicles'));
-    }
+    return view('reservation.create-reservation', compact('vehicles'));
+}
 
     /**
      * Store a newly created resource in storage.

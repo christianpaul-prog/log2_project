@@ -71,7 +71,7 @@ a {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: white;
+  background: #bdccdc;
   transition: all 0.35s ease-in-out;
   overflow: hidden;
 }
@@ -83,7 +83,7 @@ a {
   left: 264px;
   right: 0;
   height: 50px;
-  background: #fff;
+  background: #bdccdc;
   transition: all 0.35s ease-in-out;
   z-index: 1020;
 }
@@ -258,6 +258,8 @@ a.sidebar-link.active-parent {
 .footer{
   background: #6d6f74;
 }
+
+
 
 @media (max-width: 768px) {
   .mode {

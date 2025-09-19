@@ -1,13 +1,11 @@
 
  <aside id="sidebar">
-            
-            
             <div class="h-100">
-                <div class="sidebar-logo py-3">
-                     <img src="{{ asset('images/logo.png')}}" alt="Logo" width="80" height="80" class="ms-5">
+                <div class="sidebar-logo " style="text-align: center">
+                     <img src="{{ asset('images/logo.png')}}" alt="Logo" width="80" height="80">
                      <br>
-                    <a href="#" class="text-primary-emphasis ms-3">(Logistic Dept 2)</a>
-                     <small class="text-lowercase  m-auto">@auth{{auth()->user()->email}}@endauth</small >
+                    <a href="#" class="text-primary-emphasis ">(Logistic Dept 2)</a>
+                     <small class="text-lowercase  m-auto">@auth{{auth()->user()->email}}@endauth</small>
                    
                 </div>
                 <ul class="sidebar-nav accordion" id="sidebarAccordion">
@@ -75,21 +73,21 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link {{ request()->routeIs('driver.driver_report','trips.tripperformance') ? '' : 'collapsed' }}" data-bs-target="#performance" data-bs-toggle="collapse"
+                        <a href="#" class="sidebar-link {{ request()->routeIs('driver.report','trips.performance') ? '' : 'collapsed' }}" data-bs-target="#performance" data-bs-toggle="collapse"
                             aria-expanded="false">
                             <i class="fa-solid fa-chart-simple pe-2"></i>
                             Driver/Trip Performance
                         </a>
-                        <ul id="performance" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('driver.driver_report','trips.tripperformance') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
+                        <ul id="performance" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('driver.report','trips.performance') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
                             <li class="sidebar-item">
                                 <a href="#" class="sidebar-link {{ request()->routeIs('') ? 'active' : '' }}"> - Drive Profile</a>
                             </li>
                             <li class="sidebar-item">
-                                <a href="{{route('trips.tripperformance')}}" class="sidebar-link {{ request()->routeIs('trips.tripperformance') ? 'active' : '' }}"> - Trips</a>
+                                <a href="{{route('trips.performance')}}" class="sidebar-link {{ request()->routeIs('trips.performance') ? 'active' : '' }}"> - Trips</a>
                             </li>
 
                              <li class="sidebar-item">
-                                <a href="{{route('driver.driver_report')}}" class="sidebar-link {{ request()->routeIs('driver.driver_report') ? 'active' : '' }}"> - Driver Report</a>
+                                <a href="{{route('driver.report')}}" class="sidebar-link {{ request()->routeIs('driver.report') ? 'active' : '' }}"> - Driver Report</a>
                             </li>
                            
                         </ul>

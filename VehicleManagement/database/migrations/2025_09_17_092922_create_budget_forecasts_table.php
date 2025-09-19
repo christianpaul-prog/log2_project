@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('budget_forecasts', function (Blueprint $table) {
             $table->id();
-                        $table->string('category');
+            $table->string('category');
             $table->decimal('amount', 12, 2);
             $table->string('month'); 
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');

@@ -20,7 +20,7 @@
     <div class="wrapper">
         @include('partials.sidebar')
 
-        <div class="main">
+        <div class="main" >
             @include('partials.header')
             <main class="content px-3 py-2">
                 @yield('content')
