@@ -29,7 +29,7 @@
         }
 
         .page-header {
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+           background: linear-gradient(135deg, #4e73df, #3751c1);
             color: white;
             padding: 25px 20px;
             border-radius: 15px;
@@ -87,7 +87,12 @@
             border-collapse: separate;
             border-spacing: 0 10px;
         }
+ .table thead th {
+    background-color: #2c3c8c;  /* sample: bootstrap primary */
+    color: white;
+    font-weight: 600;
 
+ }
         thead tr {
             background-color: #2575fc;
             color: white;

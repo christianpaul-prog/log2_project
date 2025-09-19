@@ -33,6 +33,7 @@ Route::get('/login',[AuthController::class, 'login'])->name('auth.login');
 Route::post('/login',[AuthController::class, 'loginPost'])->name('auth.login.post');
 Route::get('/register',[AuthController::class, 'register'])->name('auth.register');
 Route::post('/register',[AuthController::class, 'registerpost'])->name('auth.register.post');
+Route::view('/terms', 'auth.terms')->name('auth.terms');
 Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
 
 Route::get('/vehicles', [VehiclesController::class, 'index'])->name('vehicles.index');

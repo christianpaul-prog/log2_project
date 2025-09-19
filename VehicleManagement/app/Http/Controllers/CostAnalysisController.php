@@ -103,7 +103,7 @@ public function destroyNotification($id)
 
     $notification->delete();
 
-    return redirect()->back()->with('success', 'Maintenance notification deleted successfully!');
+    return redirect()->route('costanalysis.index')->with('success', 'Maintenance notification deleted successfully!');
 }
 
 

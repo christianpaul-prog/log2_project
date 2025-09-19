@@ -34,7 +34,8 @@ class AuthController extends Controller
      $request ->validate([
         'name'=>'required',
         'email'=> 'required|email|unique:users',
-        'password'=> 'required'
+        'password'=> 'required',
+         'terms'    => 'accepted'
 
     ]);
     $data['name']= $request->name;
@@ -48,9 +49,14 @@ class AuthController extends Controller
          return redirect(route('auth.login'))->with("success","success  register, go to log in");
 
    }
+   
    function logout(){
     Session::flush();
     Auth::logout();
     return redirect(route('auth.login'));
    }
+
+   
 }
+
+

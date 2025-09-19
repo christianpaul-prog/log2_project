@@ -64,16 +64,21 @@
         background: linear-gradient(135deg, #e74c3c, #c0392b);
         border: none;
     }
+    .btn:hover{
+        transform: translateY(-5px);
+    }
 
     /* Tables */
     .table {
         border-radius: 12px;
         overflow: hidden;
     }
-    .table thead {
-        background: #f8f9fa;
+    .table thead th{
+        background: #2c3c8c;
         font-weight: 600;
+        color: #fff;
     }
+
     .table tbody tr:hover {
         background: #f2f6fa;
     }
@@ -136,6 +141,8 @@
         <div>
             <h2>Budget Forecasting</h2>
             <small>Submit and approve budget forecasts</small>
+            <br>
+            <small>For Finance Report</small>
         </div>
     </div>
 

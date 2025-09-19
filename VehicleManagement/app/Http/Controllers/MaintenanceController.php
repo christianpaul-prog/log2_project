@@ -62,6 +62,7 @@ class MaintenanceController extends Controller
             'service_type' => 'required|string|max:255',
             'notes' => 'nullable|string|max:1000',
         ]);
+        
 
         // Create a new maintenance record
         $maintenance = new Maintenance();

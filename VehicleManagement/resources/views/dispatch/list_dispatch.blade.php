@@ -9,7 +9,11 @@
 
 /* Table styles */
 .table-hover tbody tr:hover { background: rgba(0,123,255,0.05); transform: scale(1.02); transition: all 0.2s; }
-.table thead { background: linear-gradient(90deg,#007bff,#6610f2); color:#fff; }
+ .table thead th {
+    background-color: #2c3c8c;  /* sample: bootstrap primary */
+    color: white;
+    font-weight: 600;
+ }
 .table td, .table th { vertical-align: middle; }
 
 /* Badges */
@@ -34,7 +38,7 @@
 
 <div class="container-fluid slide-up">
     <div class="row">
-        <div class="col-md-11 mx-auto">
+        <div class="col-md-11 mx-auto mt-5">
             <h2 class="text-center my-4">VRDS - Vehicle Reservation & Dispatch System</h2>
 
             @if(session('success'))
@@ -52,7 +56,7 @@
             @endif
 
             <div class="card mb-4 shadow-sm border-0 ">
-                <div class="card-header bg-primary text-white fw-bold">Active Dispatch Orders</div>
+                <div class="card-header  fw-bold"style="  background: linear-gradient(135deg, #4e73df, #3751c1);color:#fff;">Active Dispatch Orders</div>
                 <div class="card-body table-responsive">
                     <div class="d-flex justify-content-end mb-3">
                         <div class="input-group" style="max-width:400px;">

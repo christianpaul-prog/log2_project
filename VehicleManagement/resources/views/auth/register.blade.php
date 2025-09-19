@@ -19,33 +19,36 @@
         @endif
     </div>
     <div class="registration-form slide-up">
-        <h2>Register</h2>
-        <form action="{{ route('auth.register.post') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label for="name">Full Name</label>
-                <input type="text" class="form-control" name="name" placeholder="Enter your full name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" name="password" placeholder="Password" required>
-            </div>
-            <!--
+    <h2>Register</h2>
+    <form action="{{ route('auth.register.post') }}" method="POST">
+        @csrf
         <div class="form-group">
-          <label for="confirm-password">Confirm Password</label>
-          <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" required>
+            <label for="name">Full Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Enter your full name" required>
         </div>
-        -->
-            <button type="submit" class="btn btn-primary btn-block">Register</button>
-        </form>
-        <div class="text-center mt-3">
-            <a href="{{ route('auth.login') }}">Already have an account? Login</a>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" name="email" placeholder="Enter your email" required>
         </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password" required>
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="form-group form-check mt-3">
+            <input type="checkbox" class="form-check-input" name="terms" id="terms" required>
+            <label class="form-check-label" for="terms">
+                I agree to the <a href="{{ route('auth.terms') }}" target="_blank">Terms and Conditions</a>
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+    <div class="text-center mt-3">
+        <a href="{{ route('auth.login') }}">Already have an account? Login</a>
     </div>
+</div>
 
 
 @endsection

@@ -36,12 +36,34 @@
         border-radius: 12px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
+.page-header {
+    background: linear-gradient(135deg, #4e73df, #3751c1);
+    border-radius: 12px;
+    color: #fff;
+    padding: 2.5rem 1rem;   /* dagdag spacing para huminga yung text */
+    margin: 2rem 0;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
 
-    thead {
-        background: #0d6efd;
-        color: white;
-    }
+.page-header h2 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+      color: #fff;
+}
 
+.page-header p {
+    margin-bottom: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+    color: #fff;
+}
+
+ .table thead th {
+    background-color: #2c3c8c;  /* sample: bootstrap primary */
+    color: white;
+    font-weight: 600;
+ }
     .table-hover tbody tr:hover {
         background-color: rgba(13,110,253,0.05);
         transition: 0.3s;
@@ -74,12 +96,12 @@
 <div id="MainContent" class="container-fluid slide-up">
    
     <!-- Main Content -->
-    <div id="MainContent" class="container-fluid slide-up ">
-            <div class="py-5 mb-4 text-center text-white mt-5" 
-         style="background: linear-gradient(135deg, #6a11cb, #2575fc); border-radius: 12px;">
-        <h2 class="fw-bold mb-1"><i class="fa-solid fa-screwdriver-wrench "></i> List Maintenance</h2>
-        <p class="mb-0">Manage your fleet vehicles efficiently</p>
-    </div>
+   
+         <div class="page-header">
+    <h2><i class="fa-solid fa-screwdriver-wrench"></i> List Maintenance</h2>
+    <p>Manage your fleet vehicles efficiently</p>
+</div>
+
        @if (session('success'))
     <script>
         Swal.fire({
@@ -111,10 +133,10 @@
         </script>
     @endif
 
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center ">
         <div class="col-md-11">
             <div class="card mb-4">
-                <div class="card-body ">
+                <div class="card-body table-responsive">
                     <!-- Search -->
                     <div class="d-flex justify-content-end mb-3">
                         <div class="input-group" style="max-width: 400px;">
@@ -263,7 +285,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <script>
     // Search functionality

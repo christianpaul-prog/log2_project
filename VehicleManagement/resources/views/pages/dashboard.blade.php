@@ -42,14 +42,42 @@
     animation: slideUp 0.6s ease-out;
   }
   .notification-list {
-    max-height: 300px;
-    overflow-y: auto;
-}
+        max-height: 350px; 
+        overflow-y: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    /* Notification Item */
+    .notification-item {
+        border-left: 4px solid transparent;
+        transition: all 0.2s ease-in-out;
+        padding: 12px 15px;
+    }
+
+    /* Hover Effect */
+    .notification-item:hover {
+        background-color: #f8f9fa;
+        border-left: 4px solid #0d6efd;
+        
+    }
+
+    /* Scrollbar Styling */
+    .notification-list::-webkit-scrollbar {
+        width: 6px;
+    }
+    .notification-list::-webkit-scrollbar-thumb {
+        background: #c1c1c1;
+        border-radius: 10px;
+    }
 
 </style>
 
+
+
+
 <div class="container-fluid slide-up mt-4">
- <div class="col-md-11 mt-3">
+ <div class="col-md-11 mt-5">
                 <h2 class="text-center my-4">Dashboard</h2>
                 <p class="text-center my-4">Manage your fleet vehicles eficiently</p>
             </div>
@@ -104,78 +132,90 @@
   </div>
 </div>
 
-<div class="row mt-5">
+<div class="filter-bar mb-3">
+  <input type="text" id="notifSearch" class="form-control w-25" placeholder="Search notifications...">
+  <select id="notifFilter" class="form-select w-25">
+    <option value="">All</option>
+    <option value="Maintenance">Maintenance</option>
+    <option value="Trip">Trip</option>
+    <option value="Report">Report</option>
+     <option value="Vehicle">Vehicle</option>
+  </select>
+</div>
+
+<div class="row mt- ">
   <div class="col-md-11">
-    <h6 class="mb-3">Notification</h6>
+    <h6 class="mb-3">Notification Activities</h6>
     <ul class="list-group list-group-flush notification-list">
-      @forelse($notifications as $note)
-        <li class="list-group-item notification-item">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <span class="badge bg-primary me-2">{{ $note->type }}</span>
-              <span >{{ $note->message }}</span>
-            </div>
-            <div class="d-flex align-items-center gap-2">
-              <small class="text-muted">{{ $note->created_at->diffForHumans() }}</small>
-              <form action="{{ route('notifications.destroy', $note->id) }}" method="POST" class="m-0 p-0">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-sm btn-light text-danger border-0 p-0 ms-2 delete-btn">
-                  ✖
-                </button>
-              </form>
-            </div>
-          </div>
-        </li>
-      @empty
-        <li class="list-group-item text-muted text-center">No notifications yet.</li>
-      @endforelse
-    </ul>
+  @forelse($notifications as $note)
+    <li class="list-group-item notification-item" data-type="{{ strtolower($note->type) }}">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="badge bg-primary me-2">{{ $note->type }}</span>
+          <span>{{ $note->message }}</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <small class="text-muted">{{ $note->created_at->diffForHumans() }}</small>
+          <form action="{{ route('notifications.destroy', $note->id) }}" method="POST" class="m-0 p-0">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-sm btn-light text-danger border-0 p-0 ms-2 delete-btn">
+              ✖
+            </button>
+          </form>
+        </div>
+      </div>
+    </li>
+  @empty
+    <li class="list-group-item text-muted text-center">No notifications yet.</li>
+  @endforelse
+</ul>
+
   </div>
 </div>
 
 
-<div class="row mt-5 container-fluid">
-  <div class="col-md-11">
-    <h6 class="mb-3">Fuel Consumption (Last 7 Days)</h6>
-    <canvas id="fuelChart" height="150"></canvas>
+<div class="col-12 mt-4">
+  <div class="card shadow-sm border-0 rounded-3">
+    <div class="card-body" style="height: 400px;">
+      <h6 class="fw-bold">Fleet Usage Trend</h6>
+      <canvas id="fleetChart" style="width: 100%; height: 100%;"></canvas>
+    </div>
   </div>
 </div>
-<!-- Chart.js -->
+
 
 <script>
-  const ctx = document.getElementById('fuelChart').getContext('2d');
+const ctx = document.getElementById('fleetChart');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+    datasets: [{
+      label: 'Trips',
+      data: [12, 19, 3, 5, 7],
+      borderColor: '#0d6efd',
+      tension: 0.3
+    }]
+  }
+});
 
-  const fuelChart = new Chart(ctx, {
-    type: 'line', // line chart
-    data: {
-      labels: ['6d ago', '5d ago', '4d ago', '3d ago', '2d ago', 'Yesterday', 'Today'],
-      datasets: [{
-        label: 'Fuel (Liters)',
-        data: [120, 115, 130, 125, 110, 105, 100],
-        fill: true,
-        backgroundColor: 'rgba(13, 110, 253, 0.2)',
-        borderColor: 'rgba(13, 110, 253, 1)',
-        tension: 0.3,
-        pointRadius: 4,
-        pointHoverRadius: 6,
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: { display: true, text: 'Liters' }
-        },
-        x: {
-          title: { display: true, text: 'Day' }
-        }
-      },
-      plugins: {
-        legend: { display: true, position: 'top' }
-      }
-    }
+document.getElementById("notifSearch").addEventListener("keyup", function() {
+  let value = this.value.toLowerCase();
+  document.querySelectorAll(".notification-item").forEach(item => {
+    item.style.display = item.textContent.toLowerCase().includes(value) ? "" : "none";
   });
+});
+
+document.getElementById("notifFilter").addEventListener("change", function() {
+  let value = this.value.toLowerCase();
+  document.querySelectorAll(".notification-item").forEach(item => {
+    let type = item.getAttribute("data-type");
+    item.style.display = value === "" || type === value ? "" : "none";
+  });
+});
+
+
+
 </script>
 @endsection

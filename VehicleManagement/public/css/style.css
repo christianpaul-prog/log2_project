@@ -71,7 +71,7 @@ a {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: white;
+ background: #bdccdc;
   transition: all 0.35s ease-in-out;
   overflow: hidden;
 }
@@ -83,7 +83,7 @@ a {
   left: 264px;
   right: 0;
   height: 50px;
-  background: #fff;
+  background: #bdccdc;
   transition: all 0.35s ease-in-out;
   z-index: 1020;
 }
@@ -112,12 +112,24 @@ a {
    background: #202123;
     color: #CCC;
     } 
+     #clock.dark{
+    color: #CCC;
+    } 
     .sidebar-logo {
         padding: 1.15rem;
         font-size: 1.15rem;
         font-weight: 600;
+        text-align: center;
     }
-
+     .sidebar-logo img {
+    margin: 0 auto;
+    display: block;
+}
+.sidebar-logo a,
+.sidebar-logo small {
+    display: block;
+    margin-top: 5px;
+}
     .sidebar-logo a {
         color: #fff;
         font-size: 1.15rem;
@@ -265,4 +277,12 @@ a.sidebar-link.active-parent {
     justify-content: flex-end;
     flex: 1; /* allow to take space */
   }
+
+  
+}
+#clock {
+  font-size: 0.9rem;
+  margin-left: auto;  /* itulak sa kanan */       /* pwede mo palitan depende sa dark mode */
+  display: flex;
+  align-items: center;
 }

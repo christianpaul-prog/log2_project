@@ -3,13 +3,12 @@
             
             
             <div class="h-100">
-                <div class="sidebar-logo py-3">
-                     <img src="{{ asset('images/logo.png')}}" alt="Logo" width="80" height="80" class="ms-5">
-                     <br>
-                    <a href="#" class="text-primary-emphasis ms-3">(Logistic Dept 2)</a>
-                     <small class="text-lowercase  m-auto">@auth{{auth()->user()->email}}@endauth</small >
-                   
-                </div>
+                <div class="sidebar-logo py-3 text-center d-flex flex-column align-items-center">
+    <img src="{{ asset('images/logo.png')}}" alt="Logo" width="80" height="80" class="mb-2">
+    <a href="#" class="text-primary-emphasis">(Logistic Dept 2)</a>
+    <small class="text-lowercase">@auth{{ auth()->user()->email }}@endauth</small>
+</div>
+
                 <ul class="sidebar-nav accordion" id="sidebarAccordion">
                     <li class="sidebar-header">
                         Admin Elements

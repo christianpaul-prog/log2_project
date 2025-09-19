@@ -49,7 +49,7 @@
         }
 
         .btn-primary1:hover {
-            background: linear-gradient(to right, #2575fc, #6a11cb);
+           background: #000;
             transform: scale(1.05);
         }
 

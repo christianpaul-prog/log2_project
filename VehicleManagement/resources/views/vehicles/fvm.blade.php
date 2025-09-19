@@ -21,6 +21,11 @@
         .slide-up {
             animation: slideUp 0.6s ease-out;
         }
+         .table thead th {
+    background-color: #2c3c8c;  /* sample: bootstrap primary */
+    color: white;
+    font-weight: 600;
+         }
     </style>
     <!-- Add Vehicle Modal -->
     <div class="modal fade" id="vehicleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -215,10 +220,10 @@
             <div class="col-md-11">
                 <div class="card mb-4 ">
                     <div class="card-body shadow-lg table-responsive">
-                        <h5 class="card-title">Vehicle List</h5>
+                        
                         <!-- ...existing code... -->
                         <div class="row justify-content-center mt-4">
-                            <div class="d-flex justify-content-end mb-3">
+                            <div class="d-flex  mb-3">
                                 <div class="input-group" style="max-width: 400px;">
                                     <span class="input-group-text">
                                         <i class="fas fa-search"></i>

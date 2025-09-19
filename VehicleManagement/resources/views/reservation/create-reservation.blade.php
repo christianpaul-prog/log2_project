@@ -26,7 +26,7 @@
 
         /* Header redesign */
         .page-header {
-            background: linear-gradient(135deg, #0d6efd, #3b82f6);
+              background: linear-gradient(135deg, #4e73df, #3751c1);
             color: white;
             padding: 25px;
             border-radius: 15px;
@@ -53,7 +53,7 @@
         }
     </style>
 
-    <div class="container container-fluid slide-up mt-5">
+    <div class="container-fluid slide-up mt-5">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <!-- Modern Page Header -->

@@ -25,7 +25,7 @@
 
     /* Header */
     .card-header-custom {
-        background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+         background: linear-gradient(135deg, #4e73df, #3751c1);
         color: #fff;
         padding: 20px 25px;
         border-bottom: none;
@@ -98,7 +98,7 @@
     }
 </style>
 
-<div class="container-fluid mt-5 slide-up">
+<div class="container-fluid mt-5 slide-up ">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
             <div class="maintenance-card">

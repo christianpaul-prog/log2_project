@@ -76,8 +76,7 @@
     /* Metric Cards */
     .metric-card {
         border-radius: 12px;
-        border: 1px solid;
-        padding: 1rem;
+        padding: 1.5rem;
         background: #fff;
         box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         text-align: center;
@@ -86,6 +85,7 @@
     }
     .metric-card:hover {
         transform: translateY(-5px);
+         box-shadow: 0 4px;
     }
     .metric-icon {
         font-size: 1.8rem;
@@ -105,7 +105,7 @@
     }
 
     /* Table */
-    .table-container {
+    .table-container-fluid {
         margin-top: 1.5rem;
         border-radius: 12px;
         overflow: hidden;
@@ -114,10 +114,12 @@
             overflow-x: auto;   /* maglalagay ng horizontal scrollbar kung kulang ang width */
     -webkit-overflow-scrolling: touch;
     }
-    .table thead td{
-        background: #f8f9fc;
-       
-    } 
+  .table thead th {
+    background-color: #2c3c8c;  /* sample: bootstrap primary */
+    color: white;
+    font-weight: 600;
+}
+
     td{
         transition: all .3s ease;
     }
@@ -205,13 +207,29 @@
     }
     .metric-change.increase { color: #2ecc71; font-weight: 600; margin-top: 5px; }
 .metric-change.decrease { color: #e74c3c; font-weight: 600; margin-top: 5px; }
+.alert {
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+.alert-success {
+    background: #e8f9f0;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+.alert-danger {
+    background: #fdecea;
+    color: #c62828;
+    border: 1px solid #f5c6cb;
+}
 
      
 </style>
 
+
 <body class="bg-light">
    <div class="container-fluid mt-5 ">
         <h4 class="mb-4 text-center">Overview of expenses across fuel, maintenance, and trips</h4>
+        
        
        
     </div>
@@ -219,7 +237,7 @@
     <!-- Metrics -->
     <div class="row mb-4">
        <div class="col-md-4">
-    <div class="metric-card mb-2">
+    <div class="metric-card mb-2 " >
         <div class="metric-icon"><i class="fas fa-tools"></i></div>
         <div class="metric-label">Maintenance Cost</div>
         <div class="metric-value">₱{{ number_format($totalMaintenance ?? 0) }}</div>
@@ -230,7 +248,7 @@
 </div>
 
 <div class="col-md-4">
-    <div class="metric-card mb-2">
+    <div class="metric-card mb-2" >
         <div class="metric-icon"><i class="fas fa-road"></i></div>
         <div class="metric-label">Trip Expenses</div>
         <div class="metric-value">₱{{ number_format($totalTrips ?? 0) }}</div>
@@ -241,7 +259,7 @@
 </div>
 
 <div class="col-md-4">
-    <div class="metric-card mb-2">
+    <div class="metric-card mb-2"  >
         <div class="metric-icon"><i class="fas fa-gas-pump"></i></div>
         <div class="metric-label">Fuel Cost</div>
         <div class="metric-value">₱{{ number_format($totalFuel ?? 0) }}</div>
@@ -252,13 +270,27 @@
 </div>
 
     </div>
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show shadow-sm rounded-3" role="alert">
+        <i class="fas fa-check-circle me-2"></i> 
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i> 
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
     <!-- Table -->
     <!-- Table -->
 <div class="table-container-fluid mt-5 table-responsive">
     <table class="table mb-0">
-        <thead>
-            <tr>
+        <thead >
+            <tr >
                 <th>Date</th>
                 <th>Vehicle</th>
                 <th>Fuel</th>
@@ -314,7 +346,7 @@
 
 
 
-<div class="row mt-5">
+<div class="row mt-2">
   <div class="col-md-11">
     <h6 class="mb-3">Notification</h6>
     <ul class="list-group list-group-flush notification-list">

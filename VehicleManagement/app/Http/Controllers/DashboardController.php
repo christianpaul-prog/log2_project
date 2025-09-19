@@ -16,7 +16,7 @@ class DashboardController extends Controller
   $pendingMaint = Maintenance::where('status','in_progress')->count();
     $notifications = Notification::whereIn('type', ['Maintenance', 'Vehicle'])
         ->latest()
-        ->take(10)
+        ->take(5)
         ->get();
      
       
@@ -31,7 +31,7 @@ class DashboardController extends Controller
     }
 public function destroyNotification($id)
 {
-    // hanapin lang yung notification na pasok sa dashboard types
+    
     $notification = Notification::where('id', $id)
         ->whereIn('type', ['Maintenance', 'Vehicle'])
         ->first();

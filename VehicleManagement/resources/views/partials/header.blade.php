@@ -13,6 +13,7 @@
             <span class="switch"></span>
             </div>
         </li>
+        <div class="text-end mb-3 fw-bold justify-flex-end" id="clock"></div>
         <!--
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">
@@ -33,3 +34,4 @@
 
 
             </nav>
+            
