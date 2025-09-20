@@ -16,12 +16,12 @@ return new class extends Migration
     $table->id();
     $table->string('instruction')->nullable();
     $table->decimal('trip_cost', 8, 2)->nullable();
-    $table->enum('status', ['on_work', 'completed', 'pending'])->default('pending');
-
+    $table->enum('status', ['on_work', 'completed', 'pending','cancelled','rejected'])->default('pending');
+    
     $table->foreignId('reservation_id')->constrained('reservations')->onDelete('cascade');
     $table->foreignId('vehicle_id')->constrained('vehicles')->onDelete('cascade');
-    $table->foreignId('driver_id')->constrained('drivers')->onDelete('cascade');
-
+    
+    $table->unsignedBigInteger('information_id')->nullable()->index();
     $table->timestamps();
         });
     }

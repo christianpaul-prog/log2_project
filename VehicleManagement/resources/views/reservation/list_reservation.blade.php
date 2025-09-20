@@ -152,19 +152,37 @@
                                 <td>{{ $reservation->purpose }}</td>
                                 <td>
                                     <div class="d-flex">
-                                        <a href="" data-bs-toggle="modal"
-                                            data-bs-target="#editModal{{ $reservation->id }}"
-                                            class="btn btn-sm btn-primary me-2">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <form action="{{ route('reservation.destroy', $reservation->id) }}" method="POST"
-                                            class="d-inline"
-                                            onsubmit="return confirm('Are you sure you want to delete this reservation request?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger"
-                                                title="Delete Reservation"><i class="fa-solid fa-trash"></i></button>
-                                        </form>
+                                        @php
+                                            $tripStatus = $reservation->trip->status ?? null;
+                                        @endphp
+
+                                        @if (in_array($tripStatus, ['pending', 'on_work']))
+                                            {{-- Disabled buttons --}}
+                                            <button class="btn btn-sm btn-secondary me-2" disabled>
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-secondary" disabled>
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        @else
+                                            {{-- Active buttons --}}
+                                            <a href="" data-bs-toggle="modal"
+                                                data-bs-target="#editModal{{ $reservation->id }}"
+                                                class="btn btn-sm btn-primary me-2">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+
+                                            <form action="{{ route('reservation.destroy', $reservation->id) }}"
+                                                method="POST" class="d-inline"
+                                                onsubmit="return confirm('Are you sure you want to delete this reservation request?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                    title="Delete Reservation">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

@@ -216,6 +216,11 @@
                                             class="btn btn-sm btn-primary me-2">
                                             Assign
                                         </a>
+                                        <form action="{{ route('trip.reject', $reservation->id) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to reject this request?');">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -292,19 +297,24 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Select Drivers</label>
-                                                    <select name="driver_id"
-                                                        class="@error('driver_id') is-invalid @enderror form-select"
-                                                        id="">
-                                                        <option value="">Select Drivers</option>
-                                                        @foreach ($drivers as $driver)
-                                                            <option value="{{ $driver->id }}"
-                                                                {{ old('driver_id') == $driver->id ? 'selected' : '' }}>
-                                                                {{ $driver->full_name }} - {{ $driver->license_no }} -
-                                                                {{ $driver->gender }} - {{ $driver->age }}
+                                                    <select
+                                                        class="@error('information_id') is-invalid @enderror form-select"
+                                                        name="information_id" required>
+                                                        <option value="">Select Driver</option>
+                                                        @foreach ($informations as $information)
+                                                            <option value="{{ $information->id }}"
+                                                                style="text-transform: uppercase;"
+                                                                {{ old('information_id') == $information->id ? 'selected' : '' }}>
+                                                                {{ $information->firstName }} 
+                                                                {{ $information->middleName }} 
+                                                                {{ $information->lastName }} - 
+                                                                ({{ $information->license_no }} - 
+                                                                {{ ucfirst($information->gender) }}) - 
+                                                                {{ $information->age }}
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('vehicle_id')
+                                                    @error('information_id')
                                                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                                                     @enderror
                                                 </div>

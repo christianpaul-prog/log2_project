@@ -145,45 +145,69 @@
             <small>For Finance Report</small>
         </div>
     </div>
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show shadow-sm rounded-3" role="alert">
+        <i class="fas fa-check-circle me-2"></i> 
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i> 
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
     <!-- Add Forecast Form -->
     <div class="card shadow-sm p-4 mb-4">
-        <h5 class="mb-3">➕ Add Budget Forecast</h5>
+        <h5 class="mb-3">Add Budget Forecast</h5>
         <form action="{{ route('budget_forecasting.store') }}" method="POST">
             @csrf
-            <div class="row">
-                <div class="col-md-3 mb-3">
-                    <label class="form-label">Category</label>
-                    <select name="category" class="form-control" required>
-                        <option value="">-- Select Category --</option>
-                        <option value="fuel">Fuel</option>
-                        <option value="maintenance">Maintenance</option>
-                        <option value="trip">Trip</option>
-                    </select>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label class="form-label">Amount (₱)</label>
-                    <input type="number" step="0.01" name="amount" class="form-control" required>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label class="form-label">Month</label>
-                    <input type="month" name="month" class="form-control" required>
-                </div>
-                <div class="col-md-3 d-flex align-items-end">
-                    <button type="submit" class="btn btn-primary w-100 m-auto">Submit</button>
-                </div>
-            </div>
+          <div class="row">
+    <div class="col-md-3 mb-3">
+        
+        <label class="form-label">Category</label>
+        <select name="category" class="form-control" required>
+    <option value="">-- Select Category --</option>
+    <option value="all">All</option>
+    <option value="fuel">Fuel</option>
+    <option value="maintenance">Maintenance</option>
+    <option value="trip">Trip</option>
+</select>
+
+    </div>
+    <div class="col-md-3 mb-3">
+        <label class="form-label">Amount (₱)</label>
+        <input type="number" step="0.01" name="amount" class="form-control" required>
+    </div>
+    <div class="col-md-3 mb-3">
+        <label class="form-label">Month</label>
+        <input type="month" name="month" class="form-control" required>
+    </div>
+    <div class="col-md-3 mb-3">
+        <label class="form-label">Reason</label>
+        <input type="text" name="reason" class="form-control" placeholder="Ex.Need fund for fuel" required>
+    </div>
+    <div class="col-md-3 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100 m-auto">Submit</button>
+    </div>
+</div>
+
+
         </form>
     </div>
 
     <!-- Forecast Records -->
     <div class="card shadow-sm p-4 mb-4 table-responsive">
-        <h5 class="mb-3">📑 Forecast Records</h5>
+        <h5 class="mb-3"> Forecast Records</h5>
         <table class="table table-bordered table-striped ">
             <thead class="table-light">
                 <tr>
                     <th>ID</th>
                     <th>Category</th>
+                      <th>Reason</th> 
                     <th>Amount</th>
                     <th>Month</th>
                     <th>Status</th>
@@ -195,6 +219,7 @@
                 @forelse($forecasts as $forecast)
                     <tr>
                         <td>{{ $forecast->id }}</td>
+                         <td>{{ $forecast->reason }}</td>
                         <td>{{ ucfirst($forecast->category) }}</td>
                         <td>₱{{ number_format($forecast->amount, 2) }}</td>
                         <td>{{ $forecast->month }}</td>
@@ -246,7 +271,7 @@
 
     <!-- Budget vs Actual -->
     <div class="card shadow-sm p-4 mb-4 table-responsive">
-        <h5 class="mb-3">📊 Budget Forecast vs Actual</h5>
+        <h5 class="mb-3"> Budget Forecast vs Actual</h5>
         <table class="table table-bordered">
             <thead class="table-light">
                 <tr>

@@ -12,7 +12,7 @@ class Trip extends Model
         'status',
         'reservation_id',
         'vehicle_id',
-        'driver_id',
+        'information_id',
     ];
     /**
      * Relationship: Trip belongs to a Reservation
@@ -29,12 +29,11 @@ class Trip extends Model
     {
         return $this->belongsTo(Vehicles::class);
     }
-
     /**
      * Relationship: Trip belongs to a Driver
      */
-    public function driver()
-{
-    return $this->belongsTo(Drivers::class, 'driver_id');
-}
+    public function information()
+    {
+        return $this->belongsTo(Information::class, 'information_id');
+    }
 }

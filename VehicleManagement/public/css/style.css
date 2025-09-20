@@ -41,7 +41,7 @@ a {
   height: 100%;
   max-width: 264px;
   min-width: 264px;
-  background: #5c8c9c;
+  background: #2c3c8c;
   transition: all 0.35s ease-in-out;
   overflow-y: auto; 
   z-index: 1030;
@@ -100,6 +100,11 @@ a {
          background: #303030;
          color: #CCC;
     }
+     .main.dark .content{
+         background: #303030;
+         color: #CCC;
+    }
+  
     .main.dark nav.navbar{
            background: #303030;
            border-bottom:none;
@@ -169,6 +174,9 @@ a.sidebar-link.active-parent {
     background-color: rgba(255,255,255,.15) !important; 
     border-left: 3px solid #7e0101;  /* highlight border */
     /* para siguradong visible */
+}
+a.sidebar-link i{
+  color: #ff3333;
 }
     .sidebar-link[data-bs-toggle="collapse"]::after {
         border: solid;
@@ -270,6 +278,8 @@ a.sidebar-link.active-parent {
 .footer{
   background: #6d6f74;
 }
+
+
 
 @media (max-width: 768px) {
   .mode {

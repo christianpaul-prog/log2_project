@@ -115,7 +115,7 @@
     -webkit-overflow-scrolling: touch;
     }
   .table thead th {
-    background-color: #2c3c8c;  /* sample: bootstrap primary */
+    background-color: #2c3c8c;  
     color: white;
     font-weight: 600;
 }
@@ -221,15 +221,26 @@
     color: #c62828;
     border: 1px solid #f5c6cb;
 }
+ .nav-tabs .nav-link {
+    color: #000 !important;   /* black */
+}
 
+/* kapag active yung tab */
+.nav-tabs .nav-link.active {
+    color: #000 !important;   /* black */
+    background-color: #f8f9fa; /* light background */
+    border-color: #dee2e6 #dee2e6 #fff;
+}
      
 </style>
 
 
 <body class="bg-light">
    <div class="container-fluid mt-5 ">
-        <h4 class="mb-4 text-center">Overview of expenses across fuel, maintenance, and trips</h4>
-        
+        <h4 class="mb-4 ">Overview of expenses across fuel, maintenance, and trips</h4>
+          <small>Cost analysis</small>
+            <br>
+            <small>Expenses And Cost Reports</small>
        
        
     </div>
@@ -285,65 +296,143 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+
+
+
     <!-- Table -->
     <!-- Table -->
-<div class="table-container-fluid mt-5 table-responsive">
-    <table class="table mb-0">
-        <thead >
-            <tr >
-                <th>Date</th>
-                <th>Vehicle</th>
-                <th>Fuel</th>
-                <th>Maintenance</th>
-                <th>Trip</th>
-                <th>Total</th>
-                <th>Status</th>
-                <th>Actions</th> <!-- ADD THIS -->
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($costs as $cost)
-            <tr>
-                <td>{{ \Carbon\Carbon::parse($cost->date)->format('M d, Y') }}</td>
-                <td><strong>{{ $cost->vehicle }}</strong></td>
-                <td>₱{{ number_format($cost->fuel_cost, 2) }}</td>
-                <td>₱{{ number_format($cost->maintenance_cost, 2) }}</td>
-                <td>₱{{ number_format($cost->trip_expenses, 2) }}</td>
-                <td><strong>₱{{ number_format($cost->total_cost, 2) }}</strong></td>
-                <td>
-                  @if($cost->status == 'Pending')
-    <span class="status-badge status-open">Pending</span>
-@elseif($cost->status == 'Closed')
-    <span class="status-badge status-paid">Closed</span>
-@endif
+<!-- Tabs sa taas ng tables -->
+<div class="table-container-fluid mt-5">
+    <ul class="nav nav-tabs" id="costTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button 
+                class="nav-link active" 
+                id="records-tab" 
+                data-bs-toggle="tab" 
+                data-bs-target="#records" 
+                type="button" 
+                role="tab" 
+                aria-controls="records" 
+                aria-selected="true">
+                <i class="fas fa-list"></i> Cost Records
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button 
+                class="nav-link" 
+                id="logs-tab" 
+                data-bs-toggle="tab" 
+                data-bs-target="#logs" 
+                type="button" 
+                role="tab" 
+                aria-controls="logs" 
+                aria-selected="false">
+                <i class="fas fa-history"></i> Closed Logs
+            </button>
+        </li>
+    </ul>
 
-                </td>
-                <td>
-                    <!-- Delete Form -->
-                    <form action="{{ route('costanalysis.destroy', $cost->id) }}" 
-                          method="POST" 
-                          onsubmit="return confirm('Are you sure you want to delete this record?');"
-                          style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="8" class="text-center text-muted">No cost data available</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
-    <div class="p-3">
-    {{ $costs->links('pagination::bootstrap-5') }}
-</div>
-</div>
+    <!-- Tab Contents -->
+    <div class="tab-content bg-white border border-top-0 rounded-bottom shadow-sm p-3" id="costTabsContent">
+        
+        <!-- Cost Records Table -->
+        <div class="tab-pane fade show active" id="records" role="tabpanel" aria-labelledby="records-tab">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Vehicle</th>
+                        <th>Fuel</th>
+                        <th>Maintenance</th>
+                        <th>Trip</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($costs as $cost)
+                        <tr>
+                            <td>{{ \Carbon\Carbon::parse($cost->date)->format('M d, Y') }}</td>
+                            <td><strong>{{ $cost->vehicle }}</strong></td>
+                            <td>₱{{ number_format($cost->fuel_cost, 2) }}</td>
+                            <td>₱{{ number_format($cost->maintenance_cost, 2) }}</td>
+                            <td>₱{{ number_format($cost->trip_expenses, 2) }}</td>
+                            <td><strong>₱{{ number_format($cost->total_cost, 2) }}</strong></td>
+                            <td>
+                                @if($cost->status == 'Pending')
+                                    <span class="status-badge status-open">Pending</span>
+                                @elseif($cost->status == 'Closed')
+                                    <span class="status-badge status-paid">Closed</span>
+                                @endif
+                            </td>
+                            <td>
+                                <!-- Delete -->
+                                <form action="{{ route('costanalysis.destroy', $cost->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Delete this record?');">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </form>
 
+                                <!-- Close -->
+                                @if($cost->status == 'Pending')
+                                    <form action="{{ route('costanalysis.close', $cost->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Close this record?');">
+                                        @csrf @method('PATCH')
+                                        <button type="submit" class="btn btn-sm btn-success">
+                                            <i class="fas fa-check"></i> Close
+                                        </button>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center text-muted">No cost data available</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+            <div class="p-3">
+                {{ $costs->links('pagination::bootstrap-5') }}
+            </div>
+        </div>
+
+        <!-- Closed Logs Table -->
+        <div class="tab-pane fade" id="logs" role="tabpanel" aria-labelledby="logs-tab">
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Vehicle</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($logs as $log)
+                        <tr>
+                            <td>{{ $log->created_at->format('M d, Y H:i') }}</td>
+                            <td>{{ $log->vehicle }}</td>
+                            <td>{{ ucfirst($log->category) }}</td>
+                            <td>₱{{ number_format($log->amount, 2) }}</td>
+                            <td><span class="badge bg-success">{{ $log->action }}</span></td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">No closed transaction logs yet.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+            <div class="p-3">
+                {{ $logs->links('pagination::bootstrap-5') }}
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
 <div class="row mt-2">
@@ -442,6 +531,7 @@
         </div>
 
    
+
     <script>
     function calculateTotal() {
         let fuel = parseFloat(document.getElementById("fuel_cost").value) || 0;

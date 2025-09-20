@@ -1,19 +1,18 @@
 
 
-<nav class="navbar navbar-expand px-3 border-dark-subtle">
+<nav class="navbar navbar-expand px-3 border-dark-subtle" >
                 <button class="btn" id="sidebar-toggle" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                   <li class="navbar mode"><a href="#">
-             <i class="fa-solid fa-moon"></i>
-                <span class="link-name">Dark Mode</span>
+                <span class="link-name"></span>
             </a>
             
             <div class="mode-toggle">
             <span class="switch"></span>
-            </div>
+           
         </li>
-        <div class="text-end mb-3 fw-bold justify-flex-end" id="clock"></div>
+      
         <!--
                 <div class="navbar-collapse navbar">
                     <ul class="navbar-nav">

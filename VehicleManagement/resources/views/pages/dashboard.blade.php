@@ -9,6 +9,8 @@
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
     transition: all .5s ease;
+    color: #000000ff;
+     
   }
   .card:hover {
     transform: translateY(-5px);
@@ -78,17 +80,17 @@
 
 <div class="container-fluid slide-up mt-4">
  <div class="col-md-11 mt-5">
-                <h2 class="text-center my-4">Dashboard</h2>
-                <p class="text-center my-4">Manage your fleet vehicles eficiently</p>
+                <h2 class=" my-4">Dashboard</h2>
+                <p class=" my-4">Manage your fleet vehicles eficiently</p>
             </div>
   <!-- Stats Cards -->
 <div class="row g-4">
   <!-- Total Vehicles -->
   <div class="col-md-3">
-    <div class="card shadow-lg border-0 rounded-3 text-white"
-         style="background: linear-gradient(135deg, #0d6efd, #3a8ef6);">
+    <div class="card shadow-lg border-0 rounded-3 "
+         style="background: #fff;">
       <div class="card-body">
-        <h6 class="fw-light">Total Vehicles</h6>
+        <h6 >Total Vehicles</h6>
         <h3 class="fw-bold">{{ $totalVehicles ?? 0}}</h3>
         <small>↗ includes all vehicles</small>
       </div>
@@ -97,10 +99,10 @@
 
   <!-- Active Vehicles -->
   <div class="col-md-3">
-    <div class="card shadow-lg border-0 rounded-3 text-white"
-         style="background: linear-gradient(135deg, #198754, #20c997);">
+    <div class="card shadow-lg border-0 rounded-3 "
+         style="background: #fff;">
       <div class="card-body">
-        <h6 class="fw-light">Active Vehicles</h6>
+        <h6 >Active Vehicles</h6>
         <h3 class="fw-bold">{{ $activeVehicles ?? 0}}</h3>
         <small>↗ currently running</small>
       </div>
@@ -109,10 +111,10 @@
 
   <!-- Pending Maintenance -->
   <div class="col-md-3">
-    <div class="card shadow-lg border-0 rounded-3 text-white"
-         style="background: linear-gradient(135deg, #fd7e14, #ffc107);">
+    <div class="card shadow-lg border-0 rounded-3 "
+         style="background: #fff;">
       <div class="card-body">
-        <h6 class="fw-light">Pending Maintenance</h6>
+        <h6 >Pending Maintenance</h6>
         <h3 class="fw-bold">{{ $pendingMaint ?? 0}}</h3>
         <small>↗ scheduled repairs</small>
       </div>
@@ -121,10 +123,10 @@
 
   <!-- Reports -->
   <div class="col-md-3">
-    <div class="card shadow-lg border-0 rounded-3 text-white"
-         style="background: linear-gradient(135deg, #6f42c1, #9c6ade);">
+    <div class="card shadow-lg border-0 rounded-3 "
+         style="background: #fff;">
       <div class="card-body">
-        <h6 class="fw-light">Reports</h6>
+        <h6 >Reports</h6>
         <h3 class="fw-bold">{{ $reportsCount ?? 0}}</h3>
         <small>↗ this week</small>
       </div>
@@ -138,7 +140,7 @@
     <option value="">All</option>
     <option value="Maintenance">Maintenance</option>
     <option value="Trip">Trip</option>
-    <option value="Report">Report</option>
+    <option value="driver_report">Report</option>
      <option value="Vehicle">Vehicle</option>
   </select>
 </div>
