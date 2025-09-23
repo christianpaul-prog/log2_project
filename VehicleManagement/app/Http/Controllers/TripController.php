@@ -23,17 +23,17 @@ class TripController extends Controller
 
         $informations = Information::all();
 
-          $totalTrips   = Trip::count();
-    
-         return view('dispatch.list_dispatch', compact(
-        'trips',
-        'informations',
-        'totalTrips',
-      
-      
-        
-      
-    ));
+        $totalTrips   = Trip::count();
+
+        return view('dispatch.list_dispatch', compact(
+            'trips',
+            'informations',
+            'totalTrips',
+
+
+
+
+        ));
     }
 
     /**
@@ -130,7 +130,12 @@ class TripController extends Controller
      */
     public function destroy(trip $trip)
     {
-        //
-    }
+        try {
+            $trip->delete(); // Deletes the trip record
 
+            return redirect()->back()->with('success', 'Trip deleted successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to delete trip: ' . $e->getMessage());
+        }
+    }
 }

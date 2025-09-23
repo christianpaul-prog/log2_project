@@ -69,7 +69,7 @@ public function create()
         Reservation::create($validated);
 
         // ✅ Redirect back with success message
-        return redirect()->route('reservation.index')
+        return redirect()->route('reservation.create')
             ->with('success', 'Reservation created successfully!');
     }
 

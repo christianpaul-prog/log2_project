@@ -258,7 +258,9 @@
                                                                 <option value="{{ $vehicle->id }}"
                                                                     style="text-transform: uppercase;"
                                                                     {{ old('vehicle_id', $reservation->vehicle_id) == $vehicle->id ? 'selected' : '' }}>
-                                                                    {{ $vehicle->plate_number }} - {{ $vehicle->model }}
+                                                                    {{ ucfirst($vehicle->plate_no) }} - 
+                                                                    {{ ucfirst($vehicle->model) }} - 
+                                                                    {{ ucfirst($vehicle->type) }} 
                                                                 </option>
                                                             @endforeach
                                                         </select>
@@ -279,20 +281,7 @@
                                                     <div class="col-md-6 mb-3">
                                                         <label
                                                             class="@error('priority_level') is-invalid @enderror form-label">Priority</label>
-                                                        <select class="form-select" id="">
-                                                            <option value="low"
-                                                                {{ old('priority_level', $reservation->priority_level) == 'low' ? 'selected' : '' }}>
-                                                                Low
-                                                            </option>
-                                                            <option value="medium"
-                                                                {{ old('priority_level', $reservation->priority_level) == 'medium' ? 'selected' : '' }}>
-                                                                Medium
-                                                            </option>
-                                                            <option value="high"
-                                                                {{ old('priority_level', $reservation->priority_level) == 'high' ? 'selected' : '' }}>
-                                                                High
-                                                            </option>
-                                                        </select>
+                                                            <input type="text" class="form-control" value="{{ ucfirst($reservation->priority_level) }}" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3">
@@ -341,7 +330,7 @@
                     </tbody>
                 </table>
                 <div class="mt-4">
-                    {{ $reservations->links() }}
+                    {!! $$reservations->withQueryString()->links('pagination::bootstrap-5') !!}
                 </div>
             </div>
         </div>

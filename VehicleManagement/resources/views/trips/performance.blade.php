@@ -393,7 +393,7 @@
                         </div>
                     </div>
                     <div class="mt-3">
-                        {{ $shifts->links() }}
+                        {!! $shifts->withQueryString()->links('pagination::bootstrap-5') !!}
                     </div>
                 </div>
             </div>
@@ -438,7 +438,7 @@
                                 </table>
                             </div>
                             <div class="mt-3">
-                                {{ $drivershifts->links() }}
+                                {!! $drivershifts->withQueryString()->links('pagination::bootstrap-5') !!}
                             </div>
                         </div>
                     </div>

@@ -65,6 +65,20 @@
                     </div>
                 </div>
 
+                @if (session('success'))
+                    <script>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success',
+                            text: '{{ session('success') }}',
+                            timer: 2000,
+                            showConfirmButton: false,
+                            timerProgressBar: true,
+                            width: '350px'
+                        });
+                    </script>
+                @endif
+
                 <!-- Form Card -->
                 <div class="p-4 bg-white rounded-3 shadow-sm">
                     <form action="{{ route('reservation.store')}}" method="POST">

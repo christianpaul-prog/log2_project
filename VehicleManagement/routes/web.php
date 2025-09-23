@@ -66,6 +66,7 @@ Route::get('/dispatch', [TripController::class, 'index'])->name('trip.index');
 Route::get('/dispatch/create', [TripController::class, 'create'])->name('trip.create');
 Route::post('/dispatch', [TripController::class, 'store'])->name('trip.store');
 Route::post('/dispatch/{id}/reject', [TripController::class, 'reject'])->name('trip.reject');
+Route::delete('/dispatch/{trip}', [TripController::class, 'destroy'])->name('trip.destroy');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('pages.dashboard');
 

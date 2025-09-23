@@ -206,7 +206,7 @@
                                                 data-bs-target="#viewModal{{ $trip->id }}">
                                                 <i class="fa-regular fa-eye"></i>
                                             </a>
-                                            <form action="" method="POST" class="d-inline"
+                                            <form action="{{route('trip.destroy', $trip->id)}}" method="POST" class="d-inline"
                                                 onsubmit="return confirm('Are you sure you want to delete this dispatch order?');">
                                                 @csrf
                                                 @method('DELETE')
@@ -218,8 +218,10 @@
                                 @endforeach
                             </tbody>
                         </table>
-
-                        <div class="mt-4">{{ $trips->links() }}</div>
+                        <div class="mt-4">
+                            {!! $trips->withQueryString()->links('pagination::bootstrap-5') !!}
+                            
+                        </div>
                     </div>
                 </div>
             </div>

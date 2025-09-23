@@ -350,7 +350,8 @@
                     </tbody>
                 </table>
                 <div class="mt-4">
-                    {{ $reservations->links() }}
+                    {!! $reservations->withQueryString()->links('pagination::bootstrap-5') !!}
+                    
                 </div>
             </div>
         </div>
