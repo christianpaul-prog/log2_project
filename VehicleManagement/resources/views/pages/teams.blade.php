@@ -2,6 +2,7 @@
 @section('content')
 
     <style>
+      
         .partner-card {
             background: #fff;
             border-radius: 12px;
@@ -32,12 +33,11 @@
             margin-top: 5px;
         }
     </style>
-    <div class="graph">
-<p class="lead text-muted mt-5">
+
+        <h2 class="lead mt-5 text-center">
     Our fleet of modern, reliable vehicles ensures safe and efficient journeys for every trip.  
     We take pride in maintaining top-quality standards to keep our passengers and partners moving forward.
-</p>
-</div>
+    </h2>
     <!-- Partnership Section -->
     <section class="partners-section mt-5">
         <div class="container">
@@ -56,15 +56,15 @@
                     <div class="partner-card">
                         <img src="#" alt="Partner 1 Logo" class="partner-logo img-fluid mx-auto d-block">
                         <h6 class="mt-3 mb-1">Partner 1</h6>
-                        <p class="partner-caption">Delivering innovative solutions since 2005.</p>
+                        <p class="partner-caption">Security, Network, and Development Teams</p>
                     </div>
                 </div>
                 <!-- Partner 2 -->
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
                     <div class="partner-card">
-                        <img src="{{ asset('images/andeng.jpg') }}" alt="Partner 2 Logo" class="partner-logo img-fluid mx-auto d-block">
-                        <h6 class="mt-3 mb-1">Partner 2</h6>
-                        <p class="partner-caption">Empowering businesses worldwide.</p>
+                        <img src="{{ asset('images/andeng1.png') }}" alt="Partner 2 Logo" class="partner-logo img-fluid mx-auto d-block">
+                        <h6 class="mt-3 mb-1">Network Admintration</h6>
+                        <p class="partner-caption">Keeping the Fleet Connected and Reliable</p>
                     </div>
                 </div>
                 <!-- Partner 3 -->
@@ -80,14 +80,14 @@
                     <div class="partner-card">
                         <img src="https://via.placeholder.com/150x100/ffc107/000000?text=Partner+4" alt="Partner 4 Logo" class="partner-logo img-fluid mx-auto d-block">
                         <h6 class="mt-3 mb-1">Partner 4</h6>
-                        <p class="partner-caption">Connecting people through technology.</p>
+                        <p class="partner-caption">Guardians of Safe and Secure Fleet Operations</p>
                     </div>
                 </div>
                 <!-- Partner 5 -->
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
                     <div class="partner-card">
                         <img src="{{ asset('images/ruzvel.jpg') }}" alt="Partner 5 Logo" class="partner-logo img-fluid mx-auto d-block">
-                        <h6 class="mt-3 mb-1">Partner 5</h6>
+                        <h6 class="mt-3 mb-1">Developer</h6>
                         <p class="partner-caption">Pioneering sustainable solutions.</p>
                     </div>
                 </div>

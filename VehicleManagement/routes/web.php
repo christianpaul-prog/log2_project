@@ -87,9 +87,7 @@ Route::get('/metrics', function () {
 })->name('pages.metrics');
 
 // temporary routes
-Route::get('/costs', function () {
-    return view('cost_optimization.analytics');
-})->name('cost_optimization.analytics');
+
 
 Route::resource('costanalysis', CostAnalysisController::class);
 Route::delete('/costanalysis/{costanalysis}', [CostAnalysisController::class, 'destroy'])

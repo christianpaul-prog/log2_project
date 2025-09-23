@@ -2,6 +2,13 @@
 @section('title', 'Driver Reports')
 @section('content')
 <style>
+     .container-fluid{
+         animation: fadeIn 0.4s ease-in-out;
+    }
+       @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
        .table thead th {
     background-color: #5c8c9c;  /* sample: bootstrap primary */
     color: white;
@@ -12,10 +19,10 @@
 
     <!-- Header -->
     <div class="mb-4 text-center">
-        <h2 class="fw-bold text-primary mb-1">
+        <h2 class="fw-bold  mb-1">
             <i class="fa-solid fa-id-card-clip me-2"></i> Driver Activity Report
         </h2>
-        <p class="text-muted mb-0">Complete Driver Reports at a Glance</p>
+        <p class=" mb-0">Complete Driver Reports at a Glance</p>
     </div>
 
     <!-- Reports Card -->

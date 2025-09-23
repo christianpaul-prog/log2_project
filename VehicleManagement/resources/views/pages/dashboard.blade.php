@@ -138,7 +138,7 @@
   <input type="text" id="notifSearch" class="form-control w-25" placeholder="Search notifications...">
   <select id="notifFilter" class="form-select w-25">
     <option value="">All</option>
-    <option value="Maintenance">Maintenance</option>
+    <option value="vehicle_service">Maintenance</option>
     <option value="Trip">Trip</option>
     <option value="driver_report">Report</option>
      <option value="Vehicle">Vehicle</option>

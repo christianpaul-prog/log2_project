@@ -18,19 +18,13 @@
         }
 
         .card-header {
-<<<<<<< HEAD
-        
-    background-color: #5c8c9c;  /* sample: bootstrap primary */
-    color: white;
-    font-weight: 600;
-        
-=======
+
             background-color: #2c3c8c;
             /* sample: bootstrap primary */
             color: white;
             font-weight: 600;
             border-radius: 15px 15px 0 0;
->>>>>>> 014cce5d3b3d7c117d8d7ba30053bfb3fab2b506
+
             padding: 1rem 1.5rem;
            
         }
@@ -176,18 +170,27 @@
             margin-bottom: 0;
         }
 
-        .table th {
-            background: ;
-            color: white;
-            border: none;
-            padding: 1rem;
-        }
 
         .table td {
             padding: 0.8rem 1rem;
             vertical-align: middle;
             border-bottom: 1px solid #e9ecef;
         }
+        .table {
+    width: 100%;
+    border-collapse: collapse; /* important para di magdoble ang borders */
+}
+
+.table th, .table td {
+    border: 1px solid #dee2e6; /* light gray lines sa gitna ng cells */
+    padding: 0.8rem 1rem;
+    text-align: left;
+}
+
+.table th {
+    background-color: #5c8c9c; /* header background */
+    color: white;
+}
     </style>
     </head>
 
@@ -247,6 +250,18 @@
                     </div>
                 </div>
             </div>
+<ul class="nav nav-tabs" id="mainTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="trips-tab" data-bs-toggle="tab" data-bs-target="#trips" type="button" role="tab">
+            Trips Management
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="logs-tab" data-bs-toggle="tab" data-bs-target="#logs" type="button" role="tab">
+            Logs
+        </button>
+    </li>
+</ul>
 
             <!-- Tab Content -->
             <div class="tab-content" id="mainTabsContent">
@@ -254,7 +269,6 @@
                 <!-- Trips Management Tab -->
                 <div class="tab-pane fade show active" id="trips">
                     <div class="row">
-
                         <!-- Filters -->
                         <div class="col-12">
                             <div class="filter-section">
@@ -455,6 +469,56 @@
                     </div>
                 </div>
             </div>
+<!-- Logs Tab -->
+<div class="tab-pane fade" id="logs" role="tabpanel">
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-file-alt"></i> Update Reports Logs</h5>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Trips cost</th>
+                                <th>Action</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sep 23, 2025 - 09:15 AM</td>
+                                <td>Admin</td>
+                                <td>Created Trip</td>
+                                <td>Trip ID #1023 assigned to Driver John Doe</td>
+                            </tr>
+                            <tr>
+                                <td>Sep 23, 2025 - 11:30 AM</td>
+                                <td>System</td>
+                                <td>Cancelled Trip</td>
+                                <td>Trip ID #1020 automatically cancelled due to no driver</td>
+                            </tr>
+                            <tr>
+                                <td>Sep 22, 2025 - 03:45 PM</td>
+                                <td>Admin</td>
+                                <td>Updated Status</td>
+                                <td>Trip ID #1018 marked as Completed</td>
+                            </tr>
+                            <tr>
+                                <td>Sep 21, 2025 - 08:20 AM</td>
+                                <td>Admin</td>
+                                <td>Added Note</td>
+                                <td>Driver Jane Smith reported delay on Trip ID #1015</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
             <!-- Driver Performance Tab -->
             <script>

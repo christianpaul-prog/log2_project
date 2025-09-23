@@ -96,15 +96,13 @@
                     </li>
 
                      <li class="sidebar-item">
-                        <a href="#" class="sidebar-link {{ request()->routeIs('cost_optimization.analytics','costanalysis.index','budget_forecasting.index') ? '' : 'collapsed' }}" data-bs-target="#analytic" data-bs-toggle="collapse"
+                        <a href="#" class="sidebar-link {{ request()->routeIs('costanalysis.index','budget_forecasting.index') ? '' : 'collapsed' }}" data-bs-target="#analytic" data-bs-toggle="collapse"
                             aria-expanded="false">
                             <i class="fa-solid fa-chart-simple pe-2"></i>
                             Transport Cost Analy.
                         </a>
-                        <ul id="analytic" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('cost_optimization.analytics','costanalysis.index','budget_forecasting.index') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
-                            <li class="sidebar-item">
-                                <a href="{{route('cost_optimization.analytics')}}" class="sidebar-link {{ request()->routeIs('cost_optimization.analytics') ? 'active' : '' }}"> - Analysis</a>
-                            </li>
+                        <ul id="analytic" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('costanalysis.index','budget_forecasting.index') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
+                            
                            
 
                              <li class="sidebar-item">
