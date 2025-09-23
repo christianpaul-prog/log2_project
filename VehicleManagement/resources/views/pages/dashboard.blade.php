@@ -98,7 +98,7 @@
                 <div class="card shadow-lg border-0 rounded-3 " style="background: #fff;">
                     <div class="card-body">
                         <h6>Total Vehicles</h6>
-                        <h3 class="fw-bold">{{ $totalVehicles ?? 0 }}</h3>
+                        <h3 class="fw-bold text-success">{{ $totalVehicles ?? 0 }}</h3>
                         <small>↗ includes all vehicles</small>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                 <div class="card shadow-lg border-0 rounded-3 " style="background: #fff;">
                     <div class="card-body">
                         <h6>Active Vehicles</h6>
-                        <h3 class="fw-bold">{{ $activeVehicles ?? 0 }}</h3>
+                        <h3 class="fw-bold text-danger-emphasis">{{ $activeVehicles ?? 0 }}</h3>
                         <small>↗ currently running</small>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                 <div class="card shadow-lg border-0 rounded-3 " style="background: #fff;">
                     <div class="card-body">
                         <h6>Pending Maintenance</h6>
-                        <h3 class="fw-bold">{{ $pendingMaint ?? 0 }}</h3>
+                        <h3 class="fw-bold text-info-emphasis">{{ $pendingMaint ?? 0 }}</h3>
                         <small>↗ scheduled repairs</small>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
                 <div class="card shadow-lg border-0 rounded-3 " style="background: #fff;">
                     <div class="card-body">
                         <h6>Reports</h6>
-                        <h3 class="fw-bold">{{ $reportsCount ?? 0 }}</h3>
+                        <h3 class="fw-bold text-primary-emphasis">{{ $reportsCount ?? 0 }}</h3>
                         <small>↗ this week</small>
                     </div>
                 </div>

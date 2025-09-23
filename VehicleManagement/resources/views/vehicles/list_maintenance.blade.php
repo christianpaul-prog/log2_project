@@ -72,11 +72,11 @@
         }
 
         .page-header {
-    background: linear-gradient(135deg, #0d6efd, #3751c1);
+    background: white;
     border-radius: 12px;
     padding: 2rem 1rem;
     text-align: center;
-    color: #fff;
+    color: #000;
     margin-bottom: 2rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
@@ -86,7 +86,7 @@
 }
 .page-header p {
     margin-bottom: 0;
-    color: #f8f9fa;
+    color: #000;
 }
     </style>
 
@@ -96,7 +96,7 @@
         <!-- Main Content -->
         <div id="MainContent" class="container-fluid slide-up ">
             <div class="page-header mt-5">
-    <h2 class=" text-white"><i class="fa-solid fa-screwdriver-wrench"></i> List Maintenance</h2>
+    <h2 ><i class="fa-solid fa-screwdriver-wrench"></i> List Maintenance</h2>
     <p>Manage your fleet vehicles efficiently</p>
 </div>
 
@@ -116,6 +116,25 @@
                 </script>
             @endif
 
+<!-- Filters -->
+<div class="row mb-3 g-2 align-items-center">
+    <div class="col-md-3">
+        <input type="text" id="plateFilter" class="form-control" placeholder="Filter by Plate No.">
+    </div>
+    <div class="col-md-3">
+        <input type="text" id="nameFilter" class="form-control" placeholder="Filter by Vehicle Name">
+    </div>
+    <div class="col-md-3">
+        <select id="statusFilter" class="form-select">
+            <option value="">All Status</option>
+            <option value="completed">Completed</option>
+            <option value="in progress">In Progress</option>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary w-100" onclick="applyFilters()">Filter</button>
+    </div>
+</div>
 
             <div class="row d-flex justify-content-center">
                 <div class="col-md-12">
@@ -235,5 +254,30 @@
                 row.style.display = match ? '' : 'none';
             }
         });
+
+        function applyFilters() {
+    const plate = document.getElementById('plateFilter').value.toLowerCase();
+    const name = document.getElementById('nameFilter').value.toLowerCase();
+    const status = document.getElementById('statusFilter').value.toLowerCase();
+
+    const table = document.getElementById('vehicleTable');
+    const rows = table.getElementsByTagName('tr');
+
+    for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        const cells = row.getElementsByTagName('td');
+
+        const plateCell = cells[1].textContent.toLowerCase();
+        const nameCell = cells[2].textContent.toLowerCase();
+        const statusCell = cells[7].textContent.toLowerCase();
+
+        let matchesPlate = plate ? plateCell.includes(plate) : true;
+        let matchesName = name ? nameCell.includes(name) : true;
+        let matchesStatus = status ? statusCell.includes(status) : true;
+
+        row.style.display = (matchesPlate && matchesName && matchesStatus) ? '' : 'none';
+    }
+}
+
     </script>
 @endsection

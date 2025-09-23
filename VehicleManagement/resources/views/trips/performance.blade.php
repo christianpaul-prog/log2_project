@@ -196,6 +196,17 @@
             /* header background */
             color: white;
         }
+
+         .nav-tabs .nav-link {
+    color: #000 !important;   /* black */
+}
+
+/* kapag active yung tab */
+.nav-tabs .nav-link.active {
+    color: #000 !important;   /* black */
+    background-color: #f8f9fa; /* light background */
+    border-color: #dee2e6 #dee2e6 #fff;
+}
     </style>
     </head>
 
@@ -274,7 +285,7 @@
             <div class="tab-content" id="mainTabsContent">
 
                 <!-- Trips Management Tab -->
-                <div class="tab-pane fade show active" id="trips">
+                <div class="tab-pane fade show active mt-3" id="trips">
                     <div class="row">
                         <!-- Filters -->
                         <div class="col-12">
@@ -398,53 +409,49 @@
                 </div>
             </div>
             <!-- Logs Tab -->
-            <div class="tab-pane fade" id="logs" role="tabpanel">
-                <div class="row mt-3">
-                    <div class="col-12">
-                        <div class="dashboard-card">
-                            <div class="card-header">
-                                <h5 class="mb-0"><i class="fas fa-file-alt"></i> Update Reports Logs</h5>
-                            </div>
-                            <div class="card-body table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Shift Date</th>
-                                            <th>Start Shift</th>
-                                            <th>End Shift</th>
-                                            <th>Earning</th>
-                                            <th>Details</th>
-                                        </tr>
-                                    </thead>
-                                    @foreach ($drivershifts as $drivershift)
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    {{ $drivershift->shift_date ? \Carbon\Carbon::parse($shift->shift_date)->format('M d, Y') : 'N/A' }}
-                                                </td>
-                                                <td>
-                                                    {{ $drivershift->start_time ? \Carbon\Carbon::parse($shift->start_time)->format('h:i A') : 'N/A' }}
-                                                </td>
-                                                <td>
-                                                    {{ $drivershift->end_time ? \Carbon\Carbon::parse($shift->end_time)->format('h:i A') : 'N/A' }}
-                                                </td>
-                                                <td>₱{{ number_format($drivershift->earning) }}</td>
-                                                <td>Trip ID #{{ $drivershift->trip->id }} assigned to
-                                                    {{ $drivershift->driver->information->full_name }}
-                                                    and mark as {{ ucfirst($drivershift->trip->status) }}</td>
-                                            </tr>
-                                        </tbody>
-                                    @endforeach
-                                </table>
-                            </div>
-                            <div class="mt-3">
-                                {!! $drivershifts->withQueryString()->links('pagination::bootstrap-5') !!}
-                            </div>
-                        </div>
+            <!-- Logs Tab -->
+<div class="tab-pane fade" id="logs" role="tabpanel">
+    <div class="row mt-3">
+        <div class="col-12">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-file-alt"></i> Driver Shifts Logs</h5>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Shift Date</th>
+                                <th>Start Shift</th>
+                                <th>End Shift</th>
+                                <th>Earning</th>
+                                <th>Details</th>
+                              
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($drivershifts as $drivershift)
+                                <tr>
+                                    <td>{{ $drivershift->shift_date ? \Carbon\Carbon::parse($drivershift->shift_date)->format('M d, Y') : 'N/A' }}</td>
+                                    <td>{{ $drivershift->start_time ? \Carbon\Carbon::parse($drivershift->start_time)->format('h:i A') : 'N/A' }}</td>
+                                    <td>{{ $drivershift->end_time ? \Carbon\Carbon::parse($drivershift->end_time)->format('h:i A') : 'N/A' }}</td>
+                                    <td>₱{{ number_format($drivershift->earning) }}</td>
+                                    <td>Trip ID #{{ $drivershift->trip->id }} assigned to {{ $drivershift->driver->information->full_name }} and mark as {{ ucfirst($drivershift->trip->status) }}</td>
+                                    
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <div class="mt-3">
+                        {!! $drivershifts->withQueryString()->links('pagination::bootstrap-5') !!}
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
 
         <!-- Driver Performance Tab -->
         <script>

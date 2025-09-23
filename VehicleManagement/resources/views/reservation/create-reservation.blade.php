@@ -26,8 +26,8 @@
 
         /* Header redesign */
         .page-header {
-              background: linear-gradient(135deg, #4e73df, #3751c1);
-            color: white;
+               background: #fff;
+        color: #000;
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

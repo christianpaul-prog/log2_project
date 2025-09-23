@@ -7,7 +7,7 @@
             background: #fff;
             border-radius: 12px;
             padding: 20px 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .partner-card:hover {
@@ -54,7 +54,7 @@
                 <!-- Partner 1 -->
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
                     <div class="partner-card">
-                        <img src="#" alt="Partner 1 Logo" class="partner-logo img-fluid mx-auto d-block">
+                        <img src="{{ asset('images/rudge.jpg') }}" alt="Partner 1 Logo" class="partner-logo img-fluid mx-auto d-block">
                         <h6 class="mt-3 mb-1">Partner 1</h6>
                         <p class="partner-caption">Security, Network, and Development Teams</p>
                     </div>
@@ -70,7 +70,7 @@
                 <!-- Partner 3 -->
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
                     <div class="partner-card">
-                        <img src="https://via.placeholder.com/150x100/dc3545/ffffff?text=Partner+3" alt="Partner 3 Logo" class="partner-logo img-fluid mx-auto d-block">
+                        <img src="{{ asset('images/lilay.jpg') }}" alt="Partner 3 Logo" class="partner-logo img-fluid mx-auto d-block">
                         <h6 class="mt-3 mb-1">Partner 3</h6>
                         <p class="partner-caption">Trusted name in global logistics.</p>
                     </div>
@@ -78,7 +78,7 @@
                 <!-- Partner 4 -->
                 <div class="col-lg-2 col-md-3 col-sm-4 col-6 text-center">
                     <div class="partner-card">
-                        <img src="https://via.placeholder.com/150x100/ffc107/000000?text=Partner+4" alt="Partner 4 Logo" class="partner-logo img-fluid mx-auto d-block">
+                        <img src="{{ asset('images/napune.jpg') }}" alt="Partner 4 Logo" class="partner-logo img-fluid mx-auto d-block">
                         <h6 class="mt-3 mb-1">Partner 4</h6>
                         <p class="partner-caption">Guardians of Safe and Secure Fleet Operations</p>
                     </div>

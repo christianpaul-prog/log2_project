@@ -14,6 +14,8 @@ class Trip extends Model
         'vehicle_id',
         'information_id',
     ];
+
+
     /**
      * Relationship: Trip belongs to a Reservation
      */
@@ -29,6 +31,8 @@ class Trip extends Model
     {
         return $this->belongsTo(Vehicles::class);
     }
+
+    
     /**
      * Relationship: Trip belongs to a Driver
      */

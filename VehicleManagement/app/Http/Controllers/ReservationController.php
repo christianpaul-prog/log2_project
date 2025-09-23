@@ -15,6 +15,7 @@ class ReservationController extends Controller
     {
         // Vehicles not in maintenance or trip
         $vehicles = Vehicles::whereDoesntHave('maintenances', function ($query) {
+            
             $query->where('status', 'in_progress');
         })
             ->whereDoesntHave('trips', function ($query) {
@@ -23,7 +24,7 @@ class ReservationController extends Controller
             ->get();
 
         // Fetch reservations with latest first, paginated
-        $reservations = Reservation::with('vehicle')
+        $reservations = Reservation::with('vehicle','trip')
             ->latest()
             ->paginate(10); // 👈 show 10 per page
 

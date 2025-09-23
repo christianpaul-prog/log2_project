@@ -25,7 +25,7 @@ class VehiclesController extends Controller
     }
     $totalVehicles = $query->count();
     $vehicles = $query->orderBy('created_at', 'desc')->paginate(10);
-
+  
     return view('vehicles.fvm', compact('vehicles', 'totalVehicles'));
 }
 

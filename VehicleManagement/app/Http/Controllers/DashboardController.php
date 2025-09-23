@@ -130,6 +130,7 @@ class DashboardController extends Controller
         ));
     }
 
+
     public function report()
     {
         // Fetch all reports with their related driver

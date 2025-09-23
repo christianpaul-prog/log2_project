@@ -61,6 +61,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            
                             <div class="row">
                                 <div class="col-md-4 mb-3">
                                     <label for="">Make</label>
@@ -90,7 +91,7 @@
                                         <option value="motorcycle"
                                             {{ session('modal') === 'add' && old('type') === 'motorcycle' ? 'selected' : '' }}>
                                             Motorcyle</option>
-                                    </select>
+                                    </select>`
                                     @error('type')
                                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                                     @enderror
@@ -164,11 +165,52 @@
     <!-- Main Content -->
     <div id="MainContent" class="container-fluid slide-up">
         <!-- Header Section -->
-        <div class="py-5 mb-4 text-center text-white mt-5"
-            style="background: linear-gradient(135deg, #4e73df, #3751c1); border-radius: 12px;">
-            <h2 class="fw-bold mb-1">Fleet Vehicle Management</h2>
+        <div class="py-5 mb-4 text-center  mt-5"
+            style="background: #fff; border-radius: 12px;color:#000;">
+            <h2 class="fw-bold mb-1 ">Fleet Vehicle Management</h2>
             <p class="mb-0">Manage your fleet efficiently and keep everything on track</p>
         </div>
+        <div class="container mb-4">
+    <div class="row align-items-center filter-section p-3 mb-3 rounded-3 shadow-sm" style="background-color: #f1f5f9;">
+        <!-- Search -->
+        <div class="col-md-3 mb-2 mb-md-0">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="fas fa-search"></i>
+                </span>
+                <input type="text" id="searchInput" class="form-control" placeholder="Search vehicles..." value="{{ request('search') }}">
+            </div>
+        </div>
+
+        <!-- Type Filter -->
+        <div class="col-md-2 mb-2 mb-md-0">
+            <select id="typeFilter" class="form-select">
+                <option value="">All Types</option>
+                <option value="sedan" {{ request('type') == 'sedan' ? 'selected' : '' }}>Sedan</option>
+                <option value="suv" {{ request('type') == 'suv' ? 'selected' : '' }}>SUV</option>
+                <option value="truck" {{ request('type') == 'truck' ? 'selected' : '' }}>Truck</option>
+                <option value="van" {{ request('type') == 'van' ? 'selected' : '' }}>Van</option>
+                <option value="motorcycle" {{ request('type') == 'motorcycle' ? 'selected' : '' }}>Motorcycle</option>
+            </select>
+        </div>
+
+        <!-- Color Filter -->
+        <div class="col-md-2 mb-2 mb-md-0">
+            <input type="text" id="colorFilter" class="form-control" placeholder="Filter by Color" value="{{ request('color') }}">
+        </div>
+
+        <!-- Name/Model Filter -->
+        <div class="col-md-3 mb-2 mb-md-0">
+            <input type="text" id="nameFilter" class="form-control" placeholder="Filter by Vehicle Name" value="{{ request('name') }}">
+        </div>
+
+        <!-- Filter Button -->
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary w-100" onclick="applyFilters()">Filter</button>
+        </div>
+    </div>
+</div>
+
 
         <!-- Summary Boxes -->
         {{-- <div class="row g-4 mb-5">
@@ -228,8 +270,7 @@
                                     <span class="input-group-text">
                                         <i class="fas fa-search"></i>
                                     </span>
-                                    <input type="text" name="search" id="searchInput" class="form-control me-2"
-                                        placeholder="Search vehicles">
+                                   
                                     {{-- <button class="btn btn-primary" id="addVehicleBtn" type="button">AddVehicle</button> --}}
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#vehicleModal">
@@ -514,5 +555,38 @@
 
             }
         });
+
+        function applyFilters() {
+    const search = document.getElementById('searchInput').value.toLowerCase();
+    const type = document.getElementById('typeFilter').value.toLowerCase();
+    const color = document.getElementById('colorFilter').value.toLowerCase();
+    const name = document.getElementById('nameFilter').value.toLowerCase();
+
+    const table = document.getElementById('vehicleTable');
+    const rows = table.getElementsByTagName('tr');
+
+    for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        const cells = row.getElementsByTagName('td');
+
+        const plateNo = cells[0].textContent.toLowerCase();
+        const model = cells[1].textContent.toLowerCase();
+        const license = cells[2].textContent.toLowerCase();
+        const typeCell = cells[4].textContent.toLowerCase();
+        const colorCell = cells[5].textContent.toLowerCase();
+
+        let matchesSearch = search ? (plateNo.includes(search) || model.includes(search) || license.includes(search)) : true;
+        let matchesType = type ? typeCell === type : true;
+        let matchesColor = color ? colorCell.includes(color) : true;
+        let matchesName = name ? model.includes(name) : true;
+
+        if (matchesSearch && matchesType && matchesColor && matchesName) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    }
+}
+
     </script>
 @endsection

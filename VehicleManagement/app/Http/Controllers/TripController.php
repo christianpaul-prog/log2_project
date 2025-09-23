@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Trip;
 use App\Models\Reservation;
 use App\Models\Information;
+use App\Models\Vehicles;
 use Illuminate\Http\Request;
 
 
@@ -24,9 +25,10 @@ class TripController extends Controller
         $informations = Information::all();
 
         $totalTrips   = Trip::count();
-
+ $vehicles = Vehicles::all();
         return view('dispatch.list_dispatch', compact(
             'trips',
+            'vehicles',
             'informations',
             'totalTrips',
 
@@ -54,7 +56,6 @@ class TripController extends Controller
 
         // Get all vehicles tied to those reservations
         $vehicles = $reservations->pluck('vehicle')->filter();
-
         return view('dispatch.create_dispatch', compact('informations', 'reservations', 'vehicles'));
     }
 

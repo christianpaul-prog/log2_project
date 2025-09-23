@@ -25,8 +25,8 @@
         }
 
         .page-header {
-              background: linear-gradient(135deg, #4e73df, #3751c1);
-            color: white;
+             background: #fff;
+        color: #000;
             padding: 20px;
             border-radius: 12px;
             margin-bottom: 25px;
@@ -49,8 +49,8 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
-         .table thead th {
-    background-color: #2c3c8c;  /* sample: bootstrap primary */
+          .table thead th {
+    background-color: #5c8c9c;  /* sample: bootstrap primary */
     color: white;
     font-weight: 600;
          }
@@ -64,9 +64,10 @@
     </style>
     <div class="container-fluid slide-up my-5">
         <!-- Header -->
-        <div class="page-header">
-            <h2>Reservation List</h2>
-        </div>
+    <div class="page-header text-center mb-4">
+    <h2 class="fw-bold">Reservation List</h2>
+    <p class="text-muted mt-2">View and manage all your reservations efficiently from one place.</p>
+</div>
 
         <!-- Filters -->
         <div class="card p-3 mb-4 shadow-sm">

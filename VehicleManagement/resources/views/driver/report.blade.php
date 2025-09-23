@@ -14,16 +14,41 @@
     color: white;
     font-weight: 600;
          }
+         .page-header {
+      background: #fff;
+        color: #000;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.page-header:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.page-header h2 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.page-header p {
+    margin-top: 8px;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.85);
+}
 </style>
 <div class="container-fluid mt-5">
 
     <!-- Header -->
-    <div class="mb-4 text-center">
-        <h2 class="fw-bold  mb-1">
-            <i class="fa-solid fa-id-card-clip me-2"></i> Driver Activity Report
-        </h2>
-        <p class=" mb-0">Complete Driver Reports at a Glance</p>
-    </div>
+   <div class="page-header text-center mb-4 mt-5 p-4">
+    <h2 class="fw-bold mb-1">
+        <i class="fa-solid fa-truck-fast me-2"></i> Dispatch Orders Overview
+    </h2>
+    <p class="mb-0 text-muted">Manage, track, and monitor all active dispatch orders efficiently</p>
+</div>
+
+
 
     <!-- Reports Card -->
     <div class="card shadow border-0 rounded-4">
