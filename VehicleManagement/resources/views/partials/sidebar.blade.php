@@ -119,30 +119,44 @@
                     </li>
 
                     <li class="sidebar-header">
-                        Multi Level Menu
-                    </li>
-                    <li class="sidebar-item">
-                        <a href="#" class="sidebar-link collapsed" data-bs-target="#multi" data-bs-toggle="collapse"
-                            aria-expanded="false">
-                            <i class="fa-solid fa-file pe-2"></i>
-                            System
-                        </a>
-                        <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebarAccordion">
-                            <li class="sidebar-item">
-                                <a href="#" class="sidebar-link collapsed" data-bs-target="#level1"
-                                    data-bs-toggle="collapse" aria-expanded="false">Team</a>
+    Multi Level Menu
+</li>
+<li class="sidebar-item">
+    <a href="#" 
+       class="sidebar-link {{ request()->routeIs('pages.teams') ? '' : 'collapsed' }}" 
+       data-bs-target="#multi" data-bs-toggle="collapse"
+       aria-expanded="{{ request()->routeIs('pages.teams') ? 'true' : 'false' }}">
+        <i class="fa-solid fa-file pe-2"></i>
+        System
+    </a>
+    <ul id="multi" 
+        class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('pages.teams') ? 'show' : '' }}" 
+        data-bs-parent="#sidebarAccordion">
 
-                                <ul id="level1" class="sidebar-dropdown list-unstyled collapse">
-                                    <li class="sidebar-item">
-                                        <a href="#" class="sidebar-link">about</a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="#" class="sidebar-link">Members</a>
-                                    </li>
-                                </ul>
-                            </li>
+        <li class="sidebar-item">
+            <a href="#" 
+               class="sidebar-link {{ request()->routeIs('pages.teams') ? '' : 'collapsed' }}" 
+               data-bs-target="#level1" data-bs-toggle="collapse"
+               aria-expanded="{{ request()->routeIs('pages.teams') ? 'true' : 'false' }}">
+                Team
+            </a>
 
-                        </ul>
+            <ul id="level1" 
+                class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('pages.teams') ? 'show' : '' }}">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">About</a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="{{ route('pages.teams') }}" 
+                       class="sidebar-link {{ request()->routeIs('pages.teams') ? 'active' : '' }}">
+                        Members
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</li>
+
                          <li class="sidebar-item">
                         <a href="#" class="sidebar-link">
                            <i class="fa-solid fa-gear"></i>

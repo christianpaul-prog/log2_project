@@ -13,6 +13,7 @@ use App\Http\Controllers\TripController;
 use App\Http\Controllers\CostAnalysisController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BudgetForecastingController;
+use App\Http\Middleware\SessionTimeout;
 
 
 
@@ -21,9 +22,11 @@ Route::get('/', function () {
     return auth()->check() ? redirect()->route('pages.dashboard') : redirect()->route('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard');
-})->name('pages.dashboard')->middleware('auth');
+Route::middleware(['auth', SessionTimeout::class])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('pages.dashboard');
+    // lagay lahat ng protected routes dito
+});
+
 
 // Route::get('/vehicles/maintenance', function () {
 //     $vehicles = Vehicles::latest()->get(); // Fetch all vehicles for maintenance view
@@ -67,6 +70,10 @@ Route::post('/dispatch/{id}/reject', [TripController::class, 'reject'])->name('t
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('pages.dashboard');
 
 
+Route::get('/Teams', function () {
+    return view('pages.teams');
+})->name('pages.teams');
+
 Route::get('/Maintenance', function () {
     return view('pages.Maintenance');
 })->name('pages.Maintenance');
@@ -99,10 +106,14 @@ Route::get('/driver', [DashboardController::class, 'report'])->name('driver.repo
 Route::get('/budget-forecasting', [BudgetForecastingController::class, 'index'])->name('budget_forecasting.index');
 Route::post('/budget-forecasting/store', [BudgetForecastingController::class, 'store'])->name('budget_forecasting.store');
 
+
+
 // Finance approval routes
 Route::post('/budget-forecasting/{id}/approve', [BudgetForecastingController::class, 'approve'])->name('budget_forecasting.approve');
 Route::post('/budget-forecasting/{id}/reject', [BudgetForecastingController::class, 'reject'])->name('budget_forecasting.reject');
 Route::delete('/budget-forecasting/{id}', [BudgetForecastingController::class, 'destroy'])->name('budget_forecasting.destroy');
+Route::delete('/budget-logs/{id}', [BudgetForecastingController::class, 'destroyLog'])->name('budget_logs.destroy');
+
 // Notification routes
 Route::delete('/notifications/{id}', [CostAnalysisController::class, 'destroyNotification'])
     ->name('notifications.destroy');

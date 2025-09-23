@@ -18,12 +18,13 @@
         }
 
         .card-header {
-            background-color: #2c3c8c;  /* sample: bootstrap primary */
+        
+    background-color: #5c8c9c;  /* sample: bootstrap primary */
     color: white;
     font-weight: 600;
-            border-radius: 15px 15px 0 0;
+        
             padding: 1rem 1.5rem;
-            border: none;
+           
         }
 
         .stats-card {

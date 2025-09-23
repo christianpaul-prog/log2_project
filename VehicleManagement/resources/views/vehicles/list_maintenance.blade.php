@@ -39,7 +39,7 @@
         }
 
         .table thead th {
-    background-color: #2c3c8c;  
+    background-color: #5c8c9c;  
     color: white;
     font-weight: 600;
 }
@@ -120,7 +120,7 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-md-12">
                     <div class="card mb-4">
-                        <div class="card-body ">
+                        <div class="card-body table-responsive">
                             <!-- Search -->
                             <div class="d-flex justify-content-end mb-3">
                                 <div class="input-group" style="max-width: 400px;">

@@ -26,11 +26,44 @@
         margin-top: 15px;
         padding-left: 20px;
     }
-    .terms-container .btn {
-        border-radius: 8px;
-        padding: 10px 20px;
-        margin: 0 5px;
+
+    /* custom buttons */
+    .custom-btn {
+        border: none;
+        border-radius: 6px;
+        padding: 10px 22px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-left: 10px;
+        transition: background 0.3s ease, transform 0.2s ease;
     }
+    .custom-btn.accept {
+          border: 2px black solid;
+        background: #ffffffff; /* green */
+        color: #000000ff;
+    }
+    .custom-btn.accept:hover {
+        background: #218838;
+        transform: scale(1.05);
+    }
+    .custom-btn.decline {
+             border: 2px black solid;
+        background: #ffffffff; /* green */
+        color: #000000ff;
+    }
+    .custom-btn.decline:hover {
+        background: #c82333;
+        transform: scale(1.05);
+    }
+
+    /* button container */
+    .terms-actions {
+        display: flex;
+        justify-content: flex-end; /* laging nasa kanan */
+        margin-top: 20px;
+    }
+
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(20px); }
         to   { opacity: 1; transform: translateY(0); }
@@ -61,15 +94,13 @@
     If you do not agree, you must refrain from registering or using the system.
 </p>
 
-
-    <div class="text-center mt-4">
-    <a href="{{ route('auth.register') }}" class="btn btn-success me-2">Accept</a>
-    <button type="button" class="btn btn-danger" id="declineBtn">Decline</button>
+    <!-- Button container -->
+    <div class="terms-actions">
+        <a href="{{ route('auth.register') }}" class="custom-btn accept">Accept</a>
+        <button type="button" class="custom-btn decline" id="declineBtn">Decline</button>
+    </div>
 </div>
 
-
-
-</div>
 <script>
     document.getElementById("declineBtn").addEventListener("click", function() {
         alert("You must accept the Terms and Conditions to register. Redirecting to login page.");

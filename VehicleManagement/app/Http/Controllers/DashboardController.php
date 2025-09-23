@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller; 
 use App\Models\Vehicles;
 use App\Models\Maintenance;
 use App\Models\Shift;
@@ -10,11 +10,14 @@ use App\Models\Report;
 use App\Models\Trip;
 use App\Models\Reservation;
 use App\Models\Notification;
+use App\Http\Middleware\SessionTimeout;
 use Illuminate\Http\Request;
 
 
 class DashboardController extends Controller
 {
+
+
     public function index()
     {
         $totalVehicles    = Vehicles::count();

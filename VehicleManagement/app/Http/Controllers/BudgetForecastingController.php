@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\BudgetForecast;
 use App\Models\CostAnalysis;
+use App\Models\BudgetLog;
 
 class BudgetForecastingController extends Controller
 {
     public function index()
     {
+          $forecasts = BudgetForecast::orderBy('created_at', 'desc')->paginate(10);
         $forecasts = BudgetForecast::latest()->get();
         $forecastFuel        = BudgetForecast::where('category', 'fuel')->where('status', 'approved')->sum('amount');
         $forecastMaintenance = BudgetForecast::where('category', 'maintenance')->where('status', 'approved')->sum('amount');
@@ -18,9 +20,10 @@ class BudgetForecastingController extends Controller
         $totalFuel = CostAnalysis::where('status', 'Closed')->sum('fuel_cost');
         $totalTrips = CostAnalysis::where('status', 'Closed')->sum('trip_expenses');
         $totalMaintenance = CostAnalysis::where('status', 'Closed')->sum('maintenance_cost');
+  $totalBudget = BudgetForecast::where('status', 'approved')->sum('amount');
 
-
-        $forecasts = BudgetForecast::orderBy('created_at', 'desc')->paginate(10);
+      
+      $logs = BudgetLog::orderBy('created_at', 'desc')->paginate(10);
 
 
         // tamaan mo kung alin yung folder name na ginamit mo sa views
@@ -32,6 +35,8 @@ class BudgetForecastingController extends Controller
             'totalFuel',
             'totalMaintenance',
             'totalTrips',
+            'logs',
+            'totalBudget'
         ));
     }
 
@@ -91,9 +96,25 @@ class BudgetForecastingController extends Controller
     public function destroy($id)
     {
         $forecast = BudgetForecast::findOrFail($id);
+         BudgetLog::create([
+        'forecast_id' => $forecast->id,
+        'category'    => $forecast->category,
+        'amount'      => $forecast->amount,
+        'month'       => $forecast->month,
+        'reason'      => $forecast->reason,
+        'status'      => $forecast->status,
+        'action'      => 'deleted',
+    ]);
         $forecast->delete();
 
         return redirect()->route('budget_forecasting.index')
             ->with('success', 'Forecast deleted successfully!');
     }
+    public function destroyLog($id)
+{
+    $log = BudgetLog::findOrFail($id);
+    $log->delete();
+
+    return back()->with('success', 'Log deleted successfully!');
+}
 }

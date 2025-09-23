@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Trip;
 use Illuminate\Http\Request;
+use App\Models\Notification; 
 
 class TripsApiController extends Controller
 {
@@ -49,7 +50,16 @@ public function index(Request $request)
             'instruction'    => $validated['instruction'] ?? null,
             'status'         => 'pending',
         ]);
+  Notification::create([
+        'type'    => 'Trip',
+        'message' => "New trip created with cost ₱" . number_format($trip->trip_cost, 2),
+    ]);
 
+    return response()->json([
+        'message' => 'Trip created successfully',
+        'data'    => $trip->load(['vehicle', 'driver', 'reservation']),
+    ], 201);
+    
         return response()->json([
             'message' => 'Trip created successfully',
             'data'    => $trip->load(['vehicle', 'driver', 'reservation']),
@@ -73,20 +83,26 @@ public function index(Request $request)
      */
     public function update(Request $request, $id)
     {
-        // $trip = Trip::findOrFail($id);
+         $trip = Trip::findOrFail($id);
 
-        // $validated = $request->validate([
-        //     'trip_cost'   => 'nullable|numeric|min:0',
-        //     'instruction' => 'nullable|string|max:1000',
-        //     'status'      => 'required|in:pending,on_work,completed',
-        // ]);
+    $validated = $request->validate([
+        'trip_cost'   => 'nullable|numeric|min:0',
+        'instruction' => 'nullable|string|max:1000',
+        'status'      => 'required|in:pending,on_work,completed',
+    ]);
 
-        // $trip->update($validated);
+    $trip->update($validated);
 
-        // return response()->json([
-        //     'message' => 'Trip updated successfully',
-        //     'data'    => $trip->load(['vehicle', 'driver', 'reservation']),
-        // ]);
+    // 🔔 Gumawa ng Trip status update notification
+    Notification::create([
+        'type'    => 'Trip',
+        'message' => "Trip #{$trip->id} updated to status: " . ucfirst($trip->status),
+    ]);
+
+    return response()->json([
+        'message' => 'Trip updated successfully',
+        'data'    => $trip->load(['vehicle', 'driver', 'reservation']),
+    ]);
     }
 
     /**

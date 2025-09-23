@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('title', 'Driver Reports')
 @section('content')
+<style>
+       .table thead th {
+    background-color: #5c8c9c;  /* sample: bootstrap primary */
+    color: white;
+    font-weight: 600;
+         }
+</style>
 <div class="container-fluid mt-5">
 
     <!-- Header -->

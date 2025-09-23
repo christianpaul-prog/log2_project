@@ -35,6 +35,7 @@ class CostAnalysisController extends Controller
 
         // Notifications
         $notifications = Notification::where('type', 'Cost')->latest()->take(10)->get();
+        $tripNotifications = Notification::where('type', 'Trip')->latest()->take(10)->get();
 
         return view('costanalysis.index', compact(
             'totalFuel',
@@ -45,7 +46,8 @@ class CostAnalysisController extends Controller
             'maintenanceChange',
             'costs',
             'notifications',
-            'logs'
+            'logs',
+             'tripNotifications'
         ));
     }
 
@@ -173,7 +175,7 @@ public function close($id)
     $cost->update(['status' => 'Closed']);
 
     
-    \App\Models\Notification::create([
+   Notification::create([
         'type' => ucfirst($category),
         'message' => ucfirst($category) . " cost record closed with ₱" . number_format($expenseAmount, 2),
     ]);

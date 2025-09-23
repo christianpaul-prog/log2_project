@@ -115,7 +115,7 @@
     -webkit-overflow-scrolling: touch;
     }
   .table thead th {
-    background-color: #2c3c8c;  
+    background-color: #5c8c9c;  
     color: white;
     font-weight: 600;
 }
@@ -299,9 +299,7 @@
 
 
 
-    <!-- Table -->
-    <!-- Table -->
-<!-- Tabs sa taas ng tables -->
+ 
 <div class="table-container-fluid mt-5">
     <ul class="nav nav-tabs" id="costTabs" role="tablist">
         <li class="nav-item" role="presentation">

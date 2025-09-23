@@ -74,7 +74,7 @@
         overflow: hidden;
     }
     .table thead th{
-        background: #2c3c8c;
+        background: #5c8c9c;
         font-weight: 600;
         color: #fff;
     }
@@ -131,7 +131,16 @@
     color: #aaa;
     background-color: #f8f9fa;
 }
+ .nav-tabs .nav-link {
+    color: #000 !important;   /* black */
+}
 
+/* kapag active yung tab */
+.nav-tabs .nav-link.active {
+    color: #000 !important;   /* black */
+    background-color: #f8f9fa; /* light background */
+    border-color: #dee2e6 #dee2e6 #fff;
+}
 </style>
 
 <div class="container-fluid mt-4">
@@ -198,77 +207,151 @@
 
         </form>
     </div>
+<!-- Budget Total -->
 
     <!-- Forecast Records -->
-    <div class="card shadow-sm p-4 mb-4 table-responsive">
-        <h5 class="mb-3"> Forecast Records</h5>
-        <table class="table table-bordered table-striped ">
-            <thead class="table-light">
-                <tr>
-                    <th>ID</th>
-                    <th>Category</th>
-                      <th>Reason</th> 
-                    <th>Amount</th>
-                    <th>Month</th>
-                    <th>Status</th>
-                    <th>Submitted At</th>
-                    <th>Actions (Finance)</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($forecasts as $forecast)
+ <div class="card shadow-sm p-4 mb-4">
+    <ul class="nav nav-tabs" id="forecastTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="forecasts-tab" data-bs-toggle="tab" data-bs-target="#forecasts" type="button" role="tab">
+                Forecast Records
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="logs-tab" data-bs-toggle="tab" data-bs-target="#logs" type="button" role="tab">
+                Logs
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-3" id="forecastTabsContent">
+        <!-- Forecast Records -->
+        <div class="tab-pane fade show active table-responsive" id="forecasts" role="tabpanel">
+            <table class="table table-bordered table-striped ">
+                <thead class="table-light">
                     <tr>
-                        <td>{{ $forecast->id }}</td>
-                         <td>{{ $forecast->reason }}</td>
-                        <td>{{ ucfirst($forecast->category) }}</td>
-                        <td>₱{{ number_format($forecast->amount, 2) }}</td>
-                        <td>{{ $forecast->month }}</td>
-                        <td>
-                            @if($forecast->status == 'pending')
-                                <span class="badge bg-warning text-dark">Pending</span>
-                            @elseif($forecast->status == 'approved')
-                                <span class="badge bg-success">Approved</span>
-                            @else
-                                <span class="badge bg-danger">Rejected</span>
-                            @endif
-                        </td>
-                        <td>{{ $forecast->created_at->format('Y-m-d') }}</td>
-                        <td>
-    <div class="d-flex gap-2">
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Month</th>
+                        <th>Status</th>
+                        <th>Reason</th>
+                        <th>Created At</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($forecasts as $forecast)
+                        <tr>
+                            <td>{{ $forecast->id }}</td>
+                            <td>{{ ucfirst($forecast->category) }}</td>
+                            <td>₱{{ number_format($forecast->amount, 2) }}</td>
+                            <td>{{ $forecast->month }}</td>
+                            <td>
+                                <span class="badge 
+                                    @if($forecast->status == 'approved') bg-success
+                                    @elseif($forecast->status == 'rejected') bg-danger
+                                    @else bg-warning text-dark
+                                    @endif">
+                                    {{ ucfirst($forecast->status) }}
+                                </span>
+                            </td>
+                            <td>{{ $forecast->reason ?? '-' }}</td>
+                            <td>{{ $forecast->created_at->format('Y-m-d H:i') }}</td>
+                          <td>
     @if($forecast->status == 'pending')
-        <form action="{{ route('budget_forecasting.approve', $forecast->id) }}" method="POST">
+        <!-- Approve -->
+        <form action="{{ route('budget_forecasting.approve', $forecast->id) }}" method="POST" class="d-inline">
             @csrf
-            <button class="btn btn-success btn-sm">Approve</button>
+            <button type="submit" class="btn btn-sm btn-success">
+                <i class="fa-solid fa-check"></i> Approve
+            </button>
         </form>
-        <form action="{{ route('budget_forecasting.reject', $forecast->id) }}" method="POST">
+
+        <!-- Reject -->
+        <form action="{{ route('budget_forecasting.reject', $forecast->id) }}" method="POST" class="d-inline">
             @csrf
-            <button class="btn btn-warning btn-sm">Reject</button>
+            <button type="submit" class="btn btn-sm btn-danger">
+                <i class="fa-solid fa-xmark"></i> Reject
+            </button>
         </form>
-    @else
-        <em class="text-muted">No actions</em>
     @endif
 
-    <form action="{{ route('budget_forecasting.destroy', $forecast->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this forecast?');">
+    <!-- Delete (lagi visible kahit approved/rejected na) -->
+    <form action="{{ route('budget_forecasting.destroy', $forecast->id) }}" method="POST" class="d-inline"
+          onsubmit="return confirm('Are you sure you want to delete this forecast?');">
         @csrf
         @method('DELETE')
-        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        <button type="submit" class="btn btn-sm btn-outline-danger">
+            <i class="fa-solid fa-trash"></i> Delete
+        </button>
     </form>
-</div>
-
-
 </td>
 
-                    </tr>
-                @empty
-                    <tr><td colspan="7" class="text-center text-muted">No forecasts yet.</td></tr>
-                @endforelse
-            </tbody>
-        </table>
-        <div class="d-flex justify-content-center mt-3">
-    {{ $forecasts->withQueryString()->links('pagination::bootstrap-5') }}
-</div>
-    </div>
 
+                        </tr>
+                    @empty
+                        <tr><td colspan="8" class="text-center text-muted">No forecasts yet.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Logs -->
+        <div class="tab-pane fade" id="logs" role="tabpanel">
+            <table class="table table-bordered table-striped">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Category</th>
+                        <th>Amount</th>
+                        <th>Month</th>
+                        <th>Reason</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        <th>Logged At</th>
+                        <th>Manage</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($logs as $log)
+                        <tr>
+                            <td>{{ $log->id }}</td>
+                            <td>{{ ucfirst($log->category) }}</td>
+                            <td>₱{{ number_format($log->amount, 2) }}</td>
+                            <td>{{ $log->month }}</td>
+                            <td>{{ $log->reason ?? '-' }}</td>
+                            <td><span class="badge bg-secondary">{{ ucfirst($log->status) }}</span></td>
+                            <td><span class="badge bg-danger">{{ ucfirst($log->action) }}</span></td>
+                            <td>{{ $log->created_at->format('Y-m-d H:i') }}</td>
+
+                             <td>
+                <!-- Delete button -->
+                <form action="{{ route('budget_logs.destroy', $log->id) }}" method="POST" class="d-inline"
+      onsubmit="return confirm('Delete this log? This cannot be undone.');">
+    @csrf
+    @method('DELETE')
+    <button type="submit" class="btn btn-sm btn-outline-danger">
+        <i class="fa-solid fa-trash"></i> Delete
+    </button>
+</form>
+            </td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="8" class="text-center text-muted">No logs yet.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="card shadow-sm p-4 mb-4 text-center">
+    <h5 class="mb-2">💰 Total Approved Budget</h5>
+    <h3 class="fw-bold text-success">
+        ₱{{ number_format($totalBudget, 2) }}
+    </h3>
+</div>
     <!-- Budget vs Actual -->
     <div class="card shadow-sm p-4 mb-4 table-responsive">
         <h5 class="mb-3"> Budget Forecast vs Actual</h5>

@@ -22,7 +22,7 @@
             animation: slideUp 0.6s ease-out;
         }
          .table thead th {
-    background-color: #2c3c8c;  /* sample: bootstrap primary */
+    background-color: #5c8c9c;  /* sample: bootstrap primary */
     color: white;
     font-weight: 600;
          }
