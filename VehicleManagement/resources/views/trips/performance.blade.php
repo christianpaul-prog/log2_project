@@ -26,7 +26,7 @@
             border-radius: 15px 15px 0 0;
 
             padding: 1rem 1.5rem;
-           
+
         }
 
         .stats-card {
@@ -176,21 +176,26 @@
             vertical-align: middle;
             border-bottom: 1px solid #e9ecef;
         }
+
         .table {
-    width: 100%;
-    border-collapse: collapse; /* important para di magdoble ang borders */
-}
+            width: 100%;
+            border-collapse: collapse;
+            /* important para di magdoble ang borders */
+        }
 
-.table th, .table td {
-    border: 1px solid #dee2e6; /* light gray lines sa gitna ng cells */
-    padding: 0.8rem 1rem;
-    text-align: left;
-}
+        .table th,
+        .table td {
+            border: 1px solid #dee2e6;
+            /* light gray lines sa gitna ng cells */
+            padding: 0.8rem 1rem;
+            text-align: left;
+        }
 
-.table th {
-    background-color: #5c8c9c; /* header background */
-    color: white;
-}
+        .table th {
+            background-color: #5c8c9c;
+            /* header background */
+            color: white;
+        }
     </style>
     </head>
 
@@ -250,18 +255,20 @@
                     </div>
                 </div>
             </div>
-<ul class="nav nav-tabs" id="mainTabs" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="trips-tab" data-bs-toggle="tab" data-bs-target="#trips" type="button" role="tab">
-            Trips Management
-        </button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link" id="logs-tab" data-bs-toggle="tab" data-bs-target="#logs" type="button" role="tab">
-            Logs
-        </button>
-    </li>
-</ul>
+            <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="trips-tab" data-bs-toggle="tab" data-bs-target="#trips"
+                        type="button" role="tab">
+                        Trips Management
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="logs-tab" data-bs-toggle="tab" data-bs-target="#logs" type="button"
+                        role="tab">
+                        Logs
+                    </button>
+                </li>
+            </ul>
 
             <!-- Tab Content -->
             <div class="tab-content" id="mainTabsContent">
@@ -378,88 +385,9 @@
                                                         {{ $shift->end_time ? \Carbon\Carbon::parse($shift->end_time)->format('h:i A') : 'N/A' }}
                                                     </small>
                                                 </div>
-                                                <div class="col-lg-1 col-md-1">
-                                                    <button class="btn btn-action btn-sm" data-bs-toggle="modal"
-                                                        data-bs-target="#viewShift{{ $shift->id }}">
-                                                        <i class="fas fa-eye"></i>
-                                                    </button>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- View Shift Modal -->
-                                    {{-- <div class="modal fade" id="viewShift{{ $shift->id }}" tabindex="-1"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog modal-lg modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header bg-primary text-white">
-                                                    <h5 class="modal-title">Trip Details (ID: {{ $shift->id }})</h5>
-                                                    <button type="button" class="btn-close btn-close-white"
-                                                        data-bs-dismiss="modal"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="row mb-2">
-                                                        <div class="col-md-6">
-                                                            <strong>Driver:</strong><br>
-                                                            {{ $shift->driver->information->full_name }}
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <strong>Vehicle:</strong><br>
-                                                            {{ $shift->trip->vehicle->type }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-2">
-                                                        <div class="col-md-6">
-                                                            <strong>Pickup:</strong><br>
-                                                            {{ $shift->trip->reservation->pickup ?? 'N/A' }}
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <strong>Drop:</strong><br>
-                                                            {{ $shift->trip->reservation->drop ?? 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-2">
-                                                        <div class="col-md-6">
-                                                            <strong>Status:</strong><br>
-                                                            {{ ucfirst($shift->trip->status) }}
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <strong>Revenue:</strong><br>
-                                                            ₱{{ number_format($shift->earning) }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-2">
-                                                        <div class="col-md-6">
-                                                            <strong>Shift Date:</strong><br>
-                                                            {{ $shift->shift_date ? \Carbon\Carbon::parse($shift->shift_date)->format('M d, Y') : 'N/A' }}
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <strong>Dispatch Date:</strong><br>
-                                                            {{ $shift->trip && $shift->trip->reservation && $shift->trip->reservation->dispatch_date
-                                                                ? \Carbon\Carbon::parse($shift->trip->reservation->dispatch_date)->format('M d, Y - h:i A')
-                                                                : 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-2">
-                                                        <div class="col-md-6">
-                                                            <strong>Start Time:</strong><br>
-                                                            {{ $shift->start_time ? \Carbon\Carbon::parse($shift->start_time)->format('h:i A') : 'N/A' }}
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <strong>End Time:</strong><br>
-                                                            {{ $shift->end_time ? \Carbon\Carbon::parse($shift->end_time)->format('h:i A') : 'N/A' }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                        <i class="fas fa-times"></i> Close
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 @endforeach
                             </div>
                         </div>
@@ -469,81 +397,79 @@
                     </div>
                 </div>
             </div>
-<!-- Logs Tab -->
-<div class="tab-pane fade" id="logs" role="tabpanel">
-    <div class="row mt-3">
-        <div class="col-12">
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h5 class="mb-0"><i class="fas fa-file-alt"></i> Update Reports Logs</h5>
-                </div>
-                <div class="card-body table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Trips cost</th>
-                                <th>Action</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Sep 23, 2025 - 09:15 AM</td>
-                                <td>Admin</td>
-                                <td>Created Trip</td>
-                                <td>Trip ID #1023 assigned to Driver John Doe</td>
-                            </tr>
-                            <tr>
-                                <td>Sep 23, 2025 - 11:30 AM</td>
-                                <td>System</td>
-                                <td>Cancelled Trip</td>
-                                <td>Trip ID #1020 automatically cancelled due to no driver</td>
-                            </tr>
-                            <tr>
-                                <td>Sep 22, 2025 - 03:45 PM</td>
-                                <td>Admin</td>
-                                <td>Updated Status</td>
-                                <td>Trip ID #1018 marked as Completed</td>
-                            </tr>
-                            <tr>
-                                <td>Sep 21, 2025 - 08:20 AM</td>
-                                <td>Admin</td>
-                                <td>Added Note</td>
-                                <td>Driver Jane Smith reported delay on Trip ID #1015</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- Logs Tab -->
+            <div class="tab-pane fade" id="logs" role="tabpanel">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-file-alt"></i> Update Reports Logs</h5>
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Shift Date</th>
+                                            <th>Start Shift</th>
+                                            <th>End Shift</th>
+                                            <th>Earning</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    @foreach ($drivershifts as $drivershift)
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    {{ $drivershift->shift_date ? \Carbon\Carbon::parse($shift->shift_date)->format('M d, Y') : 'N/A' }}
+                                                </td>
+                                                <td>
+                                                    {{ $drivershift->start_time ? \Carbon\Carbon::parse($shift->start_time)->format('h:i A') : 'N/A' }}
+                                                </td>
+                                                <td>
+                                                    {{ $drivershift->end_time ? \Carbon\Carbon::parse($shift->end_time)->format('h:i A') : 'N/A' }}
+                                                </td>
+                                                <td>₱{{ number_format($drivershift->earning) }}</td>
+                                                <td>Trip ID #{{ $drivershift->trip->id }} assigned to
+                                                    {{ $drivershift->driver->information->full_name }}
+                                                    and mark as {{ ucfirst($drivershift->trip->status) }}</td>
+                                            </tr>
+                                        </tbody>
+                                    @endforeach
+                                </table>
+                            </div>
+                            <div class="mt-3">
+                                {{ $drivershifts->links() }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-            <!-- Driver Performance Tab -->
-            <script>
-                function applyFilters() {
-                    let search = document.getElementById("driverSearch").value.toLowerCase();
-                    let status = document.getElementById("statusFilter").value.toLowerCase();
-                    let date = document.getElementById("dateFilter").value;
+        <!-- Driver Performance Tab -->
+        <script>
+            function applyFilters() {
+                let search = document.getElementById("driverSearch").value.toLowerCase();
+                let status = document.getElementById("statusFilter").value.toLowerCase();
+                let date = document.getElementById("dateFilter").value;
 
-                    let trips = document.querySelectorAll("#tripList .trip-item");
+                let trips = document.querySelectorAll("#tripList .trip-item");
 
-                    trips.forEach(trip => {
-                        let driver = trip.querySelector(".driver-name").innerText.toLowerCase();
-                        let tripStatus = trip.querySelector(".status-text").innerText.toLowerCase();
-                        let tripDate = trip.querySelector(".trip-date").innerText.trim();
+                trips.forEach(trip => {
+                    let driver = trip.querySelector(".driver-name").innerText.toLowerCase();
+                    let tripStatus = trip.querySelector(".status-text").innerText.toLowerCase();
+                    let tripDate = trip.querySelector(".trip-date").innerText.trim();
 
-                        let matchesSearch = !search || driver.includes(search);
-                        let matchesStatus = !status || tripStatus.includes(status);
-                        let matchesDate = !date || tripDate === date;
+                    let matchesSearch = !search || driver.includes(search);
+                    let matchesStatus = !status || tripStatus.includes(status);
+                    let matchesDate = !date || tripDate === date;
 
-                        if (matchesSearch && matchesStatus && matchesDate) {
-                            trip.style.display = "";
-                        } else {
-                            trip.style.display = "none";
-                        }
-                    });
-                }
-            </script>
-        @endsection
+                    if (matchesSearch && matchesStatus && matchesDate) {
+                        trip.style.display = "";
+                    } else {
+                        trip.style.display = "none";
+                    }
+                });
+            }
+        </script>
+    @endsection
