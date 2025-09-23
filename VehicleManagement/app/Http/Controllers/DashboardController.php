@@ -22,9 +22,9 @@ class DashboardController extends Controller
     {
         $totalVehicles    = Vehicles::count();
         $pendingMaint = Maintenance::where('status', 'in_progress')->count();
-         $reportsCount    = DriverReport::count();
-        $notifications = Notification::whereIn('type', ['vehicle_service', 'Vehicle','driver_report'])
-        
+        $reportsCount    = DriverReport::count();
+        $notifications = Notification::whereIn('type', ['vehicle_service', 'Vehicle', 'driver_report'])
+
             ->latest()
             ->take(10)
             ->get();
@@ -58,24 +58,34 @@ class DashboardController extends Controller
 
         return redirect()->back()->with('success', 'Notification deleted successfully!');
     }
-        public function performance()
+
+    public function performance()
     {
-       // Fetch shifts only if their related trip has allowed statuses
-    $shifts = Shift::with([
+        // Fetch shifts only if their related trip has allowed statuses
+        $shifts = Shift::with([
             'driver',
             'trip.reservation',
             'trip.vehicle',
             'trip.information'
         ])
-        ->whereHas('trip', function ($query) {
-            $query->whereIn('status', ['completed', 'on_work', 'cancelled']);
-        })
-        ->latest()
-        ->paginate(10);
-
-        return view('trips.performance', compact('shifts'));
+            ->whereHas('trip', function ($query) {
+                $query->whereIn('status', ['completed', 'on_work', 'cancelled']);
+            })
+            ->latest()
+            ->paginate(10);
+        $totalTrips   = Trip::count();
+        $completed = Trip::where('status', 'completed')->count();
+        $cancelled = Trip::where('status', 'cancelled')->count();
+        // Calculate Success Rate safely (avoid division by zero)
+$successRate = $totalTrips > 0 ? round(($completed / $totalTrips) * 100, 2) : 0;
+        return view('trips.performance', compact(
+            'shifts',
+            'totalTrips',
+            'completed',
+            'cancelled',
+            'successRate'));
     }
-    
+
     public function report()
     {
         // Fetch all reports with their related driver
@@ -83,7 +93,4 @@ class DashboardController extends Controller
 
         return view('driver.report', compact('reports'));
     }
-
-
-
 }

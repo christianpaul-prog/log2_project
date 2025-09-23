@@ -7,7 +7,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        
+
         .dashboard-card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
@@ -18,18 +18,26 @@
         }
 
         .card-header {
+<<<<<<< HEAD
         
     background-color: #5c8c9c;  /* sample: bootstrap primary */
     color: white;
     font-weight: 600;
         
+=======
+            background-color: #2c3c8c;
+            /* sample: bootstrap primary */
+            color: white;
+            font-weight: 600;
+            border-radius: 15px 15px 0 0;
+>>>>>>> 014cce5d3b3d7c117d8d7ba30053bfb3fab2b506
             padding: 1rem 1.5rem;
            
         }
 
         .stats-card {
             background: #fff;
-                color: #000000ff;
+            color: #000000ff;
             border-radius: 15px;
             padding: 1.5rem;
             text-align: center;
@@ -41,7 +49,7 @@
             transform: translateY(-5px);
         }
 
-       
+
 
         .trip-item {
             background: rgba(248, 249, 250, 0.8);
@@ -95,11 +103,12 @@
             transition: width 0.8s ease;
         }
 
-       
+
         .btn-action {
-            background-color: #2c3c8c;  /* sample: bootstrap primary */
-    color: white;
-    font-weight: 600;
+            background-color: #2c3c8c;
+            /* sample: bootstrap primary */
+            color: white;
+            font-weight: 600;
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-size: 0.9rem;
@@ -189,61 +198,61 @@
                 <p class="text-center my-4">Manage your Trips eficiently</p>
             </div>
             <div class="container-xl">
-              
+
                 <!-- Header Section -->
-               <div class="row mb-4 slide-up">
-    <div class="col-lg-3 col-md-6">
-        <div class="stats-card">
-            <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <h3 class="mb-1">{{ $totalTrips ?? 0 }}</h3>
-                    <p class="mb-0">Total Trips</p>
+                <div class="row mb-4 slide-up">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-card">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="mb-1">{{ $totalTrips ?? 0 }}</h3>
+                                    <p class="mb-0">Total Trips</p>
+                                </div>
+                                <i class="fas fa-road fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-card success">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="mb-1">{{ $completed ?? 0 }}</h3>
+                                    <p class="mb-0">Completed</p>
+                                </div>
+                                <i class="fas fa-check-circle fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-card warning">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="mb-1">{{ $cancelled ?? 0 }}</h3>
+                                    <p class="mb-0">Cancelled</p>
+                                </div>
+                                <i class="fas fa-clock fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="stats-card info">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h3 class="mb-1">{{ $successRate ?? 0 }}%</h3>
+                                    <p class="mb-0">Success Rate</p>
+                                </div>
+                                <i class="fas fa-chart-line fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <i class="fas fa-road fa-2x"></i>
             </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="stats-card success">
-            <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <h3 class="mb-1">{{ $completed ?? 0 }}</h3>
-                    <p class="mb-0">Completed</p>
-                </div>
-                <i class="fas fa-check-circle fa-2x"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="stats-card warning">
-            <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <h3 class="mb-1">{{ $ongoing ?? 0  }}</h3>
-                    <p class="mb-0">Ongoing</p>
-                </div>
-                <i class="fas fa-clock fa-2x"></i>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="stats-card info">
-            <div class="d-flex align-items-center justify-content-between">
-                <div>
-                    <h3 class="mb-1">{{ $successRate ?? 0  }}%</h3>
-                    <p class="mb-0">Success Rate</p>
-                </div>
-                <i class="fas fa-chart-line fa-2x"></i>
-            </div>
-        </div>
-    </div>
-</div>      
-            </div> 
 
-                <!-- Tab Content -->
-                <div class="tab-content" id="mainTabsContent">
+            <!-- Tab Content -->
+            <div class="tab-content" id="mainTabsContent">
 
-                    <!-- Trips Management Tab -->
-                                    <div class="tab-pane fade show active" id="trips">
+                <!-- Trips Management Tab -->
+                <div class="tab-pane fade show active" id="trips">
                     <div class="row">
 
                         <!-- Filters -->
@@ -292,8 +301,8 @@
                                 <div class="card-header">
                                     <h5 class="mb-0"><i class="fas fa-route"></i> Recent Trips</h5>
                                 </div>
-                                <div class="card-body" id="tripList">
-                                    @foreach ($shifts as $shift)
+                                @foreach ($shifts as $shift)
+                                    <div class="card-body" id="tripList">
                                         <div class="trip-item" data-date="{{ $shift->shift_date }}">
                                             <div class="row align-items-center">
                                                 <div class="col-lg-2 col-md-3">
@@ -356,14 +365,88 @@
                                                     </small>
                                                 </div>
                                                 <div class="col-lg-1 col-md-1">
-                                                    <button class="btn btn-action btn-sm">
+                                                    <button class="btn btn-action btn-sm" data-bs-toggle="modal"
+                                                        data-bs-target="#viewShift{{ $shift->id }}">
                                                         <i class="fas fa-eye"></i>
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
-                                </div>
+                                    </div>
+                                    <!-- View Shift Modal -->
+                                    {{-- <div class="modal fade" id="viewShift{{ $shift->id }}" tabindex="-1"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header bg-primary text-white">
+                                                    <h5 class="modal-title">Trip Details (ID: {{ $shift->id }})</h5>
+                                                    <button type="button" class="btn-close btn-close-white"
+                                                        data-bs-dismiss="modal"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-6">
+                                                            <strong>Driver:</strong><br>
+                                                            {{ $shift->driver->information->full_name }}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>Vehicle:</strong><br>
+                                                            {{ $shift->trip->vehicle->type }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-6">
+                                                            <strong>Pickup:</strong><br>
+                                                            {{ $shift->trip->reservation->pickup ?? 'N/A' }}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>Drop:</strong><br>
+                                                            {{ $shift->trip->reservation->drop ?? 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-6">
+                                                            <strong>Status:</strong><br>
+                                                            {{ ucfirst($shift->trip->status) }}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>Revenue:</strong><br>
+                                                            ₱{{ number_format($shift->earning) }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-6">
+                                                            <strong>Shift Date:</strong><br>
+                                                            {{ $shift->shift_date ? \Carbon\Carbon::parse($shift->shift_date)->format('M d, Y') : 'N/A' }}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>Dispatch Date:</strong><br>
+                                                            {{ $shift->trip && $shift->trip->reservation && $shift->trip->reservation->dispatch_date
+                                                                ? \Carbon\Carbon::parse($shift->trip->reservation->dispatch_date)->format('M d, Y - h:i A')
+                                                                : 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                        <div class="col-md-6">
+                                                            <strong>Start Time:</strong><br>
+                                                            {{ $shift->start_time ? \Carbon\Carbon::parse($shift->start_time)->format('h:i A') : 'N/A' }}
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <strong>End Time:</strong><br>
+                                                            {{ $shift->end_time ? \Carbon\Carbon::parse($shift->end_time)->format('h:i A') : 'N/A' }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">
+                                                        <i class="fas fa-times"></i> Close
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -371,32 +454,32 @@
                         {{ $shifts->links() }}
                     </div>
                 </div>
+            </div>
 
-                    <!-- Driver Performance Tab -->
-                       <script>
-            function applyFilters() {
-                let search = document.getElementById("driverSearch").value.toLowerCase();
-                let status = document.getElementById("statusFilter").value.toLowerCase();
-                let date = document.getElementById("dateFilter").value;
+            <!-- Driver Performance Tab -->
+            <script>
+                function applyFilters() {
+                    let search = document.getElementById("driverSearch").value.toLowerCase();
+                    let status = document.getElementById("statusFilter").value.toLowerCase();
+                    let date = document.getElementById("dateFilter").value;
 
-                let trips = document.querySelectorAll("#tripList .trip-item");
+                    let trips = document.querySelectorAll("#tripList .trip-item");
 
-                trips.forEach(trip => {
-                    let driver = trip.querySelector(".driver-name").innerText.toLowerCase();
-                    let tripStatus = trip.querySelector(".status-text").innerText.toLowerCase();
-                    let tripDate = trip.querySelector(".trip-date").innerText.trim();
+                    trips.forEach(trip => {
+                        let driver = trip.querySelector(".driver-name").innerText.toLowerCase();
+                        let tripStatus = trip.querySelector(".status-text").innerText.toLowerCase();
+                        let tripDate = trip.querySelector(".trip-date").innerText.trim();
 
-                    let matchesSearch = !search || driver.includes(search);
-                    let matchesStatus = !status || tripStatus.includes(status);
-                    let matchesDate = !date || tripDate === date;
+                        let matchesSearch = !search || driver.includes(search);
+                        let matchesStatus = !status || tripStatus.includes(status);
+                        let matchesDate = !date || tripDate === date;
 
-                    if (matchesSearch && matchesStatus && matchesDate) {
-                        trip.style.display = "";
-                    } else {
-                        trip.style.display = "none";
-                    }
-                });
-            }
-        </script>
-               
-@endsection
+                        if (matchesSearch && matchesStatus && matchesDate) {
+                            trip.style.display = "";
+                        } else {
+                            trip.style.display = "none";
+                        }
+                    });
+                }
+            </script>
+        @endsection
