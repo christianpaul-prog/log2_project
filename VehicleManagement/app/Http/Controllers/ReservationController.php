@@ -37,11 +37,9 @@ class ReservationController extends Controller
 public function create()
 {
     $vehicles = Vehicles::where(function($query) {
-        $query->whereHas('maintenances', fn($q) => $q->where('status', 'completed'))
-              ->orDoesntHave('maintenances');
+        $query->whereHas('maintenances', fn($q) => $q->where('status', 'completed'));
     })
     ->whereDoesntHave('trips', fn($q) => $q->whereIn('status', ['on_work', 'pending']))
-    ->whereDoesntHave('reservations')
     ->get();
 
     return view('reservation.create-reservation', compact('vehicles'));

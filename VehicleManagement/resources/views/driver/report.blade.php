@@ -23,7 +23,7 @@
                             <th><i class="fa-solid fa-id-card me-1"></i> License</th>
                             <th><i class="fa-solid fa-circle me-1"></i> Status</th>
                             <th><i class="fa-solid fa-road me-1"></i> Report</th>
-                            <th><i class="fa-solid fa-peso-sign me-1"></i> Earn</th>
+                            <th><i class="fa-solid fa-peso-sign me-1"></i> Fuel</th>
                             <th><i class="fa-solid fa-coins me-1"></i> Dispatch Cost</th>
                             <th class="text-center"><i class="fa-solid fa-gear me-1"></i> Action</th>
                         </tr>
@@ -44,7 +44,7 @@
                                     </span>
                                 </td>
                                 <td>{{ $report->title }}</td>
-                                <td class="fw-bold text-success">₱{{ number_format($report->earn, 2) }}</td>
+                                <td class="fw-bold text-secondary">₱{{ number_format($report->fuel, 2) }}</td>
                                 <td class="fw-bold text-danger">₱{{ number_format($report->dispatch_cost, 2) }}</td>
                                 <td class="text-center">
                                     <!-- View Button -->
@@ -82,7 +82,7 @@
                                                     <p><strong>Status:</strong> 
                                                         <span class="badge bg-info">{{ ucfirst($report->status_report) }}</span>
                                                     </p>
-                                                    <p><strong>Earn:</strong> ₱{{ number_format($report->earn, 2) }}</p>
+                                                    <p><strong>Fuel Cost:</strong> ₱{{ number_format($report->fuel, 2) }}</p>
                                                     <p><strong>Dispatch Cost:</strong> ₱{{ number_format($report->dispatch_cost, 2) }}</p>
                                                 </div>
                                             </div>
