@@ -82,9 +82,6 @@
                         </a>
                         <ul id="performance" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('driver.report','trips.performance') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
                             <li class="sidebar-item">
-                                <a href="#" class="sidebar-link {{ request()->routeIs('') ? 'active' : '' }}"> - Drive Profile</a>
-                            </li>
-                            <li class="sidebar-item">
                                 <a href="{{route('trips.performance')}}" class="sidebar-link {{ request()->routeIs('trips.performance') ? 'active' : '' }}"> - Trips</a>
                             </li>
 
