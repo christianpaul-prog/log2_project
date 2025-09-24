@@ -56,7 +56,7 @@ Route::delete('/maintenance/{id}', [MaintenanceController::class, 'destroy'])->n
 
 // reservation routes
 Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation.index');
-Route::get('/reservation/create', [ReservationController::class, 'create'])->name('reservation.create');
+// Route::get('/reservation/create', [ReservationController::class, 'create'])->name('reservation.create');
 Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
 Route::put('/reservation/{reservation}', [ReservationController::class, 'update'])->name('reservation.update');
 Route::delete('/reservation/{reservation}', [ReservationController::class, 'destroy'])->name('reservation.destroy');

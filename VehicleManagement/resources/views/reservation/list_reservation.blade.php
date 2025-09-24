@@ -25,8 +25,8 @@
         }
 
         .page-header {
-             background: #fff;
-        color: #000;
+            background: #fff;
+            color: #000;
             padding: 20px;
             border-radius: 12px;
             margin-bottom: 25px;
@@ -49,11 +49,12 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
-          .table thead th {
-    background-color: #5c8c9c;  /* sample: bootstrap primary */
-    color: white;
-    font-weight: 600;
-         }
+        .table thead th {
+            background-color: #5c8c9c;
+            /* sample: bootstrap primary */
+            color: white;
+            font-weight: 600;
+        }
 
         .table th {
             font-weight: 600;
@@ -61,13 +62,76 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
+
+        .stat-card {
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            color: #fff;
+        }
+
+        .stat-card h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .stat-card p {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .bg-1 {
+            background: #5c8c9c;
+        }
+
+        .bg-2 {
+            background: #6c63ff;
+        }
+
+        .bg-3 {
+            background: #28a745;
+        }
+
+        .bg-4 {
+            background: #dc3545;
+        }
     </style>
     <div class="container-fluid slide-up my-5">
         <!-- Header -->
-    <div class="page-header text-center mb-4">
-    <h2 class="fw-bold">Reservation List</h2>
-    <p class="text-muted mt-2">View and manage all your reservations efficiently from one place.</p>
-</div>
+        <div class="page-header text-center mb-4">
+            <h2 class="fw-bold">Reservation List</h2>
+            <p class="text-muted mt-2">View and manage all your reservations efficiently from one place.</p>
+        </div>
+
+        <!-- Four Card Boxes -->
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="stat-card bg-1">
+                    <h4>Total Reservations</h4>
+                    <p>0</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card bg-2">
+                    <h4>Pending</h4>
+                    <p>0</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card bg-3">
+                    <h4>Completed</h4>
+                    <p>0</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card bg-4">
+                    <h4>Cancelled</h4>
+                    <p>0</p>
+                </div>
+            </div>
+        </div>
 
         <!-- Filters -->
         <div class="card p-3 mb-4 shadow-sm">
@@ -97,8 +161,146 @@
                         <option value="high">High</option>
                     </select>
                 </div>
+                <div class="col-md-3 text-end">
+                    <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#reservationModal">
+                        <i class="bi bi-plus-circle"></i> Add Reservation
+                    </button>
+                </div>
             </div>
         </div>
+        <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <form action="{{ route('reservation.store') }}" method="POST">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="reservationModalLabel">Add Reservation</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="">Full Name:</label>
+                                    <input type="text" class="@error('name') is-invalid @enderror form-control"
+                                        name="name" placeholder="Enter you Full name.." value="{{ old('name') }}"
+                                        required>
+                                    @error('name')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="">Phone no:</label>
+                                    <input type="number" class="@error('phone') is-invalid @enderror  form-control"
+                                        name="phone" value="{{ old('phone') }}" placeholder="Enter your Phone number.."
+                                        required>
+                                    @error('phone')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="">Company:</label>
+                                    <input type="text" class="@error('company') is-invalid @enderror  form-control"
+                                        name="company" placeholder="Enter your Company.." value="{{ old('company') }}"
+                                        required>
+                                    @error('company')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Select Vehicle</label>
+                                    <select name="vehicle_id" class="@error('vehicle_id') is-invalid @enderror form-select"
+                                        id="">
+                                        <option value="">Select Vehicle</option>
+                                        @foreach ($vehicles as $vehicle)
+                                            <option value="{{ $vehicle->id }}"
+                                                {{ old('vehicle_id') == $vehicle->id ? 'selected' : '' }}>
+                                                {{ $vehicle->plate_no }} - {{ $vehicle->model }} - {{ $vehicle->type }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('vehicle_id')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Schedule Date</label>
+                                    <input type="date" name="dispatch_date" value="{{ old('dispatch_date') }}"
+                                        class="form-control" required>
+                                    @error('dispatch_date')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Schedule Time</label>
+                                    <input type="time" name="dispatch_time" value="{{ old('dispatch_time') }}"
+                                        class=" form-control" required>
+                                    @error('dispatch_time')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label
+                                        class="@error('priority_level') is-invalid @enderror form-label">Priority</label>
+                                    <select name="priority_level" class="form-select" id="">
+                                        <option value="low" {{ old('priority_level') == 'low' ? 'selected' : '' }}>
+                                            Low
+                                        </option>
+                                        <option value="medium" {{ old('priority_level') == 'medium' ? 'selected' : '' }}>
+                                            Medium
+                                        </option>
+                                        <option value="high" {{ old('priority_level') == 'high' ? 'selected' : '' }}>
+                                            High
+                                        </option>
+                                    </select>
+                                    @error('priority_level')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Pick-up Location</label>
+                                    <input type="text" value="{{ old('pickup') }}"
+                                        class="@error('region') is-invalid @enderror form-control" name="pickup"
+                                        required>
+                                    @error('pickup')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Drop-off Location</label>
+                                    <input type="text" value="{{ old('drop') }}"
+                                        class="@error('city') is-invalid @enderror form-control" name="drop" required>
+                                    @error('drop')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Other Detail Address</label>
+                                    <textarea class="@error('details') is-invalid @enderror form-control" rows="3" required name="details"
+                                        placeholder="">{{ old('details') }}</textarea>
+                                    @error('details')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Trip Purpose</label>
+                                    <textarea class="@error('purpose') is-invalid @enderror form-control" rows="3" required name="purpose"
+                                        placeholder="">{{ old('purpose') }}</textarea>
+                                    @error('purpose')
+                                        <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save Reservation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Alert -->
         @if (session('success'))
             <script>
                 Swal.fire({
@@ -241,7 +443,8 @@
                                                         <label class="form-label" for="">Phone no:</label>
                                                         <input type="number"
                                                             class="@error('phone') is-invalid @enderror  form-control"
-                                                            name="phone" value="{{ old('phone', $reservation->phone) }}"
+                                                            name="phone"
+                                                            value="{{ old('phone', $reservation->phone) }}"
                                                             placeholder="Enter your Phone number.." required>
                                                         @error('phone')
                                                             <div class="alert alert-danger mt-2">{{ $message }}</div>
@@ -352,7 +555,7 @@
                 </table>
                 <div class="mt-4">
                     {!! $reservations->withQueryString()->links('pagination::bootstrap-5') !!}
-                    
+
                 </div>
             </div>
         </div>
@@ -360,13 +563,27 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Reopen Add Modal if validation failed there
+            @if ($errors->any() && session('modal') === 'add')
+                var addModal = new bootstrap.Modal(document.getElementById("reservationModal"));
+                addModal.show();
+            @endif
+
             // Reopen Edit Modal if validation failed there
             @if ($errors->any() && old('id'))
                 var editModal = new bootstrap.Modal(document.getElementById(
-                    "editModal{{ $reservation->id }}"));
+                     "editModal{{ $reservation->id }}"));
                 editModal.show();
             @endif
         });
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     // Reopen Edit Modal if validation failed there
+        //     @if ($errors->any() && old('id'))
+        //         var editModal = new bootstrap.Modal(document.getElementById(
+        //             "editModal{{ $reservation->id }}"));
+        //         editModal.show();
+        //     @endif
+        // });
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

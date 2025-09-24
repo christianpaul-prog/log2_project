@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Reservation;
 use App\Models\Vehicles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ReservationController extends Controller
 {
@@ -14,14 +15,11 @@ class ReservationController extends Controller
     public function index()
     {
         // Vehicles not in maintenance or trip
-        $vehicles = Vehicles::whereDoesntHave('maintenances', function ($query) {
-            
-            $query->where('status', 'in_progress');
-        })
-            ->whereDoesntHave('trips', function ($query) {
-                $query->where('status', 'on_work');
-            })
-            ->get();
+        $vehicles = Vehicles::where(function($query) {
+        $query->whereHas('maintenances', fn($q) => $q->where('status', 'completed'));
+    })
+    ->whereDoesntHave('trips', fn($q) => $q->whereIn('status', ['on_work', 'pending']))
+    ->get();
 
         // Fetch reservations with latest first, paginated
         $reservations = Reservation::with('vehicle','trip')
@@ -35,16 +33,16 @@ class ReservationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-public function create()
-{
-    $vehicles = Vehicles::where(function($query) {
-        $query->whereHas('maintenances', fn($q) => $q->where('status', 'completed'));
-    })
-    ->whereDoesntHave('trips', fn($q) => $q->whereIn('status', ['on_work', 'pending']))
-    ->get();
+// public function create()
+// {
+//     $vehicles = Vehicles::where(function($query) {
+//         $query->whereHas('maintenances', fn($q) => $q->where('status', 'completed'));
+//     })
+//     ->whereDoesntHave('trips', fn($q) => $q->whereIn('status', ['on_work', 'pending']))
+//     ->get();
 
-    return view('reservation.create-reservation', compact('vehicles'));
-}
+//     return view('reservation.create-reservation', compact('vehicles'));
+// }
 
     /**
      * Store a newly created resource in storage.
@@ -52,26 +50,31 @@ public function create()
     public function store(Request $request)
     {
         // ✅ Validate input
-        $validated = $request->validate([
-            'name'            => ['required', 'regex:/^[A-Za-z]+(?: [A-Za-z]+)*$/', 'max:255'],
-            'vehicle_id'      => 'required|exists:vehicles,id',
-            'phone'           => 'required|digits_between:10,15',
-            'company'         => ['required', 'regex:/^(?!.*\s{2,})[A-Za-z0-9 ]+$/', 'max:255'],
-            'dispatch_date'   => 'required|date|after_or_equal:today',
-            'dispatch_time'   => 'required|date_format:H:i',
-            'priority_level'  => 'required|in:low,medium,high',
-            'pickup'          => ['required', 'regex:/^(?!.*\s{2,})[A-Za-z0-9 ]+$/', 'max:255'],
-            'drop'            => ['required', 'regex:/^(?!.*\s{2,})[A-Za-z0-9 ]+$/', 'max:255'],
-            'details'         => 'required|string|max:500',
-            'purpose'         => 'required|string|max:500',
-        ]);
+         $validator = Validator::make($request->all(), [
+        'name'            => ['required', 'regex:/^[A-Za-z]+(?: [A-Za-z]+)*$/', 'max:255'],
+        'vehicle_id'      => 'required|exists:vehicles,id',
+        'phone'           => 'required|digits_between:10,15',
+        'company'         => ['required', 'regex:/^(?!.*\s{2,})[A-Za-z0-9 ]+$/', 'max:255'],
+        'dispatch_date'   => 'required|date|after_or_equal:today',
+        'dispatch_time'   => 'required|date_format:H:i',
+        'priority_level'  => 'required|in:low,medium,high',
+        'pickup'          => ['required', 'regex:/^(?!.*\s{2,})[A-Za-z0-9 ]+$/', 'max:255'],
+        'drop'            => ['required', 'regex:/^(?!.*\s{2,})[A-Za-z0-9 ]+$/', 'max:255'],
+        'details'         => 'required|string|max:500',
+        'purpose'         => 'required|string|max:500',
+    ]);
 
-        // ✅ Create reservation in one line
-        Reservation::create($validated);
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput()
+            ->with('modal', 'add'); // 👈 tells frontend to reopen Add modal
+    }
 
-        // ✅ Redirect back with success message
-        return redirect()->route('reservation.create')
-            ->with('success', 'Reservation created successfully!');
+    Reservation::create($validator->validated());
+
+    return redirect()->route('reservation.index')
+        ->with('success', 'Reservation created successfully!');
     }
 
     /**

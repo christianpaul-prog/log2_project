@@ -27,14 +27,14 @@
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link {{ request()->routeIs('vehicles.index','maintenance.index',
-                        'maintenance.create','reservation.index')
+                        'maintenance.create','')
                          ? '' : 'collapsed' }}"  data-bs-target="#fleet" data-bs-toggle="collapse"
                             aria-expanded="false">
                            <i class="fa-solid fa-car pe-2"></i>
                            Fleet Vehicle
                         </a>
                         <ul id="fleet" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('vehicles.index','maintenance.index',
-                        'maintenance.create','reservation.index') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
+                        'maintenance.create','') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
                             <li class="sidebar-item">
                                 <a href="{{route('vehicles.index')}}" class="sidebar-link {{ request()->routeIs('vehicles.index') ? 'active' : '' }}"> - Vehicle registration</a> 
                             </li>
@@ -45,9 +45,9 @@
                                 <a href="{{route('maintenance.create')}}" class="sidebar-link {{ request()->routeIs('maintenance.create') ? 'active' : '' }}"> - Add Maintenance  List</a>
                             </li>
 
-                             <li class="sidebar-item">
+                             {{-- <li class="sidebar-item">
                                 <a href="{{route('reservation.index')}}" class="sidebar-link {{ request()->routeIs('reservation.index') ? 'active' : '' }}"> - Reservation list</a>
-                            </li>
+                            </li> --}}
                                    
                                    
                         </ul>
@@ -56,12 +56,12 @@
                     
 
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link {{ request()->routeIs('trip.create','trip.index','reservation.create') ? '' : 'collapsed' }}"  data-bs-target="#dispatch" data-bs-toggle="collapse"
+                        <a href="#" class="sidebar-link {{ request()->routeIs('trip.create','trip.index','reservation.index') ? '' : 'collapsed' }}"  data-bs-target="#dispatch" data-bs-toggle="collapse"
                             aria-expanded="false">
                             <i class="fa-solid fa-file pe-2"></i>
                             Dispatch
                         </a>
-                        <ul id="dispatch" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('trip.index','trip.create','reservation.create') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
+                        <ul id="dispatch" class="sidebar-dropdown list-unstyled collapse {{ request()->routeIs('trip.index','trip.create','reservation.index') ? 'show' : 'active-parent' }}" data-bs-parent="#sidebarAccordion">
                             <li class="sidebar-item">
                                 <a href="{{route('trip.create')}}" class="sidebar-link {{ request()->routeIs('trip.create') ? 'active' : '' }}"> - Request List</a>
                             </li>
@@ -69,7 +69,7 @@
                                 <a href="{{route('trip.index')}}" class="sidebar-link {{ request()->routeIs('trip.index') ? 'active' : '' }}"> - Dispatch List</a>
                             </li>
                               <li class="sidebar-item">
-                                <a href="{{route('reservation.create')}}" class="sidebar-link {{ request()->routeIs('reservation.create') ? 'active' : '' }}" > - Reservation</a>
+                                <a href="{{route('reservation.index')}}" class="sidebar-link {{ request()->routeIs('reservation.index') ? 'active' : '' }}" > - Reservation</a>
                             </li>
                         </ul>
                     </li>

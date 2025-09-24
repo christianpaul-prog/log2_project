@@ -25,7 +25,7 @@ class TripController extends Controller
         $informations = Information::all();
 
         $totalTrips   = Trip::count();
- $vehicles = Vehicles::all();
+        $vehicles = Vehicles::all();
         return view('dispatch.list_dispatch', compact(
             'trips',
             'vehicles',
