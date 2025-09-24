@@ -91,6 +91,21 @@
             <h2 class=" my-4">Dashboard</h2>
             <p class=" my-4">Manage your fleet vehicles eficiently</p>
         </div>
+        @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show shadow-sm rounded-3" role="alert">
+        <i class="fas fa-check-circle me-2"></i> 
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm rounded-3" role="alert">
+        <i class="fas fa-exclamation-triangle me-2"></i> 
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
         <!-- Stats Cards -->
         <div class="row g-4">
             <!-- Total Vehicles -->
@@ -194,54 +209,59 @@
 
 
         <script>
-            function renderFleetChart(canvasId, labels, completedData, cancelledData) {
-                const ctx = document.getElementById(canvasId);
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                                label: 'Completed Trips',
-                                data: completedData,
-                                borderColor: '#198754',
-                                backgroundColor: 'rgba(25, 135, 84, 0.1)',
-                                fill: true,
-                                tension: 0.3
-                            },
-                            {
-                                label: 'Cancelled Trips',
-                                data: cancelledData,
-                                borderColor: '#dc3545',
-                                backgroundColor: 'rgba(220, 53, 69, 0.1)',
-                                fill: true,
-                                tension: 0.3
-                            },
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                display: true
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
+          function renderFleetChart(canvasId, labels, completedData, cancelledData) {
+    const ctx = document.getElementById(canvasId);
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Completed Trips',
+                    data: completedData,
+                    borderColor: '#198754',
+                    backgroundColor: 'rgba(25, 135, 84, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                },
+                {
+                    label: 'Cancelled Trips',
+                    data: cancelledData,
+                    borderColor: '#dc3545',
+                    backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                    fill: true,
+                    tension: 0.3
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    min: 0,       // 🔹 Always start from 0
+                    max: 100,     // 🔹 Always end at 100
+                    ticks: {
+                        stepSize: 10 // 🔹 Show 0,10,20,...,100
                     }
-                });
+                }
             }
+        }
+    });
+}
 
-            // Pass PHP data to JS
-            const labels = @json($labels);
-            const completedData = @json($completedData);
-            const cancelledData = @json($cancelledData);
+// Pass PHP data to JS
+const labels = @json($labels);
+const completedData = @json($completedData);
+const cancelledData = @json($cancelledData);
 
-            renderFleetChart('fleetChart', labels, completedData, cancelledData);
-
+renderFleetChart('fleetChart', labels, completedData, cancelledData);
 
             document.getElementById("notifSearch").addEventListener("keyup", function() {
                 let value = this.value.toLowerCase();

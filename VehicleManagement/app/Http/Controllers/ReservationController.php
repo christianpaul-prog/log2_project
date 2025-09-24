@@ -25,8 +25,18 @@ class ReservationController extends Controller
         $reservations = Reservation::with('vehicle','trip')
             ->latest()
             ->paginate(10); // 👈 show 10 per page
+             // Get latest reservation
+    $latestReservation = Reservation::latest()->first();
 
-        return view('reservation.list_reservation', compact('reservations', 'vehicles'));
+    // Card statistics
+    $totalReservations = Reservation::count();
+
+        return view('reservation.list_reservation', compact(
+        'reservations',
+         'vehicles',
+          'latestReservation',
+        'totalReservations'
+        ));
     }
 
 

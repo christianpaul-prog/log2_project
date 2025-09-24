@@ -164,7 +164,7 @@
 
     <div class="container-fluid slide-up">
         <div class="row">
-            <div class="col-md-11 mx-auto">
+            <div class="col-md-12 mx-auto">
               <div class="page-header text-center mb-4 mt-5">
     <h2 class="fw-bold">VRDS - Vehicle Reservation & Dispatch System</h2>
     <p class="text-muted mt-2">

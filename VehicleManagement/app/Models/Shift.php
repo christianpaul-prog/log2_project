@@ -12,7 +12,7 @@ class Shift extends Model
         'start_time',
         'end_time',
         'details',
-        'dispatch_cost',    
+        'earning',    
         'driver_id',
         'trip_id',
     ];

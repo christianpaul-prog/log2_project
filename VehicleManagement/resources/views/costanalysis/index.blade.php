@@ -78,7 +78,7 @@
         border-radius: 12px;
         padding: 1.5rem;
         background: #fff;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.05);
         text-align: center;
         transition: 0.3s ease;
     
@@ -231,7 +231,11 @@
     background-color: #f8f9fa; /* light background */
     border-color: #dee2e6 #dee2e6 #fff;
 }
-     
+     .card-container {
+    background-color: #fff; /* white background */
+    border-radius: 15px;    /* rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* subtle shadow */
+}
 </style>
 
 
@@ -244,14 +248,16 @@
        
        
     </div>
+  
 <div class="container-fluid mt-5 ">
     <!-- Metrics -->
+       <div class="card-container p-4 bg-white shadow-sm rounded-4 mb-4">
     <div class="row mb-4">
        <div class="col-md-4">
     <div class="metric-card mb-2 " >
         <div class="metric-icon"><i class="fas fa-tools"></i></div>
         <div class="metric-label">Maintenance Cost</div>
-        <div class="metric-value">₱{{ number_format($totalMaintenance ?? 0) }}</div>
+        <div class="metric-value text-warning">₱{{ number_format($totalMaintenance ?? 0) }}</div>
         <div class="metric-change {{ $maintenanceChange >= 0 ? 'increase' : 'decrease' }}">
             {{ $maintenanceChange >= 0 ? '+' : '-' }}{{ number_format($maintenanceChange, 1) }}% {{ $maintenanceChange >= 0 ? 'increase' : 'decrease' }}
         </div>
@@ -262,7 +268,7 @@
     <div class="metric-card mb-2" >
         <div class="metric-icon"><i class="fas fa-road"></i></div>
         <div class="metric-label">Trip Expenses</div>
-        <div class="metric-value">₱{{ number_format($totalTrips ?? 0) }}</div>
+        <div class="metric-value text-success">₱{{ number_format($totalTrips ?? 0) }}</div>
         <div class="metric-change {{ $tripChange >= 0 ? 'increase' : 'decrease' }}">
             {{ $tripChange >= 0 ? '+' : '-' }}{{ number_format($tripChange, 1) }}% {{ $tripChange >= 0 ? 'increase' : 'decrease' }}
         </div>
@@ -273,13 +279,13 @@
     <div class="metric-card mb-2"  >
         <div class="metric-icon"><i class="fas fa-gas-pump"></i></div>
         <div class="metric-label">Fuel Cost</div>
-        <div class="metric-value">₱{{ number_format($totalFuel ?? 0) }}</div>
+        <div class="metric-value text-danger">₱{{ number_format($totalFuel ?? 0) }}</div>
         <div class="metric-change {{ $fuelChange >= 0 ? 'increase' : 'decrease' }}">
             {{ $fuelChange >= 0 ? '+' : '-' }}{{ number_format($fuelChange, 1) }}% {{ $fuelChange >= 0 ? 'increase' : 'decrease' }}
         </div>
     </div>
 </div>
-
+</div>
     </div>
 @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show shadow-sm rounded-3" role="alert">

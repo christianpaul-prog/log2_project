@@ -36,6 +36,7 @@
             padding: 1.5rem;
             text-align: center;
             margin-bottom: 1rem;
+             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
@@ -207,6 +208,21 @@
     background-color: #f8f9fa; /* light background */
     border-color: #dee2e6 #dee2e6 #fff;
 }
+.card-container {
+    background-color: #fff; /* white background */
+    border-radius: 15px;    /* rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* subtle shadow */
+}
+
+.card-container, .dashboard-card {
+    width: 100%;
+    max-width: 100%;
+}
+
+.table-responsive, .table {
+    width: 100% !important;
+}
+
     </style>
     </head>
 
@@ -216,15 +232,16 @@
                 <h2 class=" text-center my-4">Trip Performance Overview</h2>
                 <p class="text-center my-4">Manage your Trips eficiently</p>
             </div>
-            <div class="container-xl">
+            <div class="container-fluid">
 
                 <!-- Header Section -->
+                  <div class="card-container p-4 bg-white shadow-sm rounded-4 mb-4">
                 <div class="row mb-4 slide-up">
                     <div class="col-lg-3 col-md-6">
                         <div class="stats-card">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
-                                    <h3 class="mb-1">{{ $totalTrips ?? 0 }}</h3>
+                                    <h3 class="mb-1 text-info">{{ $totalTrips ?? 0 }}</h3>
                                     <p class="mb-0">Total Trips</p>
                                 </div>
                                 <i class="fas fa-road fa-2x"></i>
@@ -235,7 +252,7 @@
                         <div class="stats-card success">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
-                                    <h3 class="mb-1">{{ $completed ?? 0 }}</h3>
+                                    <h3 class="mb-1 text-warning">{{ $completed ?? 0 }}</h3>
                                     <p class="mb-0">Completed</p>
                                 </div>
                                 <i class="fas fa-check-circle fa-2x"></i>
@@ -246,7 +263,7 @@
                         <div class="stats-card warning">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
-                                    <h3 class="mb-1">{{ $cancelled ?? 0 }}</h3>
+                                    <h3 class="mb-1 text-danger">{{ $cancelled ?? 0 }}</h3>
                                     <p class="mb-0">Cancelled</p>
                                 </div>
                                 <i class="fas fa-clock fa-2x"></i>
@@ -257,13 +274,14 @@
                         <div class="stats-card info">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div>
-                                    <h3 class="mb-1">{{ $successRate ?? 0 }}%</h3>
+                                    <h3 class="mb-1 text-success">{{ $successRate ?? 0 }}%</h3>
                                     <p class="mb-0">Success Rate</p>
                                 </div>
                                 <i class="fas fa-chart-line fa-2x"></i>
                             </div>
                         </div>
                     </div>
+                        </div>
                 </div>
             </div>
             <ul class="nav nav-tabs" id="mainTabs" role="tablist">

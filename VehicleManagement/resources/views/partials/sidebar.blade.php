@@ -1,7 +1,7 @@
 
  <aside id="sidebar">
             <div class="h-100">
-      <div class="fw-bold ms-3 justify-content-center" id="clock"></div>
+     
                 <div class="sidebar-logo py-3 text-center d-flex flex-column align-items-center">
                  
     <img src="{{ asset('images/logo.png')}}" alt="Logo" width="100" height="100" class="mb-2">
@@ -157,10 +157,14 @@
                            <i class="fa-solid fa-gear"></i>
                             Settings
                         </a>
-                         <a href="{{route('logout')}}" class="sidebar-link">
-                          <i class="fa-solid fa-door-open"></i>
-                            Logout
-                        </a>
+                      <a href="#" class="sidebar-link text-bold" onclick="confirmLogout(event)">
+    <i class="fa-solid fa-door-open"></i> Logout
+</a>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>
+
                     </li>
                     </li>
 
@@ -171,3 +175,23 @@
             </div>
            
         </aside>
+        <script>
+    function confirmLogout(event) {
+        event.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will be logged out of the system.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, logout"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('logout-form').submit();
+            }
+        });
+    }
+</script>
+

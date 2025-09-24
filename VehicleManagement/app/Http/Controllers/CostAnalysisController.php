@@ -36,6 +36,7 @@ class CostAnalysisController extends Controller
         // Notifications
         $notifications = Notification::where('type', 'Cost')->latest()->take(10)->get();
         $tripNotifications = Notification::where('type', 'Trip')->latest()->take(10)->get();
+         $fuelnotif = Notification::where('type', 'driver_report')->latest()->take(10)->get();
 
         return view('costanalysis.index', compact(
             'totalFuel',
@@ -47,7 +48,8 @@ class CostAnalysisController extends Controller
             'costs',
             'notifications',
             'logs',
-             'tripNotifications'
+             'tripNotifications',
+             'fuelnotif'
         ));
     }
 
@@ -93,6 +95,7 @@ class CostAnalysisController extends Controller
                 'type'    => ucfirst($category),
                 'message' => ucfirst($category) . " cost record created as Closed with ₱" . number_format($expenseAmount, 2),
             ]);
+            
         }
     }
 
@@ -195,20 +198,18 @@ public function close($id)
 
 
 
-    public function destroyNotification($id)
-    {
-      
-        $notification = Notification::where('id', $id)
-            ->where('type', 'Maintenance') 
-            ->first();
+public function destroyNotification($id)
+{
+    $notification = Notification::find($id);
 
-        if (!$notification) {
-            return redirect()->back()->with('error', 'Only maintenance notifications can be deleted from the dashboard.');
-        }
-
-        $notification->delete();
-
-        return redirect()->back()->with('success', 'Maintenance notification deleted successfully!');
+    if (!$notification) {
+        return redirect()->back()->with('error', 'Notification not found.');
     }
+
+    $notification->delete();
+
+    return redirect()->back()->with('success', 'Notification deleted successfully!');
+}
+
 
 }

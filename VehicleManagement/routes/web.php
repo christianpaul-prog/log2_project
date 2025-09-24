@@ -38,7 +38,7 @@ Route::post('/login',[AuthController::class, 'loginPost'])->name('auth.login.pos
 Route::get('/register',[AuthController::class, 'register'])->name('auth.register');
 Route::post('/register',[AuthController::class, 'registerpost'])->name('auth.register.post');
 Route::view('/terms', 'auth.terms')->name('auth.terms');
-Route::get('/logout',[AuthController::class, 'logout'])->name('logout');
+Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
 
 
 Route::get('/vehicles', [VehiclesController::class, 'index'])->name('vehicles.index');
@@ -98,6 +98,7 @@ Route::delete('/costanalysis/{costanalysis}', [CostAnalysisController::class, 'd
 
 Route::get('/trips', [DashboardController::class, 'performance'])->name('trips.performance');
 Route::get('/driver', [DashboardController::class, 'report'])->name('driver.report');
+Route::delete('/driver/{driverReport}', [DashboardController::class, 'destroy'])->name('driver.destroy');
 
 
 

@@ -10,6 +10,7 @@ use App\Models\DriverReport;
 use App\Models\Report;
 use App\Models\Trip;
 use Carbon\Carbon;
+use App\Models\CostAnalysis;
 use App\Models\Reservation;
 use App\Models\Notification;
 use App\Http\Middleware\SessionTimeout;
@@ -30,8 +31,8 @@ class DashboardController extends Controller
             ->take(10)
             ->get();
 
-        // --- Fleet Usage Data (last 7 days) ---
-        $startDate = Carbon::now()->subDays(6)->startOfDay();
+        // --- Fleet Usage Data (last 14 days) ---
+        $startDate = Carbon::now()->subDays(13)->startOfDay();
         $endDate   = Carbon::now()->endOfDay();
 
         // Completed
@@ -53,7 +54,7 @@ class DashboardController extends Controller
         $completedData = [];
         $cancelledData = [];
 
-        for ($i = 0; $i < 7; $i++) {
+        for ($i = 0; $i < 14; $i++) {
             $day = $startDate->copy()->addDays($i)->toDateString();
             $labels[]        = Carbon::parse($day)->format('D'); // Mon, Tue
             $completedData[] = $completed->get($day, 0);
@@ -72,21 +73,18 @@ class DashboardController extends Controller
     }
 
     public function destroyNotification($id)
-    {
-        // hanapin lang yung notification na pasok sa dashboard types
-        $notification = Notification::where('id', $id)
-            ->whereIn('type', ['vehicle_service', 'Vehicle'])
-            ->first();
+{
+    $notification = Notification::find($id);
 
-
-        if (!$notification) {
-            return redirect()->back()->with('error', 'This notification cannot be deleted from the dashboard.');
-        }
-
-        $notification->delete();
-
-        return redirect()->back()->with('success', 'Notification deleted successfully!');
+    if (!$notification) {
+        return redirect()->back()->with('error', 'Notification not found.');
     }
+
+    $notification->delete();
+
+    return redirect()->back()->with('success', 'Notification deleted successfully!');
+}
+
 
     public function performance()
     {
@@ -135,7 +133,30 @@ class DashboardController extends Controller
     {
         // Fetch all reports with their related driver
         $reports = DriverReport::with('driver')->latest()->paginate(10);
+foreach ($reports as $report) {
+        // check kung wala pang notif para sa report na ito
+        if (!Notification::where('type', 'driver_report')->where('message', 'like', "%{$report->id}%")->exists()) {
+            Notification::create([
+                'type'    => 'driver_report',
+                'message' => "Report #{$report->id}: Fuel ₱" . number_format($report->fuel, 2),
+            ]);
 
+            CostAnalysis::create([
+                'date'             => now(),
+                'vehicle'          => $report->driver->vehicle->plate_no ?? 'N/A',
+                'fuel_cost'        => $report->fuel,
+                'maintenance_cost' => 0,
+                'trip_expenses'    => $report->dispatch_cost,
+                'status'           => 'Pending',
+            ]);
+        }
+    }
         return view('driver.report', compact('reports'));
+    }
+    public function destroy(DriverReport $driverReport)
+    {
+        $driverReport->delete();
+
+        return redirect()->back()->with('success', 'Driver report deleted successfully!');
     }
 }

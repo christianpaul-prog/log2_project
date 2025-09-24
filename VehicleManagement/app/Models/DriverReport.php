@@ -10,7 +10,7 @@ class DriverReport extends Model
     protected $fillable = [
         'title',
         'description',
-        'earn',
+        'fuel',
         'dispatch_cost',
         'status_report',
         'driver_id'

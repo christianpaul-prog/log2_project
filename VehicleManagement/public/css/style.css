@@ -178,7 +178,7 @@ a.sidebar-link.active-parent {
     /* para siguradong visible */
 }
 a.sidebar-link i{
-  color: #b47a7a;
+  color: #fff;
 }
     .sidebar-link[data-bs-toggle="collapse"]::after {
         border: solid;
@@ -292,9 +292,18 @@ a.sidebar-link i{
 
   
 }
-#clock {
-  font-size: 0.9rem;
-  margin-left: auto;  /* itulak sa kanan */       /* pwede mo palitan depende sa dark mode */
-  display: flex;
-  align-items: center;
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* pushes left and right items to ends */
+    height: 50px;
+    padding: 0 1rem;
 }
+
+#clock {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-left: auto; /* ensures it stays at the right */
+}
+

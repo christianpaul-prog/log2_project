@@ -219,7 +219,7 @@
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="logs-tab" data-bs-toggle="tab" data-bs-target="#logs" type="button" role="tab">
-                Logs
+                History Budget Logs
             </button>
         </li>
     </ul>

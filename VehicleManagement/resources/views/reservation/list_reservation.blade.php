@@ -65,38 +65,32 @@
 
         .stat-card {
             border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            background: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             padding: 20px;
-            color: #fff;
+            
         }
 
-        .stat-card h4 {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
+     .stat-card h4 {
+    margin: 0;
+    font-size: 1rem;  /* smaller heading */
+    font-weight: 600;
+}
 
-        .stat-card p {
-            margin: 0;
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
+.stat-card p {
+    margin: 0;
+    font-size: 1.5rem;  /* smaller number/value font */
+    font-weight: 700;
+    line-height: 1.2;
+}
 
-        .bg-1 {
-            background: #5c8c9c;
-        }
+.card-container {
+    background-color: #fff; /* white background */
+    border-radius: 15px;    /* rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* subtle shadow */
+}
 
-        .bg-2 {
-            background: #6c63ff;
-        }
-
-        .bg-3 {
-            background: #28a745;
-        }
-
-        .bg-4 {
-            background: #dc3545;
-        }
+        
     </style>
     <div class="container-fluid slide-up my-5">
         <!-- Header -->
@@ -106,32 +100,59 @@
         </div>
 
         <!-- Four Card Boxes -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-3">
-                <div class="stat-card bg-1">
-                    <h4>Total Reservations</h4>
-                    <p>0</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card bg-2">
-                    <h4>Pending</h4>
-                    <p>0</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card bg-3">
-                    <h4>Completed</h4>
-                    <p>0</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stat-card bg-4">
-                    <h4>Cancelled</h4>
-                    <p>0</p>
-                </div>
+     <!-- Card Container -->
+<div class="card-container p-4 bg-white shadow-sm rounded-4 mb-4">
+    <div class="row g-3 mb-4">
+    
+          <div class="col-md-3">
+            <div class="stat-card text-success">
+                <h4>Total Reservations</h4>
+                <p>{{ $totalReservations }}</p>
             </div>
         </div>
+        <div class="col-md-3">
+            <div class="stat-card text-warning">
+                <h4>Latest Time</h4>
+                <p>
+                    @if($latestReservation)
+                        {{ date('h:i A', strtotime($latestReservation->dispatch_time)) }}
+                    @else
+                        N/A
+                    @endif
+                </p>
+            </div>
+        </div>
+
+        <!-- Latest Reservation Name -->
+        <div class="col-md-3">
+            <div class="stat-card bg-2">
+                <h4>Latest Reserved By</h4>
+                <p>{{ $latestReservation->name ?? 'N/A' }}</p>
+            </div>
+        </div>
+
+        <!-- Latest Vehicle -->
+      <div class="col-md-3">
+    <div class="stat-card text-success">
+        <h4>Latest Reserved Vehicle</h4>
+        <p>
+            @if($latestReservation && $latestReservation->vehicle)
+                {{ $latestReservation->vehicle->model }} - {{ $latestReservation->vehicle->type }}
+            @else
+                N/A
+            @endif
+        </p>
+    </div>
+</div>
+
+
+
+        <!-- Total Reservations -->
+       
+    </div>
+</div>
+
+
 
         <!-- Filters -->
         <div class="card p-3 mb-4 shadow-sm">
